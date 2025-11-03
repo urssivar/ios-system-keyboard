@@ -1,0 +1,243 @@
+displayNames:
+  en: Tuvan
+  ru: Тувинский
+  tyv: Тыва
+
+decimal: ','
+
+iOS:
+  primary:
+    layers:
+      default: |
+        й ү у к е н ң г ш з х
+        ө ы в а п р о л д ж э
+        \s{shift} я ч с м и т ь б ю \s{backspace}
+      shift: |
+        Й Ү У К Е Н Ң Г Ш З Х
+        Ө Ы В А П Р О Л Д Ж Э
+        \s{shift} Я Ч С М И Т Ь Б Ю \s{backspace}
+      symbols-1: |
+        1 2 3 4 5 6 7 8 9 0
+        © ™ « » ∞ § | [ ] ≈
+        - / : ; ( ) ₽ & @ "
+        \s{shiftSymbols} \s{spacer:0.25} . , ? ! ' \s{spacer:0.25} \s{backspace}
+      symbols-2: |
+        ≤ ≥ ‹ › # % ^ * + =
+        ¡ ® ¥ ¢ ‰ ¶ \ { } ≠
+        _ \ | ~ < > € $ £ •
+        \s{shiftSymbols} \s{spacer:0.25} . , ? ! ' \s{spacer:0.25} \s{backspace}
+  iPad-9in:
+    layers:
+      default: |
+        \s{spacer:0.3}   й ү у к е н ң г ш з х \s{spacer:1.7}
+        \s{spacer:0.6}   ө ы в а п р о л д ж э \s{return:1.4}
+        \s{shift}        я ч с м и т ь б ю ъ   \s{shift:2.0}
+      shift: |
+        \s{spacer:0.3}   Й Ү У К Е Н Ң Г Ш З Х \s{spacer:1.7}
+        \s{spacer:0.6}   Ө Ы В А П Р О Л Д Ж Э \s{return:1.4}
+        \s{shift}        Я Ч С М И Т Ь Б Ю Ъ   \s{shift:2.0}
+      alt: |
+        1                  2 3 4 5 6 7 8 9 0 — \s{backspace:2.0}
+        \s{spacer:0.3}   ј { } ® ё̄ ӊ ^ + щ ( ) \s{spacer:1.7}
+        \s{spacer:0.6}   @ # № ӓ ´ ҏ * ӆ ₽ ‘ “ \s{return:1.4}
+        \s{shift}        % _ - ӎ = / ; : , .   \s{shift:2.0}
+      alt+shift: |
+        1                  2 3 4 5 6 7 8 9 0 — \s{backspace:2.0}
+        \s{spacer:0.3}   Ј { } ® Ё̄ Ӊ ^ + Щ ( ) \s{spacer:1.7}
+        \s{spacer:0.6}   @ # № Ӓ ´ Ҏ * Ӆ ₽ ‘ “ \s{return:1.4}
+        \s{shift}        % _ - Ӎ = / ; : , .   \s{shift:2.0}
+      symbols-1: |
+        1                  2 3 4 5 6 7 8 9 0 — \s{backspace:2.0}
+        \s{spacer:0.3}   ј { } ® © ӊ ^ + щ ‘ “ \s{spacer:1.7}
+        \s{spacer:0.6}   @ # № ₽ ´ & * ( ) ‘ “ \s{return:1.4}
+        \s{shiftSymbols} % _ - + = / ; : , .   \s{shiftSymbols:2.0}
+      symbols-2: |
+        1                  2 3 4 5 6 7 8 9 0 — \s{backspace:2.0}
+        \s{spacer:0.3}   ¡ ™ ¥ ¢ ‰ ¶ \ « » ≠ ´ \s{spacer:1.7}
+        \s{spacer:0.6}   $ € £ ± • ` ^ [ ] ‹ › \s{return:1.4}
+        \s{shiftSymbols} § | ~ … ≠ \ < > ! ?   \s{shiftSymbols:2.0}
+  iPad-12in:
+    layers:
+      default: |
+        \s{tab:1.5}      й ү у к е н ң г ш щ з х \s{return}
+        \s{caps:1.75}    ө ы в а п р о л д ж э ё \s{return:0.75}
+        \s{shift:1.25} ] я ч с м и т ь б ю ц ф / \s{shift:2.25}
+      shift: |
+        \s{tab:1.5}      Й Ү У К Е Н Ң Г Ш Щ З Х \s{return}
+        \s{caps:1.75}    Ө Ы В А П Р О Л Д Ж Э Ё \s{return:0.75}
+        \s{shift:1.25} [ Я Ч С М И Т Ь Б Ю Ц Ф ? \s{shift:2.25}
+      alt: |
+        §                1 2 3 4 5 6 7 8 9 0 – = \s{backspace:1.5}
+        \s{tab:1.5}      ҋ ј π $ % ӊ & < > ‘ “ ₽ \s{return}
+        \s{caps:1.75}    ¯ • ° @ ^ ҏ ´ ӆ δ { } – \s{return:0.75}
+        \s{shift:1.25} \ Ω һ ≠ ӎ ∑ ¨ * … » “     \s{shift:2.25}
+      alt+shift: |
+        ±                ! ” № % : , . ; ( ) _ + \s{backspace:1.5}
+        \s{tab:1.5}      Ҋ Ј £ Ќ ∞ Ӊ ¶ ≤ ≥ ’ ” ₽ \s{return}
+        \s{caps:1.75}     ̄ | Ћ € ¬ Ҏ  ́ Ӆ Δ ’ ` — \s{return:0.75}
+        \s{shift:1.25} ÷ ± Һ ≈ Ӎ µ  ̈ √ ~ « „     \s{shift:2.25}
+      symbols-1: |
+        `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
+        \s{spacer:1.75}  - / : ; ( ) ₽ & @ € $ ~ \s{return:0.75}
+        \s{spacer:3.25}    … . , ? ! ‘ “ _ £     \s{spacer:2.25}
+      symbols-2: |
+        `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
+        \s{spacer:1.75}  - / : ; ( ) ₽ & @ € $ ~ \s{return:0.75}
+        \s{spacer:3.25}    … . , ? ! ‘ “ _ £     \s{spacer:2.25}
+  deadKeys:
+    alt: ['¯', '¨', '´']
+macOS:
+  primary:
+    layers:
+      default: |
+          й ү у к е н ң г ш з х ъ 
+          ө ы в а п р о л д ж э ё 
+        ] я ч с м и т ь б ю / 
+      shift: |
+          Й Ү У К Е Н Ң Г Ш З Х Ъ 
+          Ө Ы В А П Р О Л Д Ж Э Ё 
+        [ Я Ч С М И Т Ь Б Ю ? 
+      caps: |
+          Й Ү У К Е Н Ң Г Ш З Х Ъ 
+          Ө Ы В А П Р О Л Д Ж Э Ё 
+        ] Я Ч С М И Т Ь Б Ю / 
+      caps+shift: |
+          Й Ү У К Е Н Ң Г Ш З Х Ъ 
+          Ө Ы В А П Р О Л Д Ж Э Ё 
+        [ Я Ч С М И Т Ь Б Ю ? 
+      alt: |
+        # § 1 2 3 4 5 6 7 8 9 0 - = 
+          ҋ ј π $ % ӊ & < > ‘ “ ₽
+          ¯ • ° @ ^ ҏ ´ ӆ δ { } –
+        \ Ω һ ≠ ӎ ∑ ¨ * … » “
+      alt+shift: |
+        # < ! " № % : , . ; ( ) _ + 
+          Ҋ Ј £ Ќ ∞ Ӊ ¶ ≤ ≥ ’ ” ₽
+          ¯ | Ћ € ¬ Ҏ ´ Ӆ Δ ' ` —
+        ÷ ± Һ ≈ Ӎ µ ¨ √ ~ « „
+      alt+caps: |
+        # § 1 2 3 4 5 6 7 8 9 0 - ´ 
+          Ҋ Ј £ Ќ ∞ Ӊ ¶ ≤ ≥ ’ ” ₽
+          ¯ | Ћ € ¬ Ҏ ´ Ӆ Δ ' ` —
+        ÷ ± Һ ≈ Ӎ µ ¨ √ ~ « „
+      ctrl: |
+        # ` 1 2 3 4 5 6 7 8 9 0 \u{1F} +
+        \u{11} \u{17} \u{5} \u{12} \u{14} \u{19} \u{15} \u{9} \u{F} \u{10} \u{1B} \u{1D}
+        \u{1} \u{13} \u{4} \u{6} \u{7} \u{8} \u{A} \u{B} \u{C} : " \u{1C}
+        0 \u{1A} \u{18} \u{3} \u{16} \u{2} \u{E} \u{D} , . /
+      cmd: |
+        ` 1 2 3 4 5 6 7 8 9 0 - =
+          q w e r t y u i o p [ ]
+          a s d f g h j k l ; ' \
+        ` z x c v b n m , . /
+      cmd+shift: |
+        ~ ! @ # $ % ^ & * ( ) _ +
+          Q W E R T Y U I O P { }
+          A S D F G H J K L : " |
+        ~ Z X C V B N M < > ?
+      cmd+alt: |
+        € © ™ £ € ∞ § | [ ] ≈ ± `
+          • Ω é \u{0} † µ ü ı œ π ˙ ~
+           ß ∂ ƒ ¸ ˛ √ ª ﬁ ö ä '
+        ≤ ÷ ≈ ç ‹ › ‘ ’ ‚ … –
+      cmd+alt+shift: |
+        Ÿ ¡ ®     ¥ ¢     ‰ ¶ \ { } ≠ ¿ \u{0}
+          ° ˝     É \u{0} ‡ ˜ Ü ˆ Œ ∏ ˚ ^
+          ◊ ∑     ∆ ∫     ¯ ˘ ¬ º ﬂ Ö Ä \u{0}
+        ≥ ⁄ \u{0} Ç «     » “ ” „ · —
+  space:
+    caps: \u{A0}
+    alt: \u{A0}
+    alt+shift: \u{A0}
+    cmd+alt: \u{A0}
+    alt+caps: \u{A0}
+  deadKeys:
+    alt: ['¯', '¨', '´']
+    alt+caps: ['¯', '¨', '´']
+
+longpress:
+  Ү: Ц
+  Е: Ё
+  Ш: Щ
+  Ө: Ф
+  Д: -
+  Т: –
+  Ь: Ъ
+  ү: ц
+  е: ё
+  ш: щ
+  ө: ф
+  д: -
+  т: –
+  ь: ъ
+  '%': ‰ ∞
+  '=': ≠ ≈
+  '-': • – —
+  '&': §
+  '?': ¿
+  '!': ¡
+  '.': ', ; : ? ! ¿ ¡'
+  "'": "' ‚ ‘ ’"
+  '‘': "' ‚ ‘ ’"
+  '"': '" „ “ ” « »'
+  '“': '" „ “ ” « »'
+
+# transforms:
+#   '´':
+#     ' ': '´'
+#     а: а́
+#     е: е́
+#     о: о́
+#     ы: ы́
+#     э: э́
+#     ю: ю́
+#     я: я́
+#     и: и́
+#     у: у́
+#     ө: ө́ 
+#     ү: ү́
+#     г: ѓ 
+#     к: ќ
+#   ¨:
+#     ' ': ¨
+#     а: ӓ
+#     о: ӧ
+#     у: ӱ
+#     ы: ӹ
+#     э: ӭ
+#     е: ё 
+#     и: ӥ 
+#     ә: ӛ 
+#     ԑ: ԑ̈ 
+#     ө: ӫ 
+#     ж: ӝ 
+#     ч: ӵ
+#   ¯:
+#     ' ': '¯'
+#     е: е̄
+#     о: о̄
+#     ы: ы̄
+#     э: э̄
+#     ю: ю̄
+#     я: я̄
+#     и: ӣ
+#     у: ӯ
+
+keyNames:
+  space: хостуг чер
+  return: дедир
+ return-alts:
+   search: дилээр
+   go: че
+   send: чорудар
+   join: коштунар
+   cancel: ойталал
+   continue: улаштыр
+   done: чаа
+   emergency: онза байдал
+   next: дараазында
+   route: чорук изи
+ undo: эгидер
+ redo: катаптаар
