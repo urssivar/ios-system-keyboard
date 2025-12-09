@@ -15,8 +15,7 @@ ios-system-keyboard/
  │   ├── tyv-3-rows.yaml
  │   ├── tyv-4-rows.yaml
  │   ├── tyv-longpress.yaml
- │   └── tyv-macos.yaml
- ├── images/
+ │   ├── tyv-macos.yaml
  │   └── tyv-3-rows.png
  └── README.md
 ```
@@ -59,8 +58,7 @@ ios-system-keyboard/
  │   ├── tyv-3-rows.yaml
  │   ├── tyv-4-rows.yaml
  │   ├── tyv-longpress.yaml
- │   └── tyv-macos.yaml
- ├── images/
+ │   ├── tyv-macos.yaml
  │   └── tyv-3-rows.png
  └── README.md
 ```
