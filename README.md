@@ -4,7 +4,9 @@
 Датасет подготовлен для использования в системах ввода (например, Apple Keyboard, Unicode CLDR и других).
 
 ## 📘 Описание
-Датасет для клавиатуры основана на кириллической письменности и включает все символы, используемые в современном письме выбранного языка.  
+Датасет для расскладки клавиатуры основана на современном дизайне, используемой в iOS и macOS.
+Раскладки соответствуют унифицированной схеме клавиатуры, и совместимы с инструментами генерации раскладок для конкретных платформ.
+Вы можете использовать подход как я сделал на примере ``tyv – Тыва дыл`` (Тувинский язык), слегка модифицируя ряды расскладки, включив все символы, используемые в современном письме выбранного языка.
 Цель — предоставить корректную и удобную раскладку для носителей языка, включая поддержку автокоррекции, предсказаний и локализованных символов.
 Минимально нужно описать файлы ``lang-3-rows.yaml`` и ``lang-longpress.yaml``, где вместо lang – код вашего языка.
 
@@ -47,7 +49,9 @@ This repository contains layout data for Cyrillic languages. For example, the **
 designed for integration with Apple Keyboard, Unicode CLDR, and related input systems.
 
 ## 📘 Description
-The layout follows the orthographic rules of target language and includes all letters in current use. 
+The keyboard layout dataset is based on the modern design used in iOS and macOS.
+The layouts conform to a unified keyboard scheme and are compatible with layout generation tools for specific platforms.
+You can use the approach I used in the example of "tyv – Тыва дыл" (Tuvan language), slightly modifying the layout rows to include all the characters used in the modern writing system of the selected language.
 Its goal is to provide native users with a convenient, accurate, and inclusive typing experience.
 At a minimum, you need to describe the files ``lang-3-rows.yaml`` and ``lang-longpress.yaml``, where lang is the code of your language.
 
