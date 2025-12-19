@@ -108,3 +108,30 @@ keyNames:
     * **Undo** ("Отменить") совпадает по переводу с **Cancel**.
     * **Redo** ("Повторить") может быть ложно истолковано пользователем как "Сделать заново" (Repeat), а не "Вернуть отмененное".
     * На Русском языке своя особенность! На вашем языке могут быть совершенно другие слова!
+
+### 3. Переводы кнопок на Английском
+
+```yaml
+keyNames:
+  # --- Main Action Keys ---
+  space: space             # Lowercase (стандарт в английском — строчными)
+  return: return           # Lowercase (стандарт в английском — строчными)
+  
+  return-alts:
+    search: Search         # Action verb.
+    go: Go                 # Action verb.
+    send: Send             # Action verb.
+    join: Join             # Fits perfectly (в английском слово короткое, сокращение не нужно).
+    route: Route           # Noun. Context: "Build a route".
+    next: Next             # Navigation.
+    continue: Continue     # Wizard/Flow navigation.
+    done: Done             # Completion status.
+
+  # emergency: В английском слово "Emergency" влезает в кнопку, поэтому SOS не используется.
+  emergency: Emergency     # Button on Lock Screen.
+
+  # --- No Conflicts in English ---
+  cancel: Cancel           # Exit mode. (Отличается от Undo).
+  undo: Undo               # Revert action. (Отличается от Cancel).
+  redo: Redo               # Restore action. (Отличается от Repeat).
+```
