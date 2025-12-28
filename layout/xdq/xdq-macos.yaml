@@ -1,0 +1,47 @@
+displayNames:
+  en: Kaitag
+  ru: Кайтагский
+  xdq: Хайдаҡьла
+
+decimal: ','
+
+macOS:
+  primary:
+    layers:
+      default: |
+        й ц у к е н г ш ҡ з х ъ
+        ҳ ғ в а п р о л д ж ӏ
+        я ч с м и т ь б ' /
+      shift: &SHIFT |
+        Й Ц У К Е Н Г Ш Ҡ З Х Ъ
+        Ҳ Ғ В А П Р О Л Д Ж Ӏ
+        Я Ч С М И Т Ь Б ' ?
+      caps: |
+        Й Ц У К Е Н Г Ш Ҡ З Х Ъ
+        Ҳ Ғ В А П Р О Л Д Ж Ӏ
+        Я Ч С М И Т Ь Б ' /
+      caps+shift: *SHIFT
+      alt: &ALT |
+        § ц № € £ ¥ ¶ • щ ‘ “ ъ ё
+        ф — – ± © ₽ ° ™ ∆ … э
+        [ ≈ ≠ µ π ] ~ ≤ ≥ “
+      alt+shift: |
+        § Ц № € £ ¥ ¶ • Щ ’ ” Ъ Ё
+        Ф — – ± © ₽ ° ™ ∆ … Э
+        { ≈ ≠ µ Π } ~ < > „
+      alt+caps: *ALT
+      cmd: &CMD |
+        q w e r t y u i o p [ ] \
+        a s d f g h j k l ; '
+        z x c v b n m , . /
+      cmd+shift: &CMD+SHIFT |
+        Q W E R T Y U I O P { } |
+        A S D F G H J K L : "
+        ~ Z X C V B N M < > ?
+      cmd+alt: *CMD
+      cmd+alt+shift: *CMD+SHIFT
+  deadKeys:
+    alt: []
+    alt+caps: []
+
+longpress: !include xdq-longpress.yaml
