@@ -88,18 +88,18 @@ iOS:
 longpress: !include xdq-longpress.yaml
 
 keyNames:
-  space: Пробел
-  return: Ввод
+  space: Цӏямус
+  return: Бате
   return-alts:
-    search: Найти
-    go: Перейти
-    send: Отправить
-    join: Подкл.
-    continue: Продолжить
-    done: Готово
-    next: Далее
-    route: Маршрут
+    search: Баркка
+    go: Бя
+    send: Беса
+    join: Цан биче
+    continue: Берҡҡа
+    done: Би
+    next: Илев
+    route: Биҡан
   emergency: SOS
-  cancel: Отменить
-  undo: Не применять
-  redo: Повторить
+  cancel: Ляҡӏ аға
+  undo: Черьаҡҡа
+  redo: Чикаҡҡа
