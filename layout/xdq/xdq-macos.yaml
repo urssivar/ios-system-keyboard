@@ -3,7 +3,7 @@ displayNames:
   ru: Кайтагский
   xdq: Хайдаҡӏла
 
-decimal: ','
+decimal: ","
 
 macOS:
   primary:
@@ -48,5 +48,5 @@ macOS:
       cmd+alt: *CMD
       cmd+alt+shift: *CMD+SHIFT
   deadKeys:
-    alt: []
+    alt: ["\u0301"]
     alt+caps: []
