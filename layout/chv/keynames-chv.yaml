@@ -7,11 +7,11 @@ keyNames:
     go: Куҫ
     send: Яр
     join: Кӗр
-    continue: Малалла
+    continue: Малалла тӑс
     done: Хатӗр
-    next: Мала
-    route: Йӗрле
+    next: Малалла
+    route: Ҫул-йӗр
   emergency: SOS
   cancel: Пӑрахӑҫла
-  undo: Пӑрахӑҫла
-  redo: Тавӑр
+  undo: Каялла тавӑр
+  redo: Малалла тавӑр
