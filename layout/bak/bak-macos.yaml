@@ -1,0 +1,52 @@
+displayNames:
+  en: Bashkir
+  ru: Башкирский
+  ba: Башҡортса
+
+decimal: ','
+
+macOS:
+  primary:
+    layers:
+      default: |
+        ә ! ө ҡ ғ ҫ , ҙ һ ? ң - ү
+          й ү у к е н ң г ш з х ъ ё
+          ө ы в а п р о л д ж э
+          я ч с м и т ь б ю /
+      shift: &SHIFT |
+        Ә ! Ө Ҡ Ғ Ҫ , Ҙ Һ ? Ң - Ү
+          Й Ү У К Е Н Ң Г Ш З Х Ъ Ё
+          Ө Ы В А П Р О Л Д Ж Э
+          Я Ч С М И Т Ь Б Ю /
+      caps: &CAPS |
+        ] 1 2 3 4 5 6 7 8 9 0 - =
+          Й Ц У К Е Н Г Ш Щ З Х Ъ Ё
+          Ф Ы В А П Р О Л Д Ж Э
+          Я Ч С М И Т Ь Б Ю .
+      caps+shift: *CAPS
+      alt: &ALT |
+        ] ! @ # $ % ^ & * { } – »
+          ј џ ү ҡ † ң ғ ѕ ў “ һ ъ ё
+          ƒ ы ћ ә © ₽ ө љ ∆ җ э
+          ђ ≈ ≠ µ и ™ ~ ≤ ≥ “
+      alt+shift: |
+        [ | " £ € ∞ ¬ ¶ √ ' ` — «
+          Ј Џ Ү Ҡ † Ң Ғ Ѕ Ў ” Һ Ъ Ё
+          Ƒ Ы Ћ Ә © ₽ Ө Љ ∆ Җ Э
+          Ђ ≈ ≠ µ И ™ ~ < > „
+      alt+caps: *ALT
+      cmd: &CMD |
+        ` 1 2 3 4 5 6 7 8 9 0 - =
+          q w e r t y u i o p [ ] \
+          a s d f g h j k l ; '
+          z x c v b n m , . /
+      cmd+shift: &CMD+SHIFT |
+        ~ ! @ # $ % ^ & * ( ) _ +  
+          Q W E R T Y U I O P { } |
+          A S D F G H J K L : "
+          Z X C V B N M < > ?
+      cmd+alt: *CMD
+      cmd+alt+shift: *CMD+SHIFT
+  deadKeys:
+    alt: []
+    alt+caps: []
