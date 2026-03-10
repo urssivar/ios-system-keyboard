@@ -10,7 +10,7 @@ These layouts support different typing preferences:
  * The 3-row layout is more compact and closely follows the geometry of the standard Russian keyboard.
  * The 4-row layout places all Avar letters directly on the primary layer without letter replacement.
 
-Long-press
+### Long-press
 
 Long-press is used to access:
  * stress marks
@@ -64,3 +64,4 @@ For linguistic processing (such as search, tokenization, or frequency analysis),
  2. remove combining diacritical marks
 
 This ensures that words are processed identically regardless of whether stress marks are present.
+
