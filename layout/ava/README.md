@@ -2,21 +2,37 @@
 
 ## Avar iOS
 
-There is 2 layouts: ava-3-rows (default), ava-4-rows.
+Two Avar keyboard layouts are provided:
+ * ava-3-rows (default)
+ * ava-4-rows
 
-The 4-row layout places all Avar letters directly on the primary layer without letter replacement.
+These layouts support different typing preferences:
+ * The 3-row layout is more compact and closely follows the geometry of the standard Russian keyboard.
+ * The 4-row layout places all Avar letters directly on the primary layer without letter replacement.
 
-Long-press is used for stress marks and secondary symbols.
+Long-press
 
-Versions sorting for iPhone:
-* ava-3-rows.yaml
-* ava-4-rows.yaml
+Long-press is used to access:
+ * stress marks
+ * secondary symbols
 
-For iPad keyboard versions there is only 1 version, because there is enough space to place all Avar letters.
+### iPhone Versions
+
+The layouts are provided in the following files:
+ * ava-3-rows.yaml
+ * ava-4-rows.yaml
+
+### iPad Versions
+
+Two layouts are available for iPad:
+ * 3-row layout
+ * 4-row layout
+
+The 3-row layout is recommended as the default, as it is closer to the geometry of the standard Russian keyboard and provides a more familiar typing experience.
 
 ## Avar macOS
 
-All 43 Avar letters (including ӏ) are placed directly on the primary layer using standard ANSI geometry.
+Avar-specific letters (including ӏ) – 43 – are placed directly on the primary layer using standard ANSI keyboard geometry.
 
 No letter replacement is used.
 
@@ -31,15 +47,20 @@ Key names are translated into Avar using natural interface phrasing.
 
 ### Stress marks
 
-Stress marks (combining acute accent U+0301) are optional and used primarily for educational and disambiguation purposes.
+Stress marks (combining acute accent U+0301) are optional and are primarily used for:
+ * educational purposes
+ * disambiguation
 
 They should be ignored during:
- • autocorrection
- • search
- • tokenization
- • frequency analysis
+ * autocorrection
+ * search
+ * tokenization
+ * frequency analysis
 
 #### Recommended preprocessing:
 
-Unicode NFD normalization followed by removal of combining marks.
+For linguistic processing (such as search, tokenization, or frequency analysis), it is recommended to:
+ 1. apply Unicode NFD normalization
+ 2. remove combining diacritical marks
 
+This ensures that words are processed identically regardless of whether stress marks are present.
