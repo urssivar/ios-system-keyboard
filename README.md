@@ -49,6 +49,15 @@ iOS:
 
 Есть особый гайд – [keyNames.md](https://github.com/Agisight/ios-system-keyboard/blob/main/keyNames.md). Изучите обязательно, есть наглядные примеры с картинками.
 
+## Что нужно сделать (кратко)
+ 1. Перевести системные команды (или кнопки) как описано в keyNames.
+ 2. Определить файл лонгпрессов – ``lang-longpress.yaml`` (например, для Русского языка это пары Ь – Ъ, Е – Ё). Там же уточнить лонгпрессы символов, можно как на русской клавиатуре.
+ 3. Замена АБВ (кнопка для смены с символов на буквы). Можете оставить так же. Но для ряда языков другие буквы.
+ 4. Определить главную клавиатуру для iOS в файле ``lang-3-rows.yaml`` (для Айфона 1 схема, для Айпада 2 схемы).
+ 5. Определить вторичную клавиатуру для iOS на 4 строки в файле ``lang-4-rows.yaml`` (для Айфона 1 схема, для Айпада 2 схемы). Не обязательно.
+ 6. Определить клавиатуру для macOS – **обязательно**.
+ 7. Когда все сделаете все этапы, можете отправить ваши файлы мне, либо оформить как PR в Гитхабе.
+
 ## 🌍 Контакт
 Автор: Али Кужугет (Али Күжүгет)  
 Проект: *Apple системные кириллические клавиатуры для всех*  
@@ -106,6 +115,15 @@ We pay special attention to system commands such as "Cancel," "Enter," "Route," 
 
 There's a special guide – [keyNames.md](https://github.com/Agisight/ios-system-keyboard/blob/main/keyNames.md). Be sure to check it out; there are illustrative examples with pictures.
 
+## What needs to be done (briefly)
+1. Translate system commands (or buttons) as described in keyNames.
+2. Define the longpress file – lang-longpress.yaml (for example, for Russian, these are the pairs Ь – Ъ, Е – Ё). You can also specify the longpress characters there, as on a Russian keyboard.
+3. Replace ABC (the button for switching from symbols to letters). You can leave it as is. But for some languages, different letters are used.
+4. Define the primary keyboard for iOS in lang-3-rows.yaml (for iPhone, there is one scheme, for iPad, there are two schemes).
+5. Define a secondary keyboard for iOS with 4 rows in lang-4-rows.yaml (for iPhone, there is one scheme, for iPad, there are two schemes). Optional.
+6. Detect the keyboard for macOS – **required**.
+7. Once you've completed all the steps, you can send your files to me or submit them as a PR on GitHub.
+   
 ## 🌍 Contact
 Author: **Ali Kuzhuget**  
 Project: *Apple Keyboards for All*
