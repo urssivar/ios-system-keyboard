@@ -14,6 +14,9 @@
 
 Минимально нужно описать файлы ``lang-3-rows.yaml`` и ``lang-longpress.yaml``, где вместо lang – код вашего языка.
 
+### Знакомый пример
+Большинство из вас хорошо знакомы с системной клавиатурой для Русского языка. Она описана [тут (тык сюда)](https://github.com/Agisight/ios-system-keyboard/tree/main/layout/rus).
+
 ## 🧩 Структура репозитория
 ```
 ios-system-keyboard/
@@ -67,6 +70,9 @@ You can use the approach I used in the example of "tyv – Тыва дыл" (Tuv
 Its goal is to provide native users with a convenient, accurate, and inclusive typing experience.
 
 At a minimum, you need to describe the files ``lang-3-rows.yaml`` and ``lang-longpress.yaml``, where lang is the code of your language.
+
+### A familiar example
+Most of you are familiar with the system keyboard for Russian. It's described [here (click here)](https://github.com/Agisight/ios-system-keyboard/tree/main/layout/rus).
 
 ## 🧩 Repository Structure
 ```
