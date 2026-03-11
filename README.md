@@ -41,6 +41,11 @@ iOS:
         \s{shift} Я Ч С М И Т Ь Б Ю \s{backspace}
 ```
 
+## Переводы системных команд
+Особое внимание уделяем системным командам типа "Отмена", "Ввод", "Маршрут" и т.д.
+
+Есть особый гайд – [keyNames.md](https://github.com/Agisight/ios-system-keyboard/blob/main/keyNames.md). Изучите обязательно, есть наглядные примеры с картинками.
+
 ## 🌍 Контакт
 Автор: Али Кужугет (Али Күжүгет)  
 Проект: *Apple системные кириллические клавиатуры для всех*  
@@ -89,6 +94,11 @@ iOS:
         Ө Ы В А П Р О Л Д Ж Э
         \s{shift} Я Ч С М И Т Ь Б Ю \s{backspace}
 ```
+
+## Translations of system commands
+We pay special attention to system commands such as "Cancel," "Enter," "Route," and so on.
+
+There's a special guide – [keyNames.md](https://github.com/Agisight/ios-system-keyboard/blob/main/keyNames.md). Be sure to check it out; there are illustrative examples with pictures.
 
 ## 🌍 Contact
 Author: **Ali Kuzhuget**  
