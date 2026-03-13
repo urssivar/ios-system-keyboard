@@ -1,23 +1,24 @@
 displayNames:
-  en: Ossetic
-  ru: Осетинский
-  oss: Ирон ӕвзаг
+
+  eng: Komi
+  kom: Коми
+  rus: Коми
 
 decimal: ','
-ABC: 'АӔБ'
-abc: 'аӕб'
+ABC: 'АІӦ'
+abc: 'аіӧ'
 
 iOS:
   primary:
     layers:
       default: |
-        й ц у к е н г ӕ ш з х
+        й у к е н г ш ӧ з і ъ
         ф ы в а п р о л д ж э
-        \s{shift} я ч с м и т ъ б ю \s{backspace}
+        \s{shift} я ч с м и т ь б ю \s{backspace}
       shift: |
-        Й Ц У К Е Н Г Ӕ Ш З Х
+        Й У К Е Н Г Ш Ӧ З І Ъ
         Ф Ы В А П Р О Л Д Ж Э
-        \s{shift} Я Ч С М И Т Ъ Б Ю \s{backspace}
+        \s{shift} Я Ч С М И Т Ь Б Ю \s{backspace}
       symbols-1: |
         1 2 3 4 5 6 7 8 9 0
         - / : ; ( ) ₽ & @ "
@@ -29,24 +30,24 @@ iOS:
   iPad-9in:
     layers:
       default: |
-        \s{spacer:0.3}   й ц у к е н г ӕ ш з х \s{spacer:1.7}
-        \s{spacer:0.6}   ф ы в а п р о л д ж э \s{return:1.4}
-        \s{shift}        я ч с м и т ь б ю ъ   \s{shift:2.0}
+        \s{spacer:0.3}   й ц у к е н г ш щ з х ъ \s{spacer:1.7}
+        \s{spacer:0.6}   ф ы в а п р о ӧ л д ж э \s{return:1.4}
+        \s{shift}        я ч с м и і т ь б ю ё   \s{shift:2.0}
       shift: |
-        \s{spacer:0.3}   Й Ц У К Е Н Г Ӕ Ш З Х \s{spacer:1.7}
-        \s{spacer:0.6}   Ф Ы В А П Р О Л Д Ж Э \s{return:1.4}
-        \s{shift}        Я Ч С М И Т Ь Б Ю Ъ   \s{shift:2.0}
+        \s{spacer:0.3}   Й Ц У К Е Н Г Ш Щ З Х Ъ \s{spacer:1.7}
+        \s{spacer:0.6}   Ф Ы В А П Р О Ӧ Л Д Ж Э \s{return:1.4}
+        \s{shift}        Я Ч С М И І Т Ь Б Ю Ё   \s{shift:2.0}
       alt: |
         \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
-        \s{spacer:0.6}   @ # № $ ´ & * ( ) ‘ “ \s{return:1.4}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ' " \s{return:1.4}
         \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
       alt+shift: |
         \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
-        \s{spacer:0.6}   @ # № $ ´ & * ( ) ‘ “ \s{return:1.4}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ' " \s{return:1.4}
         \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
       symbols-1: |
         \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
-        \s{spacer:0.6}   @ # № $ ´ & * ( ) ‘ “ \s{return:1.4}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ' " \s{return:1.4}
         \s{shiftSymbols} % _ - + = / ; : , .   \s{shiftSymbols:2.0}
       symbols-2: |
         \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
@@ -56,14 +57,14 @@ iOS:
     layers:
       default: |
         >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
-        \s{tab:1.5}      й ц у к е н г ӕ ш з х ъ \s{return}
-        \s{caps:1.75}    ф ы в а п р о л д ж э ё \s{return:0.75}
-        \s{shift:1.25} ] я ч с м и т ь б ю /     \s{shift:2.25}
+        \s{tab:1.5}      й ц у к е н г ш щ з х ъ \s{return}
+        \s{caps:1.75}    ф ы в а п р о ӧ л д ж э \s{return:0.75}
+        \s{shift:1.25}   я ч с м и і т ь б ю ё   \s{shift:2.25}
       shift: |
-        <                ! ” № % : , . ; ( ) _ + \s{backspace:1.5}
-        \s{tab:1.5}      Й Ц У К Е Н Г Ӕ Ш З Х Ъ \s{return}
-        \s{caps:1.75}    Ф Ы В А П Р О Л Д Ж Э Ё \s{return:0.75}
-        \s{shift:1.25} [ Я Ч С М И Т Ь Б Ю ?     \s{shift:2.25}
+        <                ! " № % : , . ; ( ) _ + \s{backspace:1.5}
+        \s{tab:1.5}      Й Ц У К Е Н Г Ш Щ З Х Ъ \s{return}
+        \s{caps:1.75}    Ф Ы В А П Р О Ӧ Л Д Ж Э \s{return:0.75}
+        \s{shift:1.25}   Я Ч С М И І Т Ь Б Ю Ё   \s{shift:2.25}
       alt: |
         `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
         \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
@@ -87,22 +88,21 @@ iOS:
   deadKeys:
     alt: ['¯', '¨', '´']
 
-longpress: !include oss-longpress.yaml
+longpress: !include kom-longpress.yaml
 
 keyNames:
-  space: Дӕрддзӕг
-  return: Бахаст
+  space: Кост
+  return: Пыртны
   return-alts:
-    search: Агур
-    go: Ахиз
-    send: Арвит
-    join: Бахиз
-    route: Маршрут
-    next: Дарддӕр
-    continue: Адарддӕр кӕн
-    done: Цӕттӕ
-  emergency: SOS
-  cancel: Нал хъӕуы
-  undo: Раздах
-  redo: Рацараз
-
+    search: Корсьны
+    go: Вуджны
+    send: Мӧдӧдны
+    join: Йитчыны
+    continue: Водзлань
+    done: Дась
+    next: Водзӧ
+    route: Туй
+  emergency: Отсӧг!
+  cancel: Дугдыны
+  undo: Важ моз
+  redo: Выльысь

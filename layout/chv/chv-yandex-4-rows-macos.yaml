@@ -1,0 +1,52 @@
+displayNames:
+  eng: Chuvash (Yandex, 4 rows)
+  rus: Чувашский (Яндекс, 4 ряда)
+  chv: Чӑваш (Яндекс, 4 рет)
+
+decimal: ','
+
+macOS:
+  primary:
+    layers:
+      default: |
+        « ё ӗ ҫ ӑ ӳ ъ ь х э ? - =
+          й ц у к е н г ш щ з ( ) —
+          ф ы в а п р о л д ж ;
+          я ч с м и т б ю . ,
+      shift: &SHIFT |
+        » Ё Ӗ Ҫ Ӑ Ӳ Ъ Ь Х Э ! _ +
+          Й Ц У К Е Н Г Ш Щ З [ ] /
+          Ф Ы В А П Р О Л Д Ж :
+          Я Ч С М И Т Б Ю < >
+      caps: |
+        « Ё Ӗ Ҫ Ӑ Ӳ Ъ Ь Х Э ? - =
+          Й Ц У К Е Н Г Ш Щ З ( ) —
+          Ф Ы В А П Р О Л Д Ж ;
+          Я Ч С М И Т Б Ю . ,
+      caps+shift: *SHIFT
+      alt: &ALT |
+        − 1 2 3 4 5 6 7 8 9 0 ® †
+          § ц № € £ ¥ ¬ • щ з ‘ “ \
+          ф ы ‰ а © ₽ ° ™ ∆ … ;
+          я ≈ ≠ µ π ÷ × ~ ≤ ≥
+      alt+shift: |
+        ± ~ @ # $ % ^ & * ' ` ® †
+          § Ц № € £ ¥ ¬ • Щ З ’ ” –
+          Ф Ы ‰ А © ₽ ° ™ ∆ … :
+          Я ≈ ≠ µ Π ÷ × ~ ≤ ≥
+      alt+caps: *ALT
+      cmd: &CMD |
+        ` 1 2 3 4 5 6 7 8 9 0 - =
+          q w e r t y u i o p [ ] \
+          a s d f g h j k l ; '
+          z x c v b n m , . /
+      cmd+shift: &CMD+SHIFT |
+        ~ ! @ # $ % ^ & * ( ) _ +
+          Q W E R T Y U I O P { } |
+          A S D F G H J K L : "
+          Z X C V B N M < > ?
+      cmd+alt: *CMD
+      cmd+alt+shift: *CMD+SHIFT
+  deadKeys:
+    alt: []
+    alt+caps: []

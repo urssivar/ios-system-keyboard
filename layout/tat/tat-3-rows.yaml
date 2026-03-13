@@ -1,0 +1,107 @@
+displayNames:
+  en: Tatar
+  ru: Татарский
+  tt: Татарча
+
+decimal: ','
+ABC: 'АӘБ'
+abc: 'аәб'
+
+iOS:
+  primary:
+    layers:
+      default: |
+        й ө у к е н г ш ә з х ү
+        ф ы в а п р о л д ң э һ
+        \s{shift} я ч с м и т җ ь б ю \s{backspace} 
+      shift: |
+        Й Ө У К Е Н Г Ш Ә З Х Ү
+        Ф Ы В А П Р О Л Д Ң Э Һ
+        \s{shift} Я Ч С М И Т Җ Ь Б Ю \s{backspace}
+      symbols-1: |
+        1 2 3 4 5 6 7 8 9 0
+        - / : ; ( ) ₽ & @ "
+        \s{shiftSymbols} \s{spacer:0.25} . , ? ! ' \s{spacer:0.25} \s{backspace}
+      symbols-2: |
+        [ ] { } # % ^ * + =
+        _ \ | ~ < > $ € ¥ •
+        \s{shiftSymbols} \s{spacer:0.25} . , ? ! ' \s{spacer:0.25} \s{backspace}
+  iPad-9in:
+    layers:
+      default: |
+        \s{spacer:0.3}   й ө у к е н г ш ә з х ү  \s{backspace:1.7}
+        \s{spacer:0.6}   ф ы в а п р о л д ң э һ  \s{return:1.4}
+        \s{shift}        я ч с м и т җ ь б ю      \s{shift:2.0}
+      shift: |
+        \s{spacer:0.3}   Й Ө У К Е Н Г Ш Ә З Х Ү  \s{backspace:1.7}
+        \s{spacer:0.6}   Ф Ы В А П Р О Л Д Ң Э Һ  \s{return:1.4}
+        \s{shift}        Я Ч С М И Т Җ Ь Б Ю      \s{shift:2.0}
+      alt: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 « »  \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ° ‘ “  \s{return:1.4}
+        \s{shift}        % _ - + = / ; : , .      \s{shift:2.0}
+      alt+shift: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 « »  \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ° ‘ “  \s{return:1.4}
+        \s{shift}        % _ - + = / ; : , .      \s{shift:2.0}
+      symbols-1: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 « »  \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ° ‘ “  \s{return:1.4}
+        \s{shiftSymbols} % _ - + = / ; : , .      \s{shiftSymbols:2.0}
+      symbols-2: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 « »  \s{backspace:1.7}
+        \s{spacer:0.6}   € £ ¥ ± • ` ^ [ ] ⌀ { }  \s{return:1.4}
+        \s{shiftSymbols} § | ~ … ≠ \ < > ! ?      \s{shiftSymbols:2.0}
+  iPad-12in:
+    layers:
+      default: |
+        >                1 2 3 4 5 6 7 8 9 0 - =   \s{backspace:1.5}
+        \s{tab:1.5}      й ө у к е н г ш ә з х ү
+        \s{caps:1.75}    ф ы в а п р о л д ң э һ   \s{return:1.75}
+        \s{shift:1.25} ] я ч с м и т җ ь б ю /     \s{shift:2.25}
+      shift: |
+        <                ! ” № % : , . ; ( ) _ +   \s{backspace:1.5}
+        \s{tab:1.5}      Й Ө У К Е Н Г Ш Ә З Х Ү   
+        \s{caps:1.75}    Ф Ы В А П Р О Л Д Ң Э Һ   \s{return:1.75}
+        \s{shift:1.25} [ Я Ч С М И Т Җ Ь Б Ю ?     \s{shift:2.25}
+      alt: |
+        `                1 2 3 4 5 6 7 8 9 0 < >     \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ |    
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~     \s{return:1.75}
+        \s{shift:1.25}     … . , ? ! ' " _ €         \s{shift:2.25}
+      alt+shift: |
+        `                1 2 3 4 5 6 7 8 9 0 < >     \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ |      
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~     \s{return:1.75}
+        \s{shift:1.25}     … . , ? ! ' " _ €         \s{shift:2.25}
+      symbols-1: |
+        `                1 2 3 4 5 6 7 8 9 0 < >     \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ |      
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~     \s{return:1.75}
+        \s{shift:1.25}     … . , ? ! ' " _ €         \s{shift:2.25}
+      symbols-2: |
+        `                1 2 3 4 5 6 7 8 9 0 < >     \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ |     
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~     \s{return:1.75}
+        \s{shift:1.25}     … . , ? ! ' " _ €         \s{shift:2.25}
+  deadKeys:
+    alt: ['¯', '¨', '´']
+    
+longpress: !include tat-3-rows-longpress.yaml
+
+keyNames:
+  space: Буш ара
+  return: Керт
+  return-alts:
+    search: Эзлә
+    go: Күч
+    send: Җибәр
+    join: Тоташу
+    route: Маршрут
+    next: Алга
+    continue: Дәвам ит
+    done: Әзер
+  emergency: SOS
+  cancel: Баш тарту
+  undo: Элеккегесен кайтар
+  redo: Ясалганын кайтар

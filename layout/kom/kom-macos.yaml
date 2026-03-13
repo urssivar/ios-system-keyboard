@@ -1,0 +1,52 @@
+displayNames:
+  eng: Komi
+  rus: Коми
+  kom: Коми
+
+decimal: ','
+
+macOS:
+  primary:
+    layers:
+      default: |
+        ] 1 2 3 4 5 6 7 8 9 0 - =
+          й ц у к е н г ш ӧ з і ъ
+          ф ы в а п р о л д ж э ё
+          я ч с м и т ь б ю /
+      shift: &SHIFT |
+        [ ! " № % : , . ; ( ) _ +
+          Й Ц У К Е Н Г Ш Ӧ З І Ъ
+          Ф Ы В А П Р О Л Д Ж Э Ё
+          Я Ч С М И Т Ь Б Ю ?
+      caps: |
+        ] 1 2 3 4 5 6 7 8 9 0 - =
+          Й Ц У К Е Н Г Ш Ӧ З І Ъ
+          Ф Ы В А П Р О Л Д Ж Э Ё
+          Я Ч С М И Т Ь Б Ю ?
+      caps+shift: *SHIFT
+      alt: &ALT |
+        ́ ҕ һ ӭ ӑ ӗ ң қ ӌ ҫ ҙ ꚉ ԫ   
+          ӥ ӳ ӱ ҡ ә ԋ ҥ ј щ ԅ х ԇ
+          ӂ ӹ ү ӓ ӄ ғ ӧ ԉ ԁ җ ө ӟ
+          ӕ ӵ ԍ ӈ і ԏ ѣ ԃ ӝ ʼ
+      alt+shift: |
+        ́ Ҕ Һ Ӭ Ӑ Ӗ Ң Қ Ӌ Ҫ Ҙ Ꚉ Ԫ
+          Ӥ Ӳ Ӱ Ҡ Ә Ԋ Ҥ Ј Щ Ԅ Х Ԇ
+          Ӂ Ӹ Ү Ӓ Ӄ Ғ Ӧ Ԉ Ԁ Җ Ө Ӟ
+          Ӕ Ӵ Ԍ Ӈ І Ԏ Ѣ Ԃ Ӝ ʼ
+      alt+caps: *ALT
+      cmd: &CMD |
+        ` 1 2 3 4 5 6 7 8 9 0 - =
+          q w e r t y u i o p [ ] \
+          a s d f g h j k l ; '
+          z x c v b n m , . /
+      cmd+shift: &CMD+SHIFT |
+        ~ ! @ # $ % ^ & * ( ) _ +  
+          Q W E R T Y U I O P { } |
+          A S D F G H J K L : "
+          Z X C V B N M < > ?
+      cmd+alt: *CMD
+      cmd+alt+shift: *CMD+SHIFT
+  deadKeys:
+    alt: []
+    alt+caps: []

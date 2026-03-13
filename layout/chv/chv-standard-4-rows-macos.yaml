@@ -1,0 +1,52 @@
+displayNames:
+  eng: Chuvash (Standard, 4 rows)
+  rus: Чувашский (стандартный, 4 ряда)
+  chv: Чӑваш (стандартлӑ, 4 рет)
+
+decimal: ','
+
+macOS:
+  primary:
+    layers:
+      default: |
+        « ! " ҫ ӑ , . ӗ ӳ ( ) - =
+          й ц у к е н г ш щ з х ъ ё
+          ф ы в а п р о л д ж э
+          я ч с м и т ь б ю /
+      shift: &SHIFT |
+        » — № Ҫ Ӑ ; : Ӗ Ӳ [ ] _ +
+          Й Ц У К Е Н Г Ш Щ З Х Ъ Ё
+          Ф Ы В А П Р О Л Д Ж Э
+          Я Ч С М И Т Ь Б Ю ?
+      caps: |
+        « ! " Ҫ Ӑ , . Ӗ Ӳ ( ) - =
+          Й Ц У К Е Н Г Ш Щ З Х Ъ Ё
+          Ф Ы В А П Р О Л Д Ж Э
+          Я Ч С М И Т Ь Б Ю /
+      caps+shift: *SHIFT
+      alt: &ALT |
+        ` 1 2 3 4 5 6 7 8 9 0 – †
+          § \ € ® £ ¥ ¶ √ ‰ ‘ ‘ “ •
+          ± − ∞   © ₽ ° ™ ∆ … э
+          ђ ≈ ≠ µ π ÷ × ≤ ≥ ~
+      alt+shift: |
+        ` | @ # $ % ^ & * { } – †
+          § \ € ® £ ¥ ¶ √ ‰ ’ ’ ” •
+          ± − ∞ ¬ © ₽ ° ™ ∆ … Э
+          ' ≈ ≠ µ Π ÷ × < > ~
+      alt+caps: *ALT
+      cmd: &CMD |
+        ` 1 2 3 4 5 6 7 8 9 0 - =
+          q w e r t y u i o p [ ] \
+          a s d f g h j k l ; '
+          z x c v b n m , . /
+      cmd+shift: &CMD+SHIFT |
+        ~ ! @ # $ % ^ & * ( ) _ +  
+          Q W E R T Y U I O P { } |
+          A S D F G H J K L : "
+          Z X C V B N M < > ?
+      cmd+alt: *CMD
+      cmd+alt+shift: *CMD+SHIFT
+  deadKeys:
+    alt: []
+    alt+caps: []

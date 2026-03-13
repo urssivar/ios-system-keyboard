@@ -1,23 +1,23 @@
 displayNames:
-  en: Ossetic
-  ru: Осетинский
-  oss: Ирон ӕвзаг
+  en: Kalmyk
+  ru: Калмыцкий
+  xal: Хальмг
 
 decimal: ','
-ABC: 'АӔБ'
-abc: 'аӕб'
+ABC: 'АӘБ'
+abc: 'аәб'
 
 iOS:
   primary:
     layers:
       default: |
-        й ц у к е н г ӕ ш з х
-        ф ы в а п р о л д ж э
-        \s{shift} я ч с м и т ъ б ю \s{backspace}
+        й ц у к е н г ш ң з х һ
+        ү ы в а ә р о л д җ э ө
+        \s{shift} я ч с м и т ь б ю \s{backspace}
       shift: |
-        Й Ц У К Е Н Г Ӕ Ш З Х
-        Ф Ы В А П Р О Л Д Ж Э
-        \s{shift} Я Ч С М И Т Ъ Б Ю \s{backspace}
+        Й Ц У К Е Н Г Ш Ң З Х Һ
+        Ү Ы В А Ə Р О Л Д Җ Э Ө
+        \s{shift} Я Ч С М И Т Ь Б Ю \s{backspace}
       symbols-1: |
         1 2 3 4 5 6 7 8 9 0
         - / : ; ( ) ₽ & @ "
@@ -29,13 +29,13 @@ iOS:
   iPad-9in:
     layers:
       default: |
-        \s{spacer:0.3}   й ц у к е н г ӕ ш з х \s{spacer:1.7}
-        \s{spacer:0.6}   ф ы в а п р о л д ж э \s{return:1.4}
-        \s{shift}        я ч с м и т ь б ю ъ   \s{shift:2.0}
+        \s{spacer:0.3}   й ц у к е н г ш ң з х һ \s{spacer:1.7}
+        \s{spacer:0.6}   ү ы в а ә р о л д җ э ө \s{return:1.4}
+        \s{shift}        я ч с м и т ь б ю п   \s{shift:2.0}
       shift: |
-        \s{spacer:0.3}   Й Ц У К Е Н Г Ӕ Ш З Х \s{spacer:1.7}
-        \s{spacer:0.6}   Ф Ы В А П Р О Л Д Ж Э \s{return:1.4}
-        \s{shift}        Я Ч С М И Т Ь Б Ю Ъ   \s{shift:2.0}
+        \s{spacer:0.3}   Й Ц У К Е Н Ң Г Ш З Х Һ \s{spacer:1.7}
+        \s{spacer:0.6}   Ү Ы В А Ə Р О Л Д Җ Э Ө \s{return:1.4}
+        \s{shift}        Я Ч С М И Т Ь Б Ю П   \s{shift:2.0}
       alt: |
         \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
         \s{spacer:0.6}   @ # № $ ´ & * ( ) ‘ “ \s{return:1.4}
@@ -56,14 +56,14 @@ iOS:
     layers:
       default: |
         >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
-        \s{tab:1.5}      й ц у к е н г ӕ ш з х ъ \s{return}
-        \s{caps:1.75}    ф ы в а п р о л д ж э ё \s{return:0.75}
-        \s{shift:1.25} ] я ч с м и т ь б ю /     \s{shift:2.25}
+        \s{tab:1.5}      й ц у к е н г ш ң з х һ \s{return}
+        \s{caps:1.75}    ү ы в а ә р о л д җ э ө \s{return:0.75}
+        \s{shift:1.25} ] я ч с м и т ь б ю п   / \s{shift:2.25}
       shift: |
         <                ! ” № % : , . ; ( ) _ + \s{backspace:1.5}
-        \s{tab:1.5}      Й Ц У К Е Н Г Ӕ Ш З Х Ъ \s{return}
-        \s{caps:1.75}    Ф Ы В А П Р О Л Д Ж Э Ё \s{return:0.75}
-        \s{shift:1.25} [ Я Ч С М И Т Ь Б Ю ?     \s{shift:2.25}
+        \s{tab:1.5}      Й Ц У К Е Н Г Ш Ң З Х Һ \s{return}
+        \s{caps:1.75}    Ү Ы В А Ə Р О Л Д Җ Э Ө \s{return:0.75}
+        \s{shift:1.25} [ Я Ч С М И Т Ь Б Ю П     \s{shift:2.25}
       alt: |
         `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
         \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
@@ -87,22 +87,21 @@ iOS:
   deadKeys:
     alt: ['¯', '¨', '´']
 
-longpress: !include oss-longpress.yaml
+longpress: !include xal-longpress.yaml
 
 keyNames:
-  space: Дӕрддзӕг
-  return: Бахаст
+  space: Зә
+  return: Орулх
   return-alts:
-    search: Агур
-    go: Ахиз
-    send: Арвит
-    join: Бахиз
-    route: Маршрут
-    next: Дарддӕр
-    continue: Адарддӕр кӕн
-    done: Цӕттӕ
+    search: Хәәх
+    go: Шилҗх
+    send: Илгәх
+    join: Холвгдх
+    continue: Үрглҗлх
+    done: Белн
+    next: Цааран
+    route: Чиглл
   emergency: SOS
-  cancel: Нал хъӕуы
-  undo: Раздах
-  redo: Рацараз
-
+  cancel: Цуцлх
+  undo: Буцах
+  redo: Сергәх

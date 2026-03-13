@@ -1,0 +1,52 @@
+displayNames:
+  eng: Chuvash (Google)
+  rus: Русский (Google)
+  chv: Чӑваш (Google)
+
+decimal: ','
+
+macOS:
+  primary:
+    layers:
+      default: |
+        ] 1 2 3 4 5 6 7 8 9 0 - =
+          й у ӳ к е ӗ н г ш з х « —
+          ф ы в а ӑ п р о л д э
+          я ч с ҫ м и т ь ю / 
+      shift: &SHIFT |
+        [ ! " № % : , . ; ( ) _ +
+          Й У Ӳ К Е Ӗ Н Г Ш З Х » \
+          Ф Ы В А Ӑ П Р О Л Д Э
+          Я Ч С Ҫ М И Т Ь Ю ? 
+      caps: |
+        ] 1 2 3 4 5 6 7 8 9 0 - =
+          Й У Ӳ К Е Ӗ Н Г Ш З Х « —
+          Ф Ы В А Ӑ П Р О Л Д Э 
+          Я Ч С Ҫ М И Т Ь Ю / 
+      caps+shift: *SHIFT
+      alt: &ALT |
+        ] ! @ # $ ‰ ^ & * { } – †
+          § ~ ӳ ® ё ¥ \ г щ ж ‘ “ •
+          ± − б ∞ © ₽ ° ™ ∆ … э
+          ≠ ц ≈ µ π ÷ × ъ ≤ ≥
+      alt+shift: |
+        [ | " £ € ‰ ¬ ¶ √ ' ` – †
+          § ~ Ӳ ® Ё ¥ \ Г Щ Ж ’ ” •
+          ± − Б ∞ © ₽ ° ™ ∆ … Э
+          ≠ Ц ≈ µ Π ÷ × Ъ < >
+      alt+caps: *ALT
+      cmd: &CMD |
+        ` 1 2 3 4 5 6 7 8 9 0 - =
+          q w e r t y u i o p [ ] \
+          a s d f g h j k l ; '
+          z x c v b n m , . /
+      cmd+shift: &CMD+SHIFT |
+        ~ ! @ # $ % ^ & * ( ) _ +
+          Q W E R T Y U I O P { } |
+          A S D F G H J K L : "
+          ~ Z X C V B N M < > ?
+      cmd+alt: *CMD
+      cmd+alt+shift: *CMD+SHIFT
+  deadKeys:
+    alt: []
+    alt+caps: []
