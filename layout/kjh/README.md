@@ -1,6 +1,6 @@
 # Хакасские раскладки / Khakas layouts
 
-**Язык / Language**: `Хакас тілі / Хакасский / Khakas`
+**Язык / Language**: `Хакас / Хакасский / Khakas`
 
 **Language codes**:
 
@@ -54,7 +54,7 @@
 'я' CYRILLIC SMALL LETTER YA
 ```
 
-### Хакасский (4 ряда) / Khakas (4 rows) - предпочтительный вариант / preferred option
+### Предпочтительный вариант / Preferred option
 
 `kjh-4-rows.yaml`:
 
@@ -65,7 +65,7 @@
 я ч с м и т ь б ю
 ```
 
-### Хакасский / Khakas
+### Самые частотные буквы в хакасском языке / Most frequent letters in Khakas language
 
 `kjh-3-rows.yaml`:
 
@@ -87,7 +87,7 @@
 е: ё
 ```
 
-### Хакасский (русская) / Khakas (Russian)
+### На основе русской раскладки / Based on Russian layout
 
 `kjh-3-rows-rus.yaml`:
 
@@ -110,7 +110,7 @@
 ь: ъ
 ```
 
-### Хакасский / Khakas
+### Непрактичный вариант для MacOS / Impractical option for MacOS
 
 `kjh-macos.yaml`
 
