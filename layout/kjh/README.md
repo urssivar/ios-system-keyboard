@@ -1,6 +1,6 @@
 # Хакасские раскладки / Khakas layouts
 
-**Язык / Language**: `Хакасский / Khakas (Хакас тілі)`
+**Язык / Language**: `Хакас тілі / Хакасский / Khakas`
 
 **Language codes**:
 - **ISO 639-3**: `kjh`
