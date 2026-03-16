@@ -116,6 +116,13 @@
   я ч с м и т і б ӱ /
 ```
 
+```
+] ! @ # $ % ^ & * { } – »
+  ј ц ќ ® † њ ѓ ѕ щ ‘ “ ъ ё
+  ф ы ћ ÷ © ₽ ° љ ∆ … э
+  ђ ≈ ≠ µ и ™ ь ≤ ю “
+```
+
 ## Разработчик / Developer
 
 - Василий Адешкин / Vasily Adeshkin, научный сотрудник ХакНИИЯЛИ / researcher at KhRILLH — почта / email: translate.khakas@gmail.com
