@@ -3,11 +3,12 @@
 **Язык / Language**: `Хакас тілі / Хакасский / Khakas`
 
 **Language codes**:
+
 - **ISO 639-3**: `kjh`
 - **ISO 15924**: `Cyrl`
 - **Glottocode**: `khak1248`
 
-## Алфавит / Alphabet
+### Алфавит / Alphabet
 
 `а б в г ғ д е ё ж з и і й к л м н ң о ӧ п р с т у ӱ ф х ц ч ҷ ш щ ъ ы ь э ю я`
 
@@ -53,10 +54,21 @@
 'я' CYRILLIC SMALL LETTER YA
 ```
 
-## iOS
+### Хакасский (4 ряда) / Khakas (4 rows) - предпочтительный вариант / preferred option
 
-#### Хакасский / Khakas
+`kjh-4-rows.yaml`:
+
+```
+! і ӱ ҷ ё ң ғ і ъ , .
+й ц у к е н г ш щ з х
+ф ы в а п р о л д ж э
+я ч с м и т ь б ю
+```
+
+### Хакасский / Khakas
+
 `kjh-3-rows.yaml`:
+
 ```
 й ҷ у к е н г ш ң з х
 ғ ы в а п р о л д ж ӧ
@@ -64,6 +76,7 @@
 ```
 
 `kjh-3-rows-longpress.yaml`:
+
 ```
 ҷ: ц
 ӱ: ю
@@ -74,7 +87,8 @@
 е: ё
 ```
 
-#### Хакасский (русская) / Khakas (Russian)
+### Хакасский (русская) / Khakas (Russian)
+
 `kjh-3-rows-rus.yaml`:
 
 ```
@@ -84,6 +98,7 @@
 ```
 
 `kjh-3-rows-rus-longpress.yaml`:
+
 ```
 и: і
 г: ғ
@@ -95,18 +110,8 @@
 ь: ъ
 ```
 
-#### Хакасский (4 ряда) / Khakas (4 rows)
-`kjh-4-rows.yaml`:
-```
-! і ӱ ҷ ё ң ғ і ъ , .
-й ц у к е н г ш щ з х
-ф ы в а п р о л д ж э
-я ч с м и т ь б ю
-```
+### Хакасский / Khakas
 
-## macOS
-
-#### Хакасский / Khakas
 `kjh-macos.yaml`
 
 ```
@@ -125,4 +130,5 @@
 
 ## Разработчик / Developer
 
-- Василий Адешкин / Vasily Adeshkin, научный сотрудник ХакНИИЯЛИ / researcher at KhRILLH — почта / email: translate.khakas@gmail.com
+- Василий Адешкин / Vasily Adeshkin, научный сотрудник ХакНИИЯЛИ / researcher at KhRILLH — почта / email:
+  translate.khakas@gmail.com
