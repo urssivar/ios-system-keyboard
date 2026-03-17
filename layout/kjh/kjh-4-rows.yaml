@@ -5,19 +5,19 @@ displayNames:
   kjh: Хакас
 
 decimal: ','
-ABC: 'ӦҢӰ'
-abc: 'ӧңӱ'
+ABC: 'ӦҢІ'
+abc: 'ӧңі'
 
 iOS:
   primary:
     layers:
       default: |
-        ! і ӱ ҷ ё ң ғ і ъ , .
+            ҷ ӱ і   ң ӧ ғ 
         й ц у к е н г ш щ з х
         ф ы в а п р о л д ж э
         \s{shift} я ч с м и т ь б ю \s{backspace}
       shift: |
-        ! І Ӱ Ҷ Ё Ң Ғ І Ъ , .
+            Ҷ Ӱ І   Ң Ӧ Ғ
         Й Ц У К Е Н Г Ш Щ З Х
         Ф Ы В А П Р О Л Д Ж Э
         \s{shift} Я Ч С М И Т Ь Б Ю \s{backspace}
@@ -29,10 +29,85 @@ iOS:
         [ ] { } # % ^ * + =
         _ \ | ~ < > $ € ¥ •
         \s{shiftSymbols} \s{spacer:0.25} . , ? ! ' \s{spacer:0.25} \s{backspace}
-  iPad-9in: !include kjh-3-rows.yaml#iOS#iPad-9in
-  iPad-12in: !include kjh-3-rows.yaml#iOS#iPad-12in
-  deadKeys: !include kjh-3-rows.yaml#iOS#deadKeys
+  iPad-9in:
+    layers:
+      default: |
+        \s{spacer:0.3}       ҷ ӱ і   ң ӧ ғ     \s{spacer:1.7}
+        \s{spacer:0.3}   й ц у к е н г ш щ з х \s{spacer:1.7}
+        \s{spacer:0.6}   ф ы в а п р о л д ж э \s{return:1.4}
+        \s{shift}          я ч с м и т ь б ю   \s{shift:2.0}
+      shift: |
+        \s{spacer:0.3}       Ҷ Ӱ І   Ң Ӧ Ғ     \s{spacer:1.7}
+        \s{spacer:0.3}   Й Ц У К Е Н Г Ш Щ З Х \s{spacer:1.7}
+        \s{spacer:0.6}   Ф Ы В А П Р О Л Д Ж Э \s{return:1.4}
+        \s{shift}          Я Ч С М И Т Ь Б Ю   \s{shift:2.0}
+      alt: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ‘ “ \s{return:1.4}
+        \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
+      alt+shift: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ‘ “ \s{return:1.4}
+        \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
+      symbols-1: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ‘ “ \s{return:1.4}
+        \s{shiftSymbols} % _ - + = / ; : , .   \s{shiftSymbols:2.0}
+      symbols-2: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   € £ ¥ ± • ` ^ [ ] { } \s{return:1.4}
+        \s{shiftSymbols} § | ~ … ≠ \ < > ! ?   \s{shiftSymbols:2.0}
+  iPad-12in:
+    layers:
+      default: |
+        >                    ҷ ӱ і   ң ӧ ғ     \s{backspace:1.5}
+        \s{tab:1.5}      й ц у к е н г ш щ з х \s{return}
+        \s{caps:1.75}    ф ы в а п р о л д ж э \s{return:0.75}
+        \s{shift:1.25}     я ч с м и т ь б ю   \s{shift:1.25}
+      shift: |
+        <                    Ҷ Ӱ І   Ң Ӧ Ғ       \s{backspace:1.5}
+        \s{tab:1.5}      Й Ц У К Е Н Г Ш Щ З Х   \s{return}
+        \s{caps:1.75}    Ф Ы В А П Р О Л Д Ж Э   \s{return:0.75}
+        \s{shift:1.25}     Я Ч С М И Т Ь Б Ю    \s{shift:1.25}
+      alt: |
+        `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~ \s{return:0.75}
+        \s{shift:1.25}     … . , ? ! ' " _ €     \s{shift:2.25}
+      alt+shift: |
+        `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~ \s{return:0.75}
+        \s{shift:1.25}     … . , ? ! ' " _ €     \s{shift:2.25}
+      symbols-1: |
+        `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~ \s{return:0.75}
+        \s{shift:1.25}     … . , ? ! ' " _ €     \s{shift:2.25}
+      symbols-2: |
+        `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~ \s{return:0.75}
+        \s{shift:1.25}     … . , ? ! ' " _ €     \s{shift:2.25}
+  deadKeys:
+    alt: ['¯', '¨', '´']
+
 
 longpress: !include kjh-4-rows-longpress.yaml
 
-keyNames: !include kjh-3-rows.yaml#keyNames
+keyNames:
+  space: Ара
+  return: Кир
+  return-alts:
+    search: Тап
+    go: Пар
+    send: Ыс
+    join: Хозыл
+    continue: Узарат
+    done: Тимде
+    next: Пазағы
+    route: Чол
+  emergency: SOS
+  cancel: Тохтат
+  undo: Нандыра
+  redo: Хатап
