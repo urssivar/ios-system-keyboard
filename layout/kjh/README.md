@@ -1,6 +1,7 @@
 # Хакасские раскладки / Khakas layouts
 
 **Язык / Language**:
+
 ```
 en: Khakas
 ru: Хакасский
@@ -13,6 +14,20 @@ kjh: Хакас
 - **ISO 15924**: `Cyrl`
 - **Glottocode**: `khak1248`
 
+## Khakas iOS
+
+Versions sorting for iPhone:
+
+* kjh-4-rows.yaml
+* kjh-3-rows.yaml
+* kjh-3-rows-rus.yaml
+
+## Khakas macOS
+
+Keyboard uses swapping/replacing less frequent letters (ЭЩЬЦЮФ) to ӦҢІҶӰҒ letters, making less frequent letters accessible via
+`Option` (aka `ALT`).
+
+## Details
 ### Алфавит / Alphabet
 
 `а б в г ғ д е ё ж з и і й к л м н ң о ӧ п р с т у ӱ ф х ц ч ҷ ш щ ъ ы ь э ю я`
