@@ -59,7 +59,6 @@ iOS:
  7. Когда все сделаете все этапы, можете отправить ваши файлы мне, либо оформить как PR в Гитхабе.
 
 ## 🌍 Supported Languages
-
 <p align="center">
   <img src="./assets/gif/languages-en.svg" width="800"/>
 </p>
@@ -131,7 +130,6 @@ There's a special guide – [keyNames.md](https://github.com/Agisight/ios-system
 7. Once you've completed all the steps, you can send your files to me or submit them as a PR on GitHub.
 
 ## 🌍 Supported Languages
-
 <p align="center">
   <img src="./assets/gif/languages-en.svg" width="800"/>
 </p>
