@@ -1,0 +1,41 @@
+name: Build Keyboard Explorer
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'layout/**'
+      - 'scripts/build.py'
+      - '.github/workflows/build-keyboard-explorer.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Build HTML
+        run: python scripts/build.py
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-keyboards-${{ github.sha }}
+          path: dist/ios-keyboards.html
+          retention-days: 90
+
+      - name: Create Release on tag
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/ios-keyboards.html
