@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)){document.write('<style id="mob">.iphone{width:100%!important;border-radius:0!important;padding:0!important;background:transparent!important;box-shadow:none!important}.iphone::before,.iphone::after,.di,.home-ind{display:none!important}.screen{border-radius:0!important;height:100dvh!important}body{padding:0!important;background:#f2f2f7!important}body::before{display:none!important}</style>')}</script>
+<title>iOS Keyboard Explorer</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --accent:#007aff;--bg:#1c1c1e;
+  --text:#1c1c1e;--text2:#6c6c70;--text3:#aeaeb2;
+  --sep:rgba(0,0,0,.1);--font:-apple-system,'Helvetica Neue',sans-serif;
+  --mono:'SF Mono','Menlo',monospace;
+}
+body{font-family:var(--font);background:#1c1c1e;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:72px 16px 48px;overflow-y:auto}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 20%,#2d2d3a 0%,#1c1c1e 60%);z-index:-1}
+
+@media (max-width:768px){
+  body{padding:0!important;background:#f2f2f7!important;align-items:stretch!important}
+  body::before{display:none!important}
+  .iphone{width:100%!important;border-radius:0!important;padding:0!important;background:transparent!important;box-shadow:none!important}
+  .iphone::before,.iphone::after{display:none!important}
+  .di{display:none!important}
+  .screen{border-radius:0!important;height:calc(100dvh - 8px)!important;margin-bottom:8px}
+  .home-ind{display:none!important}
+}
+
+/* ── iPhone 16 Pro Max shell ── */
+/* Real: 430×932pt → scale to 390×845 */
+.iphone{
+  width:351px;
+  background:#1a1a1c;
+  border-radius:49px;
+  padding:13px;
+  box-shadow:
+    0 0 0 1px #0d0d0f,
+    0 0 0 2.5px #2e2e32,
+    0 0 0 4px #0d0d0f,
+    0 48px 120px rgba(0,0,0,.8),
+    0 16px 40px rgba(0,0,0,.5);
+  position:relative;flex-shrink:0;
+}
+/* power button right */
+.iphone::before{content:'';position:absolute;right:-4px;top:130px;width:3.5px;height:72px;background:#2e2e32;border-radius:0 2px 2px 0}
+/* silent + volume left */
+.iphone::after{content:'';position:absolute;left:-4px;top:108px;width:3.5px;height:32px;background:#2e2e32;border-radius:2px 0 0 2px;box-shadow:0 46px 0 #2e2e32,0 88px 0 #2e2e32}
+
+/* Dynamic Island */
+.di{background:#000;width:120px;height:34px;border-radius:20px;margin:0 auto 6px;flex-shrink:0}
+
+/* Screen — 362×786 visible area */
+.screen{
+  background:#f2f2f7;
+  border-radius:42px;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  height:620px;
+}
+
+/* status bar */
+.sbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 26px 6px;font-weight:600;font-size:15px;color:#000;
+  flex-shrink:0;background:#f2f2f7;
+}
+.sicons{display:flex;align-items:center;gap:5px}
+
+/* nav bar */
+.navbar{
+  display:flex;align-items:center;
+  padding:6px 16px 8px;
+  background:#f2f2f7;
+  border-bottom:.5px solid rgba(0,0,0,.15);
+  flex-shrink:0;min-height:44px;position:relative;
+}
+.nb-back{color:var(--accent);font-size:17px;cursor:pointer;display:flex;align-items:center;gap:3px;user-select:none;position:absolute;left:10px}
+.nb-back svg{width:9px;height:15px}
+.nb-title{font-size:17px;font-weight:600;color:#000;flex:1;text-align:center}
+
+/* ── List view ── */
+.list-view{flex:1;overflow-y:auto;background:#f2f2f7}
+.list-view::-webkit-scrollbar{display:none}
+.lv-section-title{font-size:13px;font-weight:400;color:var(--text2);padding:18px 20px 6px;letter-spacing:-.01em}
+.lv-card{background:#fff;border-radius:12px;margin:0 16px 10px;overflow:hidden}
+.lv-row{
+  display:flex;align-items:center;padding:11px 12px 11px 16px;
+  border-bottom:.5px solid rgba(0,0,0,.07);cursor:pointer;gap:12px;
+  transition:background .1s;
+}
+.lv-row:last-child{border-bottom:none}
+.lv-row:active{background:#e8e8ed}
+.lv-icon{
+  width:34px;height:34px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;letter-spacing:-.3px;
+}
+.lv-text{flex:1;min-width:0}
+.lv-title{font-size:16px;color:#000;line-height:1.2}
+.lv-sub{font-size:12px;color:var(--text3);margin-top:2px}
+.lv-chevron{color:#c7c7cc;font-size:18px;font-weight:300;flex-shrink:0}
+
+/* ── Keyboard view ── */
+.kbd-view{flex:1;display:flex;flex-direction:column;background:#fff;overflow:hidden}
+.kv-field{flex:1;padding:14px 18px 8px;overflow:hidden}
+.kv-label{font-size:13px;color:#8e8e93;margin-bottom:4px}
+.kv-text{font-size:17px;color:#000;line-height:1.4;word-break:break-all;min-height:24px}
+.kv-text::after{content:'|';animation:blink 1s step-end infinite;color:var(--accent)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* keyboard */
+.kbd{background:#cdd1d6;display:flex;flex-direction:column;gap:8px;padding:8px 3px 4px;flex-shrink:0}
+.kr{display:flex;justify-content:center;gap:6px;padding:0 4px}
+.k{
+  flex:1;min-width:0;height:46px;background:#fff;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;color:#000;cursor:pointer;
+  box-shadow:0 1px 0 1.5px #888f97;
+  font-family:var(--font);font-weight:400;
+  position:relative;transition:background .06s;overflow:visible;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;-webkit-user-select:none;
+}
+.k.sp{background:#acb3bc;box-shadow:0 1px 0 1.5px #717880}
+.k.sp{font-size:14px}
+.k.wide{flex:1.5}.k.k123{flex:1.4;font-size:14px}.k.ksp{flex:4.5;font-size:15px;color:#3c3c3e}.k.kret{flex:1.4;font-size:13px}.k.kpct{flex:1.5;font-weight:500;font-size:12px}
+.k.kon{background:#fff;outline:1.5px solid var(--accent);color:var(--accent)}
+.k.pressed{background:#a8b0b9!important;box-shadow:none!important}
+.k.sp.pressed{background:#8e969e!important}
+.lph{position:absolute;bottom:2px;right:3px;font-size:9px;line-height:1;color:#aaa;pointer-events:none}
+
+/* home indicator */
+.home-ind{height:34px;background:#cdd1d6;display:flex;align-items:center;justify-content:center;border-radius:0 0 42px 42px;flex-shrink:0}
+.home-ind div{width:130px;height:5px;background:rgba(0,0,0,.25);border-radius:3px}
+
+/* longpress popup */
+.lpp{position:fixed;background:#fff;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.2);border:.5px solid rgba(0,0,0,.1);display:flex;gap:2px;padding:4px;z-index:999;white-space:nowrap}
+.lpo{min-width:40px;height:46px;display:flex;align-items:center;justify-content:center;font-size:19px;border-radius:7px;cursor:pointer;padding:0 8px;transition:background .08s;color:#000}
+.lpo:hover,.lpo.sel{background:var(--accent);color:#fff}
+.lpo.orig{font-weight:600}
+
+/* slide transitions */
+.screen-enter{animation:senter .28s ease}
+.screen-back {animation:sback  .28s ease}
+@keyframes senter{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes sback {from{transform:translateX(-30%)}to{transform:translateX(0)}}
+</style>
+</head>
+<body>
+<div class="iphone">
+  <div class="di"></div>
+  <div class="screen" id="screen">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<script>
+const LP=/*BUILD_LP*/{};
+
+const DATA=/*BUILD_DATA*/[];
+
+
+const SYM123=[['1','2','3','4','5','6','7','8','9','0'],['-','/',':',';','(',')','$','&','@','"'],['.',',','?','!','\'']];
+const SYMPUNCT=[['[',']','{','}','#','%','^','*','+','='],['_','\\','|','~','<','>','€','£','¥','•'],['.',',','?','!','\'']];
+
+let ST={isShift:false,isSym:false,isPunct:false};
+let lpTimer=null,lpEl=null,lpPop=null,lpIdx=-1,lpWasShown=false;
+let curL=null,curLang=null;
+
+const SISVG=`<svg width="16" height="11" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx=".5" fill="#000"/><rect x="4.5" y="2" width="3" height="10" rx=".5" fill="#000"/><rect x="9" y=".5" width="3" height="11.5" rx=".5" fill="#000"/><rect x="13.5" y="0" width="3" height="12" rx=".5" fill="#000" opacity=".3"/></svg><svg width="15" height="11" viewBox="0 0 16 12" fill="none"><path d="M8 2.4C10.2 2.4 12.2 3.3 13.6 4.8L15 3.3C13.2 1.3 10.7 0 8 0S2.8 1.3 1 3.3L2.4 4.8C3.8 3.3 5.8 2.4 8 2.4Z" fill="#000"/><path d="M8 5c1.5 0 2.8.6 3.8 1.6l1.4-1.5C11.8 3.8 10 3 8 3S4.2 3.8 2.8 5.1L4.2 6.6C5.2 5.6 6.5 5 8 5Z" fill="#000"/><circle cx="8" cy="10" r="2" fill="#000"/></svg><svg width="25" height="11" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#000" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#000"/><path d="M23 4.5v3c.8-.3 1.5-1 1.5-1.5s-.7-1.2-1.5-1.5Z" fill="#000" opacity=".4"/></svg>`;
+
+function now(){return new Date().getHours()+':'+String(new Date().getMinutes()).padStart(2,'0')}
+
+function sbar(){
+  return `<div class="sbar"><span>${now()}</span><div class="sicons">${SISVG}</div></div>`;
+}
+
+// ── List screen ──────────────────────────────────────────────────────────────
+function showList(anim){
+  const sc=document.getElementById('screen');
+  let html=sbar();
+  html+=`<div class="navbar"><div class="nb-title">Клавиатуры</div></div>`;
+  html+=`<div class="list-view">`;
+  DATA.forEach(sec=>{
+    html+=`<div class="lv-section-title">${sec.group}</div>`;
+    sec.langs.forEach(lang=>{
+      html+=`<div class="lv-card">`;
+      lang.layouts.forEach((lay,li)=>{
+        const isFirst=li===0;
+        html+=`<div class="lv-row" onclick="openKbd('${sec.langs.indexOf(lang)}','${li}','${DATA.indexOf(sec)}')">
+          ${isFirst?`<div class="lv-icon" style="background:${sec.color}">${lang.code}</div>`:'<div style="width:34px;flex-shrink:0"></div>'}
+          <div class="lv-text">
+            <div class="lv-title">${isFirst?lang.name:''}<span style="${isFirst?'color:#6c6c70;font-size:15px':''}">${isFirst&&lang.layouts.length>1?' · ':''}</span>${lang.layouts.length>1||!isFirst?'<span style="color:'+(isFirst?'#6c6c70':'#000')+'">'+lay.label+'</span>':''}</div>
+            <div class="lv-sub">${isFirst?lang.native:lay.label}</div>
+          </div>
+          <div class="lv-chevron">›</div>
+        </div>`;
+      });
+      html+=`</div>`;
+    });
+  });
+  html+=`</div>`;
+  sc.innerHTML=html;
+  if(anim) sc.classList.add('screen-back'); else sc.classList.remove('screen-back');
+  setTimeout(()=>sc.classList.remove('screen-back','screen-enter'),300);
+}
+
+function openKbd(langIdx,layIdx,secIdx){
+  const sec=DATA[parseInt(secIdx)];
+  const lang=sec.langs[parseInt(langIdx)];
+  const lay=lang.layouts[parseInt(layIdx)];
+  curL=lay;curLang=lang;
+  ST={isShift:false,isSym:false,isPunct:false};
+  showKbd(sec.color);
+}
+
+// ── Keyboard screen ──────────────────────────────────────────────────────────
+function showKbd(color){
+  const sc=document.getElementById('screen');
+  const backChev=`<svg viewBox="0 0 9 15" fill="none" width="9" height="15"><path d="M7.5 1L1 7.5L7.5 14" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  sc.innerHTML=`
+    ${sbar()}
+    <div class="navbar">
+      <div class="nb-back" onclick="showList(true)">${backChev} Языки</div>
+      <div class="nb-title">${curLang.name}</div>
+    </div>
+    <div class="kbd-view">
+      <div class="kv-field">
+        <div class="kv-label">${curL.label}</div>
+        <div class="kv-text" id="sft"></div>
+      </div>
+      <div class="kbd" id="kbd"></div>
+      <div class="home-ind"><div></div></div>
+    </div>`;
+  sc.classList.add('screen-enter');
+  setTimeout(()=>sc.classList.remove('screen-enter'),300);
+  renderKbd();
+}
+
+// ── Keyboard render ──────────────────────────────────────────────────────────
+function lpO(ch){const v=(LP[curL.id]||{})[ch];return v?v.trim().split(/\s+/).filter(Boolean):[]}
+
+function renderKbd(){
+  const kbd=document.getElementById('kbd');if(!kbd)return;kbd.innerHTML='';
+  const R=()=>{const d=document.createElement('div');d.className='kr';return d};
+  function key(lbl,cls,act){
+    const k=document.createElement('div');k.className='k '+cls;k.textContent=lbl;
+    const opts=act&&!act.startsWith('__')?lpO(act):[];
+    if(opts.length){const h=document.createElement('span');h.className='lph';h.textContent=opts.length===1?opts[0]:'+';k.appendChild(h)}
+    k.addEventListener('click',e=>{e.stopPropagation();if(!lpPop&&!lpWasShown&&!opts.length)doKey(act,k);lpWasShown=false});
+    if(opts.length){
+      k.addEventListener('mousedown',e=>{e.preventDefault();startLp(e.clientX,e.clientY,k,act,opts)});
+      k.addEventListener('touchstart',e=>{e.preventDefault();const t=e.touches[0];startLp(t.clientX,t.clientY,k,act,opts)},{passive:false});
+    }
+    return k;
+  }
+  if(ST.isSym||ST.isPunct){
+    const d=ST.isPunct?SYMPUNCT:SYM123,tg=ST.isPunct?'123':'#+=';
+    [0,1].forEach(i=>{const r=R();d[i].forEach(c=>r.appendChild(key(c,'',c)));kbd.appendChild(r)});
+    const r3=R();r3.appendChild(key(tg,'sp kpct',ST.isPunct?'__s123':'__pct'));d[2].forEach(c=>r3.appendChild(key(c,'',c)));r3.appendChild(key('⌫','sp wide','__del'));kbd.appendChild(r3);
+    const r4=R();r4.appendChild(key(curL.abc||'АБВ','sp k123','__abc'));r4.appendChild(key(curL.space,'ksp','__sp'));r4.appendChild(key(curL.ret,'sp kret','__ret'));kbd.appendChild(r4);
+  } else {
+    const rows=ST.isShift?curL.shift:curL.rows;
+    const last=rows.length-1;
+    rows.forEach((rowData,i)=>{
+      if(i===last){
+        const r=R();
+        r.appendChild(key('⇧',`sp wide${ST.isShift?' kon':''}`, '__sh'));
+        rowData.forEach(c=>{if(c) r.appendChild(key(c,'',c))});
+        r.appendChild(key('⌫','sp wide','__del'));
+        kbd.appendChild(r);
+      } else {
+        const r=R();rowData.forEach(c=>{if(c) r.appendChild(key(c,'',c))});kbd.appendChild(r);
+      }
+    });
+    const r4=R();r4.appendChild(key('123','sp k123','__sym'));r4.appendChild(key(curL.space,'ksp','__sp'));r4.appendChild(key(curL.ret,'sp kret','__ret'));kbd.appendChild(r4);
+  }
+}
+
+function doKey(a,el){
+  el&&el.classList.add('pressed');setTimeout(()=>el&&el.classList.remove('pressed'),80);
+  if(!a)return;
+  if(a==='__sh'){ST.isShift=!ST.isShift;renderKbd();return}
+  if(a==='__del'){
+    const t=document.getElementById('sft');if(!t)return;
+    const last=t.lastChild;
+    if(last){
+      if(last.nodeName==='BR'){t.removeChild(last);const z=t.lastChild;if(z&&z.nodeValue==='\u200b')t.removeChild(z);}
+      else if(last.nodeType===3&&last.nodeValue.length>1){last.nodeValue=last.nodeValue.slice(0,-1);}
+      else{t.removeChild(last);}
+    }
+    return
+  }
+  if(a==='__sym'){ST.isSym=true;ST.isPunct=false;renderKbd();return}
+  if(a==='__s123'){ST.isSym=true;ST.isPunct=false;renderKbd();return}
+  if(a==='__pct'){ST.isSym=true;ST.isPunct=true;renderKbd();return}
+  if(a==='__abc'){ST.isSym=false;ST.isPunct=false;renderKbd();return}
+  if(a==='__sp'){type(' ');return}
+  if(a==='__ret'){type('\n');return}
+  type(a);
+}
+
+function type(ch){
+  const el=document.getElementById('sft');if(!el)return;
+  if(ch==='\n'){el.innerHTML+='\u200b<br>';} else {el.appendChild(document.createTextNode(ch));}
+  if(ST.isShift&&ch!==' '){ST.isShift=false;renderKbd()}
+}
+
+// ── Longpress ────────────────────────────────────────────────────────────────
+function startLp(x,y,keyEl,origCh,opts){
+  lpEl=keyEl;
+  lpTimer=setTimeout(()=>showLp(keyEl,origCh,opts),380);
+  function mv(cx,cy){
+    if(!lpPop)return;
+    const its=lpPop.querySelectorAll('.lpo');let f=-1;
+    its.forEach((it,i)=>{const r=it.getBoundingClientRect();if(cx>=r.left-6&&cx<=r.right+6&&cy>=r.top-14&&cy<=r.bottom+14)f=i});
+    its.forEach((it,i)=>it.classList.toggle('sel',i===f));lpIdx=f;
+  }
+  function up(cx,cy){
+    clearTimeout(lpTimer);lpTimer=null;cleanup();
+    if(lpPop){mv(cx,cy);const all=[origCh,...opts];type(lpIdx>=0?all[lpIdx]:origCh);hideLp();lpWasShown=true}
+    else{doKey(origCh,keyEl)}
+  }
+  const onMM=e=>mv(e.clientX,e.clientY);
+  const onMU=e=>up(e.clientX,e.clientY);
+  const onTM=e=>{e.preventDefault();const t=e.touches[0];mv(t.clientX,t.clientY)};
+  const onTE=e=>{const t=e.changedTouches[0];up(t.clientX,t.clientY)};
+  function cleanup(){document.removeEventListener('mousemove',onMM);document.removeEventListener('mouseup',onMU);document.removeEventListener('touchmove',onTM);document.removeEventListener('touchend',onTE)}
+  document.addEventListener('mousemove',onMM);document.addEventListener('mouseup',onMU);document.addEventListener('touchmove',onTM,{passive:false});document.addEventListener('touchend',onTE);
+}
+function showLp(keyEl,origCh,opts){
+  if(lpPop)return;lpWasShown=true;keyEl.classList.add('pressed');
+  const pop=document.createElement('div');pop.className='lpp';lpPop=pop;
+  [origCh,...opts].forEach((ch,i)=>{const o=document.createElement('div');o.className='lpo'+(i===0?' orig':'');o.textContent=ch;pop.appendChild(o)});
+  document.body.appendChild(pop);
+  const r=keyEl.getBoundingClientRect(),pw=pop.offsetWidth;
+  let left=r.left+r.width/2-pw/2;
+  if(left<8)left=8;if(left+pw>window.innerWidth-8)left=window.innerWidth-pw-8;
+  pop.style.left=left+'px';pop.style.top=(r.top-pop.offsetHeight-8)+'px';
+}
+function hideLp(){if(lpPop){lpPop.remove();lpPop=null}if(lpEl){lpEl.classList.remove('pressed');lpEl=null}lpIdx=-1}
+
+showList(false);
+</script>
+</body>
+</html>
