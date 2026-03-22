@@ -60,7 +60,7 @@ iOS:
 
 ## 🌍 Supported Languages
 <p align="center">
-  <img src="./assets/gif/languages-en.svg" width="800"/>
+  <img src="./assets/gif/languages-ru.svg" width="800"/>
 </p>
 
 ## 🌍 Контакт
