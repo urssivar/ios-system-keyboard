@@ -58,6 +58,12 @@ iOS:
  6. Определить клавиатуру для macOS – **обязательно**.
  7. Когда все сделаете все этапы, можете отправить ваши файлы мне, либо оформить как PR в Гитхабе.
 
+## 🌍 Supported Languages
+
+<p align="center">
+  <img src="./assets/gif/languages-en.svg" width="800"/>
+</p>
+
 ## 🌍 Контакт
 Автор: Али Кужугет (Али Күжүгет)  
 Проект: *Apple системные кириллические клавиатуры для всех*  
@@ -123,7 +129,13 @@ There's a special guide – [keyNames.md](https://github.com/Agisight/ios-system
 5. Define a secondary keyboard for iOS with 4 rows in lang-4-rows.yaml (for iPhone, there is one scheme, for iPad, there are two schemes). Optional.
 6. Detect the keyboard for macOS – **required**.
 7. Once you've completed all the steps, you can send your files to me or submit them as a PR on GitHub.
-   
+
+## 🌍 Supported Languages
+
+<p align="center">
+  <img src="./assets/gif/languages-en.svg" width="800"/>
+</p>
+
 ## 🌍 Contact
 Author: **Ali Kuzhuget**  
 Project: *Apple Keyboards for All*
