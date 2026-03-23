@@ -160,8 +160,10 @@ const LP=/*BUILD_LP*/{};
 const DATA=/*BUILD_DATA*/[];
 
 
-const SYM123=[['1','2','3','4','5','6','7','8','9','0'],['-','/',':',';','(',')','$','&','@','"'],['.',',','?','!','\'']];
-const SYMPUNCT=[['[',']','{','}','#','%','^','*','+','='],['_','\\','|','~','<','>','€','£','¥','•'],['.',',','?','!','\'']];
+const SYM123_DEFAULT=[['1','2','3','4','5','6','7','8','9','0'],['-','/',':',';','(',')','$','&','@','"'],['.',',','?','!','\'']];
+const SYMPUNCT_DEFAULT=[['[',']','{','}','#','%','^','*','+','='],['_','\\','|','~','<','>','€','£','¥','•'],['.',',','?','!','\'']];
+function getSym123(){ return (curL&&curL.sym1) ? curL.sym1.slice(0,3) : SYM123_DEFAULT; }
+function getSymPunct(){ return (curL&&curL.sym2) ? curL.sym2.slice(0,3) : SYMPUNCT_DEFAULT; }
 
 let ST={isShift:false,isSym:false,isPunct:false};
 let lpTimer=null,lpEl=null,lpPop=null,lpIdx=-1,lpWasShown=false;
@@ -255,7 +257,7 @@ function renderKbd(){
     return k;
   }
   if(ST.isSym||ST.isPunct){
-    const d=ST.isPunct?SYMPUNCT:SYM123,tg=ST.isPunct?'123':'#+=';
+    const d=ST.isPunct?getSymPunct():getSym123(),tg=ST.isPunct?'123':'#+=';
     [0,1].forEach(i=>{const r=R();d[i].forEach(c=>r.appendChild(key(c,'',c)));kbd.appendChild(r)});
     const r3=R();r3.appendChild(key(tg,'sp kpct',ST.isPunct?'__s123':'__pct'));d[2].forEach(c=>r3.appendChild(key(c,'',c)));r3.appendChild(key('⌫','sp wide','__del'));kbd.appendChild(r3);
     const r4=R();r4.appendChild(key(curL.abc||'АБВ','sp k123','__abc'));r4.appendChild(key(curL.space,'ksp','__sp'));r4.appendChild(key(curL.ret,'sp kret','__ret'));kbd.appendChild(r4);
