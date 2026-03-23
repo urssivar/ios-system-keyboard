@@ -167,6 +167,12 @@ def discover():
         if not rows:
             continue
 
+        # Parse symbol layers (symbols-1 = numbers/punct, symbols-2 = extra)
+        sym1_str = layers.get("symbols-1", "")
+        sym2_str = layers.get("symbols-2", "")
+        sym1 = parse_rows(sym1_str) if sym1_str else None
+        sym2 = parse_rows(sym2_str) if sym2_str else None
+
         # code = parent folder name
         code = yaml_file.parent.name
         if code == "layout":
@@ -202,6 +208,8 @@ def discover():
             "rows": rows, "shift": shift,
             "space": space, "ret": ret,
         }
+        if sym1: layout_entry["sym1"] = sym1
+        if sym2: layout_entry["sym2"] = sym2
 
         if code not in langs_by_code:
             langs_by_code[code] = {
