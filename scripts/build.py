@@ -220,7 +220,11 @@ def make_label(data, code, stem, lid):
         if val:
             # Strip the base language name prefix if present
             base = LANG_NAMES_RU.get(code, "")
-            val_clean = re.sub(rf"^{re.escape(base)}\s*[\(·\-]?\s*", "", val).strip(")")
+            val_clean = re.sub(rf"^{re.escape(base)}\s*[\(·\-]?\s*", "", val)
+            # strip matching closing paren only if we stripped an opening one
+            if val_clean != val and val_clean.endswith(')') and '(' not in val_clean:
+                val_clean = val_clean[:-1]
+            val_clean = val_clean.strip()
             if val_clean and val_clean != base:
                 return val_clean
     # Fallback: derive from stem
