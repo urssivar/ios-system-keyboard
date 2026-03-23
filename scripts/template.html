@@ -246,6 +246,12 @@ function renderKbd(){
   const kbd=document.getElementById('kbd');if(!kbd)return;kbd.innerHTML='';
   const R=()=>{const d=document.createElement('div');d.className='kr';return d};
   function key(lbl,cls,act){
+    if(lbl===null||lbl===''){
+      const s=document.createElement('div');
+      s.className='k';
+      s.style.cssText='visibility:hidden;pointer-events:none;box-shadow:none;background:transparent';
+      return s;
+    }
     const k=document.createElement('div');k.className='k '+cls;k.textContent=lbl;
     const opts=act&&!act.startsWith('__')?lpO(act):[];
     if(opts.length){const h=document.createElement('span');h.className='lph';h.textContent=opts.length===1?opts[0]:'+';k.appendChild(h)}
@@ -264,6 +270,8 @@ function renderKbd(){
   } else {
     const rows=ST.isShift?curL.shift:curL.rows;
     const last=rows.length-1;
+    // find max key count among non-shift rows (to know standard key width)
+    const maxLen=Math.max(...rows.slice(0,last).map(r=>r.length));
     rows.forEach((rowData,i)=>{
       if(i===last){
         const r=R();
@@ -272,7 +280,14 @@ function renderKbd(){
         r.appendChild(key('⌫','sp wide','__del'));
         kbd.appendChild(r);
       } else {
-        const r=R();rowData.forEach(c=>{if(c) r.appendChild(key(c,'',c))});kbd.appendChild(r);
+        const r=R();
+        // pad short rows symmetrically with invisible spacers so key width stays consistent
+        const pad=maxLen-rowData.length;
+        const padL=Math.floor(pad/2), padR=Math.ceil(pad/2);
+        for(let p=0;p<padL;p++) r.appendChild(key(null,'',''));
+        rowData.forEach(c=>r.appendChild(key(c,'',c)));
+        for(let p=0;p<padR;p++) r.appendChild(key(null,'',''));
+        kbd.appendChild(r);
       }
     });
     const r4=R();r4.appendChild(key('123','sp k123','__sym'));r4.appendChild(key(curL.space,'ksp','__sp'));r4.appendChild(key(curL.ret,'sp kret','__ret'));kbd.appendChild(r4);
