@@ -17,11 +17,14 @@ Versions sorting for iPhone:
 For iPad keyboard versions there is only 1 version, because there is enough space to put Bashkir letters.
 
 ## Bashkir macOS
-There are two macOS variants:
+There are three macOS variants:
 * bak-macos.yaml (Apple-style)
 * bak-macos-pc.yaml (PC-style)
+* bak-macos-alt.yaml (Alt/Option)
 
 `caps` and `caps+shift` switch to the Russian layout.
+
+Third one is based on the standard Russian layout. Bashkir-specific characters are accessed using the `Alt/Option` key.
 
 # Bashkir keyNames
 Localized into Bashkir using common system button labels.
