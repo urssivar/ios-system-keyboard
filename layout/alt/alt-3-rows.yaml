@@ -4,19 +4,19 @@ displayNames:
   alt: Алтай
 
 decimal: ','
-ABC: 'ӨҢҮ'
-abc: 'өңү'
+ABC: 'ӦҤӰ'
+abc: 'ӧҥӱ'
 
 iOS:
   primary:
     layers:
       default: |
-        й ү у к е н ң г ш з х
-        ө ы в а п р о л д ж э
+        й ӱ у к е н ҥ г ш з х
+        ӧ ы в а п р о л д ј э
         \s{shift} я ч с м и т ь б ю \s{backspace}
       shift: |
-        Й Ү У К Е Н Ң Г Ш З Х
-        Ө Ы В А П Р О Л Д Ж Э
+        Й Ӱ У К Е Н Ҥ Г Ш З Х
+        Ӧ Ы В А П Р О Л Д Ј Э
         \s{shift} Я Ч С М И Т Ь Б Ю \s{backspace}
       symbols-1: |
         1 2 3 4 5 6 7 8 9 0
@@ -29,12 +29,12 @@ iOS:
   iPad-9in:
     layers:
       default: |
-        \s{spacer:0.3}   й ү у к е н ң г ш з х \s{spacer:1.7}
-        \s{spacer:0.6}   ө ы в а п р о л д ж э \s{return:1.4}
+        \s{spacer:0.3}   й ӱ у к е н ҥ г ш з х \s{spacer:1.7}
+        \s{spacer:0.6}   ӧ ы в а п р о л д ј э \s{return:1.4}
         \s{shift}        я ч с м и т ь б ю ъ   \s{shift:2.0}
       shift: |
-        \s{spacer:0.3}   Й Ү У К Е Н Ң Г Ш З Х \s{spacer:1.7}
-        \s{spacer:0.6}   Ө Ы В А П Р О Л Д Ж Э \s{return:1.4}
+        \s{spacer:0.3}   Й Ӱ У К Е Н Ҥ Г Ш З Х \s{spacer:1.7}
+        \s{spacer:0.6}   Ӧ Ы В А П Р О Л Д Ј Э \s{return:1.4}
         \s{shift}        Я Ч С М И Т Ь Б Ю Ъ   \s{shift:2.0}
       alt: |
         \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
@@ -56,13 +56,13 @@ iOS:
     layers:
       default: |
         >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
-        \s{tab:1.5}      й ү у к е н ң г ш з х ъ \s{return}
-        \s{caps:1.75}    ө ы в а п р о л д ж э ё \s{return:0.75}
+        \s{tab:1.5}      й ӱ у к е н ҥ г ш з х ъ \s{return}
+        \s{caps:1.75}    ӧ ы в а п р о л д ј э ё \s{return:0.75}
         \s{shift:1.25} ] я ч с м и т ь б ю ц ф / \s{shift:1.25}
       shift: |
         <                ! " № % : , . ; ( ) _ + \s{backspace:1.5}
-        \s{tab:1.5}      Й Ү У К Е Н Ң Г Ш З Х Ъ \s{return}
-        \s{caps:1.75}    Ө Ы В А П Р О Л Д Ж Э Ё \s{return:0.75}
+        \s{tab:1.5}      Й Ӱ У К Е Н Ҥ Г Ш З Х Ъ \s{return}
+        \s{caps:1.75}    Ӧ Ы В А П Р О Л Д Ј Э Ё \s{return:0.75}
         \s{shift:1.25} [ Я Ч С М И Т Ь Б Ю ц ф ? \s{shift:1.25}
       alt: |
         `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
