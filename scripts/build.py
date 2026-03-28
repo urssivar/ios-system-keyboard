@@ -41,7 +41,7 @@ FAMILY = {
     "tat": ("Тюркские",   "#FF6B35"),
     "kjh": ("Тюркские",   "#FF6B35"),
     "chv": ("Тюркские",   "#FF6B35"),
-    "xal": ("Тюркские",   "#FF6B35"),
+    "xal": ("Монгольские", "#AF52DE"),
     "ykt": ("Тюркские",   "#FF6B35"),
     "ava": ("Кавказские", "#30B850"),
     "xdq": ("Кавказские", "#30B850"),
@@ -49,7 +49,7 @@ FAMILY = {
     "kom": ("Уральские",  "#5856D6"),
     "rus": ("Славянские", "#007aff"),
 }
-FAMILY_ORDER = ["Тюркские", "Кавказские", "Иранские", "Уральские", "Славянские", "Другие"]
+FAMILY_ORDER = ["Тюркские", "Монгольские", "Кавказские", "Иранские", "Уральские", "Славянские", "Другие"]
 
 # Display names in Russian for language codes
 LANG_NAMES_RU = {
@@ -219,12 +219,21 @@ def make_layout_id(code, stem):
 def make_label(data, code, stem, lid):
     """Human-readable variant label from displayNames or stem."""
     names = data.get("displayNames") or data.get("displaynames") or {}
-    # Try language-native name first, then Russian, then English
-    for lang in [code, "ru", "rus", "en", "eng"]:
-        val = names.get(lang, "")
-        if val:
+    base = LANG_NAMES_RU.get(code, "")
+
+    # If the native displayName IS the base name (e.g. ykt: "Саха" == LANG_NAMES_RU "Саха"),
+    # displayNames won't yield a useful distinguishing label — skip to stem suffix.
+    native_key = [k for k in names if k not in ("en", "eng", "ru", "rus")]
+    native_val = names.get(native_key[0], "") if native_key else ""
+    skip_display = (native_val == base)
+
+    if not skip_display:
+        # Try language-native name first, then Russian, then English
+        for lang in [code, "ru", "rus", "en", "eng"]:
+            val = names.get(lang, "")
+            if not val or val == base:
+                continue
             # Strip the base language name prefix if present
-            base = LANG_NAMES_RU.get(code, "")
             val_clean = re.sub(rf"^{re.escape(base)}\s*[\(·\-]?\s*", "", val)
             # strip matching closing paren only if we stripped an opening one
             if val_clean != val and val_clean.endswith(')') and '(' not in val_clean:
@@ -232,6 +241,7 @@ def make_label(data, code, stem, lid):
             val_clean = val_clean.strip()
             if val_clean and val_clean != base:
                 return val_clean
+
     # Fallback: derive from stem
     suffix = stem[len(code):].lstrip("-")
     mapping = {
