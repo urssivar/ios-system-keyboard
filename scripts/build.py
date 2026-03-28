@@ -317,6 +317,7 @@ def discover():
             "id": lid, "label": label, "abc": abc,
             "rows": rows, "shift": shift,
             "space": space, "ret": ret,
+            "_nrows": len(rows),  # internal: used for label dedup
         }
         if sym1: layout_entry["sym1"] = sym1
         if sym2: layout_entry["sym2"] = sym2
@@ -329,6 +330,25 @@ def discover():
         existing_ids = {l["id"] for l in langs_by_code[code]["layouts"]}
         if lid not in existing_ids:
             langs_by_code[code]["layouts"].append(layout_entry)
+
+    # ── Post-process: disambiguate duplicate labels with row count ─────────
+    ROW_SUFFIX = {3: "3 ряда", 4: "4 ряда", 5: "5 рядов"}
+    for code, lang in langs_by_code.items():
+        layouts = lang["layouts"]
+        if len(layouts) < 2:
+            continue
+        # Find labels that appear more than once
+        from collections import Counter
+        label_counts = Counter(l["label"] for l in layouts)
+        for lay in layouts:
+            if label_counts[lay["label"]] > 1:
+                nr = lay.get("_nrows", 0)
+                suffix = ROW_SUFFIX.get(nr, f"{nr} рядов")
+                lay["label"] = f"{lay['label']} · {suffix}"
+    # Remove internal _nrows field
+    for code, lang in langs_by_code.items():
+        for lay in lang["layouts"]:
+            lay.pop("_nrows", None)
 
     # Group by family
     families = {}
