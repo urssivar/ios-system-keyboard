@@ -58,12 +58,12 @@ iOS:
         >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
         \s{tab:1.5}      й у ү к е н ҥ г ҕ ш з х \s{return}
         \s{caps:1.75}    ф ы в а п р о ө л д ж э \s{return:0.75}
-        \s{shift:1.25} ] я ч с һ м и т ь б ю / \s{shift:1.25}
+        \s{shift:1.25} ] я ч с һ м и т ь б ю / \s{shift:2.25}
       shift: |
         <                ! " № % : , . ; ( ) _ + \s{backspace:1.5}
         \s{tab:1.5}      Й У Ү К Е Н Ҥ Г Ҕ Ш З Х \s{return}
         \s{caps:1.75}    Ф Ы В А П Р О Ө Л Д Ж Э \s{return:0.75}
-        \s{shift:1.25} [ Я Ч С Һ М И Т Ь Б Ю ? \s{shift:1.25}
+        \s{shift:1.25} [ Я Ч С Һ М И Т Ь Б Ю ? \s{shift:2.25}
       alt: |
         `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
         \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
