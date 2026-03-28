@@ -179,8 +179,18 @@ def parse_rows(layer_str):
 
 def get_display_name(data, lang):
     names = data.get("displayNames") or data.get("displaynames") or {}
-    return (names.get(lang) or names.get("ru") or names.get("en")
-            or names.get("eng") or next(iter(names.values()), ""))
+    # Try exact lang key first
+    if names.get(lang):
+        return names[lang]
+    # Try native keys (keys that aren't en/ru/eng/rus and aren't codes of other languages)
+    native_keys = [k for k in names if k not in ("en", "eng", "ru", "rus")
+                   and (k == lang or (k not in FAMILY and k not in LANG_NAMES_RU))]
+    for nk in native_keys:
+        if names.get(nk):
+            return names[nk]
+    return (names.get("ru") or names.get("en")
+            or names.get("eng") or names.get("rus")
+            or next(iter(names.values()), ""))
 
 def parse_longpress(lp_data):
     """Flatten longpress YAML → {char: 'alt1 alt2 ...'}"""
@@ -229,7 +239,16 @@ def make_label(data, code, stem, lid):
 
     if not skip_display:
         # Try language-native name first, then Russian, then English
-        for lang in [code, "ru", "rus", "en", "eng"]:
+        # native_key contains actual YAML keys like 'tt', 'ba' (not always == code like 'tat', 'bak')
+        # But skip keys that are codes of OTHER languages (e.g. 'tyv' in Russian YAML)
+        own_native = [k for k in native_key
+                      if k == code or k not in FAMILY and k not in LANG_NAMES_RU]
+        search_order = [code] + own_native + ["ru", "rus", "en", "eng"]
+        seen = set()
+        for lang in search_order:
+            if lang in seen:
+                continue
+            seen.add(lang)
             val = names.get(lang, "")
             if not val or val == base:
                 continue
@@ -334,8 +353,13 @@ def discover():
 
         if code not in langs_by_code:
             langs_by_code[code] = {
-                "code": code, "name": name_ru, "native": native, "layouts": []
+                "code": code, "name": native, "native": name_ru, "layouts": []
             }
+        else:
+            # Prefer shorter/cleaner name without parenthetical variants
+            existing = langs_by_code[code]["name"]
+            if native and ('(' not in native) and ('(' in existing or len(native) < len(existing)):
+                langs_by_code[code]["name"] = native
         # avoid duplicate ids
         existing_ids = {l["id"] for l in langs_by_code[code]["layouts"]}
         if lid not in existing_ids:
