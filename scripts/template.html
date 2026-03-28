@@ -56,7 +56,14 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   overflow:hidden;
   display:flex;flex-direction:column;
   height:620px;
+  position:relative;
 }
+.screen-inner{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+}
+.screen-inner.anim-enter{animation:senter .28s ease}
+.screen-inner.anim-back{animation:sback .28s ease}
 
 /* status bar */
 .sbar{
@@ -139,9 +146,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .lpo:hover,.lpo.sel{background:var(--accent);color:#fff}
 .lpo.orig{font-weight:600}
 
-/* slide transitions */
-.screen-enter{animation:senter .28s ease}
-.screen-back {animation:sback  .28s ease}
+/* slide transitions — handled by .screen-inner.anim-enter / .anim-back */
 @keyframes senter{from{transform:translateX(100%)}to{transform:translateX(0)}}
 @keyframes sback {from{transform:translateX(-30%)}to{transform:translateX(0)}}
 
@@ -269,7 +274,9 @@ function showMacModal(langName,macosFiles){
 // ── List screen ──────────────────────────────────────────────────────────────
 function showList(anim){
   const sc=document.getElementById('screen');
-  let html=sbar();
+  const cls=anim?'screen-inner anim-back':'screen-inner';
+  let html=`<div class="${cls}">`;
+  html+=sbar();
   html+=`<div class="navbar"><div class="nb-title">Клавиатуры</div></div>`;
   html+=`<div class="list-view">`;
   DATA.forEach(sec=>{
@@ -292,10 +299,9 @@ function showList(anim){
       html+=`</div>`;
     });
   });
-  html+=`</div>`;
+  html+=`</div></div>`;
   sc.innerHTML=html;
-  if(anim) sc.classList.add('screen-back'); else sc.classList.remove('screen-back');
-  setTimeout(()=>{sc.classList.remove('screen-back','screen-enter');const lv=document.querySelector('.list-view');if(lv&&listScrollY)lv.scrollTop=listScrollY},anim?10:0);
+  setTimeout(()=>{const si=sc.querySelector('.screen-inner');if(si)si.classList.remove('anim-back');const lv=sc.querySelector('.list-view');if(lv&&listScrollY)lv.scrollTop=listScrollY},anim?10:0);
 }
 
 function openKbd(langIdx,layIdx,secIdx){
@@ -313,7 +319,7 @@ function openKbd(langIdx,layIdx,secIdx){
 function showKbd(color){
   const sc=document.getElementById('screen');
   const backChev=`<svg viewBox="0 0 9 15" fill="none" width="9" height="15"><path d="M7.5 1L1 7.5L7.5 14" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-  sc.innerHTML=`
+  sc.innerHTML=`<div class="screen-inner anim-enter">
     ${sbar()}
     <div class="navbar">
       <div class="nb-back" onclick="showList(true)">${backChev} Языки</div>
@@ -326,9 +332,8 @@ function showKbd(color){
       </div>
       <div class="kbd" id="kbd"></div>
       <div class="home-ind"><div></div></div>
-    </div>`;
-  sc.classList.add('screen-enter');
-  setTimeout(()=>sc.classList.remove('screen-enter'),300);
+    </div></div>`;
+  setTimeout(()=>{const si=sc.querySelector('.screen-inner');if(si)si.classList.remove('anim-enter')},300);
   renderKbd();
 }
 
