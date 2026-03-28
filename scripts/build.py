@@ -42,6 +42,7 @@ FAMILY = {
     "kjh": ("Тюркские",   "#FF6B35"),
     "chv": ("Тюркские",   "#FF6B35"),
     "xal": ("Тюркские",   "#FF6B35"),
+    "ykt": ("Тюркские",   "#FF6B35"),
     "ava": ("Кавказские", "#30B850"),
     "xdq": ("Кавказские", "#30B850"),
     "oss": ("Иранские",   "#FF9500"),
@@ -56,6 +57,7 @@ LANG_NAMES_RU = {
     "kjh": "Хакасский", "chv": "Чувашский",  "xal": "Калмыцкий",
     "ava": "Аварский",  "xdq": "Кайтагский", "oss": "Осетинский",
     "kom": "Коми",      "rus": "Русский",
+    "ykt": "Якутский",
 }
 
 # ── YAML helpers ─────────────────────────────────────────────────────────────
@@ -145,6 +147,8 @@ def load_yaml(path):
         raw = f.read()
 
     normalized = normalize_block_scalars(raw)
+    # Fix YAML anchor names containing '+' (not allowed by spec)
+    normalized = re.sub(r'(&|\*)([A-Z]+)\+([A-Z]+)', r'\1\2_\3', normalized)
     return yaml.load(normalized, Loader=make_loader(path)) or {}
 
 def parse_rows(layer_str):
@@ -333,6 +337,33 @@ def discover():
         if fam not in families:
             families[fam] = {"group": fam, "color": color, "langs": []}
         families[fam]["langs"].append(lang)
+
+    # ── Discover macOS layouts ────────────────────────────────────────────────
+    macos_by_code = {}  # code → [{file: "tyv.keylayout", name: "Тыва — Тувинский"}]
+    for yaml_file in sorted(LAYOUT.rglob("*-macos*.yaml")):
+        code = yaml_file.parent.name
+        if code == "layout":
+            code = yaml_file.stem.split("-")[0]
+        stem = yaml_file.stem.replace("-macos", "")
+        keylayout_name = f"{stem}.keylayout"
+        # Try to get display name
+        try:
+            data = load_yaml(yaml_file)
+            names = data.get("displayNames") or {}
+            native_keys = [k for k in names if k not in ("en", "eng", "ru", "rus")]
+            native = names.get(native_keys[0], "") if native_keys else ""
+            ru_name = names.get("ru") or names.get("rus", "")
+            display = f"{native} — {ru_name}" if native and ru_name and native != ru_name else (ru_name or native or stem)
+        except Exception:
+            display = stem
+        if code not in macos_by_code:
+            macos_by_code[code] = []
+        macos_by_code[code].append({"file": keylayout_name, "name": display})
+
+    # Inject macOS info into lang entries
+    for code, lang in langs_by_code.items():
+        if code in macos_by_code:
+            lang["macos"] = macos_by_code[code]
 
     groups = []
     for fam in FAMILY_ORDER:

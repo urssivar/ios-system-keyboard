@@ -144,6 +144,36 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .screen-back {animation:sback  .28s ease}
 @keyframes senter{from{transform:translateX(100%)}to{transform:translateX(0)}}
 @keyframes sback {from{transform:translateX(-30%)}to{transform:translateX(0)}}
+
+/* ── macOS modal ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:#fff;border-radius:16px;max-width:360px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.35);overflow:hidden;animation:modalUp .25s ease}
+@keyframes modalUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-hdr{padding:18px 20px 12px;display:flex;align-items:center;gap:10px;border-bottom:.5px solid rgba(0,0,0,.08)}
+.modal-hdr svg{flex-shrink:0}
+.modal-hdr-text{flex:1}
+.modal-hdr h3{font-size:17px;font-weight:600;color:#000;margin:0}
+.modal-hdr p{font-size:13px;color:#8e8e93;margin:2px 0 0}
+.modal-close{width:28px;height:28px;background:#e8e8ed;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:#6c6c70;flex-shrink:0;border:none}
+.modal-close:hover{background:#d8d8dc}
+.modal-body{padding:16px 20px 20px}
+.modal-dl{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.modal-dl a{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f2f2f7;border-radius:10px;text-decoration:none;color:#000;font-size:15px;transition:background .1s}
+.modal-dl a:hover{background:#e8e8ed}
+.modal-dl a svg{flex-shrink:0;color:var(--accent)}
+.modal-dl a span{flex:1}
+.modal-dl a .dl-size{font-size:12px;color:#8e8e93}
+.modal-steps{font-size:13px;color:#6c6c70;line-height:1.5}
+.modal-steps b{color:#3c3c3e;font-weight:600}
+.modal-steps ol{margin:8px 0 0;padding-left:20px}
+.modal-steps li{margin-bottom:6px}
+.modal-steps code{background:#f2f2f7;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:12px}
+
+/* macOS badge in list */
+.lv-macos{display:flex;align-items:center;gap:4px;padding:3px 8px;background:#f2f2f7;border-radius:6px;font-size:11px;color:#6c6c70;cursor:pointer;flex-shrink:0;border:none;font-family:var(--font);transition:background .1s}
+.lv-macos:hover{background:#e0e0e5}
+.lv-macos svg{width:14px;height:14px}
 </style>
 </head>
 <body>
@@ -177,6 +207,42 @@ function sbar(){
   return `<div class="sbar"><span>${now()}</span><div class="sicons">${SISVG}</div></div>`;
 }
 
+// ── macOS SVGs ──
+const MACOS_ICON=`<svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M12.5 2H3.5C2.67 2 2 2.67 2 3.5v7C2 11.33 2.67 12 3.5 12h9c.83 0 1.5-.67 1.5-1.5v-7C14 2.67 13.33 2 12.5 2ZM13 10.5c0 .28-.22.5-.5.5h-9c-.28 0-.5-.22-.5-.5v-7c0-.28.22-.5.5-.5h9c.28 0 .5.22.5.5v7ZM10 13H6l-.5 1h5l-.5-1Z" fill="currentColor"/></svg>`;
+const DL_ICON=`<svg viewBox="0 0 16 16" fill="none" width="16" height="16"><path d="M8 1v8.5M8 9.5L5 6.5M8 9.5l3-3M3 11v2h10v-2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const KEYLAYOUT_BASE='keylayout/';
+
+function showMacModal(langName,macosFiles){
+  const ov=document.createElement('div');ov.className='modal-overlay';
+  ov.onclick=e=>{if(e.target===ov)ov.remove()};
+  let dlLinks='';
+  macosFiles.forEach(f=>{
+    dlLinks+=`<a href="${KEYLAYOUT_BASE}${f.file}" download><svg viewBox="0 0 16 16" fill="none" width="16" height="16"><path d="M8 1v8.5M8 9.5L5 6.5M8 9.5l3-3M3 11v2h10v-2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>${f.name}</span><span class="dl-size">.keylayout</span></a>`;
+  });
+  ov.innerHTML=`<div class="modal">
+    <div class="modal-hdr">
+      ${MACOS_ICON.replace('width="14" height="14"','width="24" height="24"')}
+      <div class="modal-hdr-text"><h3>${langName}</h3><p>Раскладка для macOS</p></div>
+      <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-dl">${dlLinks}</div>
+      <div class="modal-steps">
+        <b>Установка:</b>
+        <ol>
+          <li>Скачайте файл <code>.keylayout</code></li>
+          <li>Скопируйте в <code>~/Library/Keyboard Layouts/</code></li>
+          <li>Перезагрузите Mac или выйдите из сессии</li>
+          <li><b>Системные настройки</b> → Клавиатура → Источники ввода → <b>+</b> → Другие</li>
+        </ol>
+        <b>Или через Терминал:</b><br>
+        <code style="display:block;margin-top:6px;padding:8px;background:#1c1c1e;color:#98c379;border-radius:6px;font-size:11px;line-height:1.6;word-break:break-all">cp ~/Downloads/*.keylayout ~/Library/Keyboard\\ Layouts/</code>
+      </div>
+    </div>
+  </div>`;
+  document.body.appendChild(ov);
+}
+
 // ── List screen ──────────────────────────────────────────────────────────────
 function showList(anim){
   const sc=document.getElementById('screen');
@@ -189,12 +255,14 @@ function showList(anim){
       html+=`<div class="lv-card">`;
       lang.layouts.forEach((lay,li)=>{
         const isFirst=li===0;
+        const macBtn=isFirst&&lang.macos?`<button class="lv-macos" onclick="event.stopPropagation();showMacModal('${lang.name.replace(/'/g,"\\'")}',${JSON.stringify(lang.macos).replace(/"/g,'&quot;')})">${MACOS_ICON} macOS</button>`:'';
         html+=`<div class="lv-row" onclick="openKbd('${sec.langs.indexOf(lang)}','${li}','${DATA.indexOf(sec)}')">
           ${isFirst?`<div class="lv-icon" style="background:${sec.color}">${lang.code}</div>`:'<div style="width:34px;flex-shrink:0"></div>'}
           <div class="lv-text">
             <div class="lv-title">${isFirst?lang.name:''}<span style="${isFirst?'color:#6c6c70;font-size:15px':''}">${isFirst&&lang.layouts.length>1?' · ':''}</span>${lang.layouts.length>1||!isFirst?'<span style="color:'+(isFirst?'#6c6c70':'#000')+'">'+lay.label+'</span>':''}</div>
             <div class="lv-sub">${isFirst?lang.native:lay.label}</div>
           </div>
+          ${macBtn}
           <div class="lv-chevron">›</div>
         </div>`;
       });
