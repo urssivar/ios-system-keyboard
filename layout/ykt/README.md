@@ -21,3 +21,7 @@ Keyboard uses swapping/replacing less frequent Russian letters (Ф, Ц, Щ, Ж, 
 ## Sakha keyNames
 
 I have translated this using the most common phrases and natural, intuitive commands to provide a truly native and comfortable user experience for Sakha speakers.
+
+## Layout Developers' Contact Information:
+* Aytal Nogovitsyn – https://t.me/seonsaen (Graduate of GBNOU RS(Ya) RLI – ГБНОУ РС(Я) РЛИ)
+* Alla Nogovitsyna
