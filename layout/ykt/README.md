@@ -9,8 +9,8 @@ There are 2 layers: ykt-3-rows and ykt-4-rows.
 4 rows keyboard is an additional version for people who don't like to longpress letters. It features a dedicated top row for native Sakha letters (һ, ө, ҕ, ү, ҥ), while its 2-4 rows are exactly the same as the standard Russian keyboard – so it can be called Sakha based on Russian.
 
 Versions sorting for iPhone:
-* ykt-4-rows.yaml
 * ykt-3-rows.yaml
+* ykt-4-rows.yaml
 
 For iPad keyboard versions there is only 1 version, because there are enough space to put Sakha letters.
 
