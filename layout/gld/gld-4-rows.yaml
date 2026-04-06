@@ -22,4 +22,35 @@ iOS:
         Ё Е У Э Й В Б Д Ӡ Г
         \s{#+=} - И О А Р Л М Н Њ Ӈ \s{backspace}
         \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+
+  iPad-9in:
+    primary:
+      layers:
+        default: |
+          ̄ і ө ы ь ш ф ᵸ з ʼ ъ
+          ё е у э й в б д ӡ г ӈ
+          \s{#+=} - и о а р л м н њ ԩ \s{backspace}
+          \s{shift} , . я ю х с п т ч к \s{backspace}
+        shift: |
+          ̄ І Ө Ы Ь Ш Ф ᵸ З ʼ Ъ
+          Ё Е У Э Й В Б Д Ӡ Г Ӈ
+          \s{#+=} - И О А Р Л М Н Њ Ԩ \s{backspace}
+          \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+
+  iPad-12in:
+    primary:
+      layers:
+        default: |
+          ] ̄ і ө ы ь ш ф ᵸ з ʼ ъ [
+          ё е у э й в б д ӡ г ӈ ԩ
+          - и о а р л м н њ ж ц
+          \s{shift} , . я ю х с п т ч к / \s{backspace}
+        shift: |
+          [ ̄ І Ө Ы Ь Ш Ф ᵸ З ʼ Ъ ]
+          Ё Е У Э Й В Б Д Ӡ Г Ӈ Ԩ
+          - И О А Р Л М Н Њ Ж Ц
+          \s{shift} , . Я Ю Х С П Т Ч К ? \s{backspace}
+
+  deadKeys: ['̄']
+
   longpress: !include gld-longpress-short.yaml

@@ -35,4 +35,29 @@ iOS:
         Ё Е У Э Й В Б Д Ӡ Г
         \s{#+=} - И О А Р Л М Н ᵸ Ӈ \s{backspace}
         \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+
+  iPad-9in:
+    primary:
+      layers:
+        default: |
+          ё е у э й в б д ӡ г ӈ
+          \s{#+=} - и о а р л м н ᵸ ʼ \s{backspace}
+          \s{shift} , . я ю х с п т ч к \s{backspace}
+        shift: |
+          Ё Е У Э Й В Б Д Ӡ Г Ӈ
+          \s{#+=} - И О А Р Л М Н ᵸ ʼ \s{backspace}
+          \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+
+  iPad-12in:
+    primary:
+      layers:
+        default: |
+          ] ё е у э й в б д ӡ г ӈ [
+          - и о а р л м н ᵸ ʼ ъ
+          \s{shift} , . я ю х с п т ч к / \s{backspace}
+        shift: |
+          [ Ё Е У Э Й В Б Д Ӡ Г Ӈ ]
+          - И О А Р Л М Н ᵸ ʼ Ъ
+          \s{shift} , . Я Ю Х С П Т Ч К ? \s{backspace}
+
   longpress: !include gld-longpress.yaml
