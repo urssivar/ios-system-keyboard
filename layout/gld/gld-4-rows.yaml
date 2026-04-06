@@ -1,0 +1,25 @@
+displayNames:
+  en: Nanai
+  ru: Нанайский
+  gld: На̄ни
+
+ABC: НДӠ
+
+decimal: ','
+
+keyNames: !include gld-3-rows.yaml:keyNames
+
+iOS:
+  primary:
+    layers:
+      default: |
+        ̄ і ө ы ь ш ф ᵸ з ʼ
+        ё е у э й в б д ӡ г
+        \s{#+=} - и о а р л м н њ ӈ \s{backspace}
+        \s{shift} , . я ю х с п т ч к \s{backspace}
+      shift: |
+        ̄ І Ө Ы Ь Ш Ф ᵸ З ʼ
+        Ё Е У Э Й В Б Д Ӡ Г
+        \s{#+=} - И О А Р Л М Н Њ Ӈ \s{backspace}
+        \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+  longpress: !include gld-longpress-short.yaml

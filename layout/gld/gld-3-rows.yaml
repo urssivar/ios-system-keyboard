@@ -1,0 +1,38 @@
+displayNames:
+  en: Nanai
+  ru: Нанайский
+  gld: На̄ни
+
+ABC: НДӠ
+
+decimal: ','
+
+keyNames:
+  space: пробел
+  return: ввод
+  return-alts:
+    search: Найти
+    go: Перейти
+    send: Отправить
+    join: Подкл.
+    route: Маршрут
+    next: Далее
+    continue: Продолжить
+    done: Готово
+  emergency: SOS
+  cancel: Отменить
+  undo: Не применять
+  redo: Повторить
+
+iOS:
+  primary:
+    layers:
+      default: |
+        ё е у э й в б д ӡ г
+        \s{#+=} - и о а р л м н ᵸ ӈ \s{backspace}
+        \s{shift} , . я ю х с п т ч к \s{backspace}
+      shift: |
+        Ё Е У Э Й В Б Д Ӡ Г
+        \s{#+=} - И О А Р Л М Н ᵸ Ӈ \s{backspace}
+        \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+  longpress: !include gld-longpress.yaml
