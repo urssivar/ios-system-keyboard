@@ -132,6 +132,7 @@ Head row contains Altai-specific letters and punctuation. The main 3 rows follow
 ## Разработчик / Developer
 
 * Али Кужугет / Ali Kuzhuget
+* Chekonova Ayaru
 
 ## Ссылки / References
 
