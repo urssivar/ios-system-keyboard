@@ -23,7 +23,10 @@ Versions sorting for iPhone:
 
 ## Buryat macOS
 
-Keyboard uses swapping/replacing less frequent Russian letters (ЦФЩ) to Buryat-specific letters (ҮҺӨ), making original Russian letters accessible via `Option` (aka `ALT`).
+Two variants available:
+
+* **Buryat (Standard)**: Replaces `ЦФЩ` with `ҮҺӨ`. Original letters accessible via `Option`.
+* **Buryat (Mongolian)**: Follows the `nm` layout pattern (12-key rows).
 
 ## Details
 
