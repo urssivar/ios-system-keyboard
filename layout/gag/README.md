@@ -18,6 +18,8 @@ displayNames:
 
 * gag-3-rows.yaml (Mobile-optimized)
 
+If needed, the second row can be centralized if the dot symbol is removed from it.
+
 ## Gagauz macOS
 
 * gag-macos.yaml (Standard Latin-based layout)
