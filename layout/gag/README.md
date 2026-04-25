@@ -57,3 +57,7 @@ keyNames:
 
 - [Gagauz language — Wikipedia](https://en.wikipedia.org/wiki/Gagauz_language)
 - [Гагаузский язык — Википедия](https://ru.wikipedia.org/wiki/Гагаузский_язык)
+
+## Дизайн / Design
+
+– Zahar Telpiz
