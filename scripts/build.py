@@ -49,6 +49,12 @@ LANG_NAMES_RU = {
     "gag": "Гагаузский",
 }
 
+# Keys allowed in the command translation modal
+ALLOWED_KEY_NAMES = {
+    "space", "return", "return-alts", "shift", "backspace", "tab", "caps",
+    "cancel", "emergency", "undo", "redo", "done", "next", "search", "go", "send", "join", "continue", "route"
+}
+
 def normalize_block_scalars(text):
     lines = text.splitlines(keepends=True)
     result = []
@@ -88,7 +94,6 @@ def load_yaml(path):
             inc_path = base_path.parent / inc_file
             if not inc_path.exists(): return None
             data = load_yaml(inc_path)
-            # Flatten if included file has the same top-level key
             if isinstance(data, dict) and len(data) == 1:
                 key = next(iter(data))
                 if key in ("keyNames", "longpress", "displayNames"):
@@ -135,10 +140,6 @@ def parse_longpress(lp_data):
         else: res[str(k)] = str(v)
     return res
 
-def make_layout_id(code, stem):
-    if stem == code or stem == f"{code}-3-rows": return code
-    return stem
-
 def make_label(data, code, stem, lid):
     if lid == code: return "Стандартная"
     label = data.get("label")
@@ -151,7 +152,6 @@ def make_label(data, code, stem, lid):
 def find_layers_deep(d):
     if not isinstance(d, dict): return None
     if "default" in d and isinstance(d["default"], str): return d
-    # Prioritize 'layers' or 'primary' keys
     for k in ("layers", "primary", "iPad-9in", "iPad-12in"):
         if k in d:
             res = find_layers_deep(d[k])
@@ -167,12 +167,10 @@ def discover():
     lp_map = {}
     SKIP = {"macos", "longpress", "keyname", "readme", "old", "sjd"}
 
-    # First pass: collect all layouts and cumulative keyNames per language
     raw_layouts = []
     for yaml_file in sorted(LAYOUT.rglob("*.yaml")):
         if any(s in yaml_file.name.lower() for s in SKIP): continue
-        try:
-            data = load_yaml(yaml_file)
+        try: data = load_yaml(yaml_file)
         except Exception: continue
         
         code = yaml_file.parent.name
@@ -181,7 +179,6 @@ def discover():
         layers = find_layers_deep(data.get("iOS") or data.get("ios") or data)
         if not layers: continue
 
-        # Cumulative info
         if code not in langs_by_code:
             langs_by_code[code] = {
                 "code": code, "name": get_display_name(data, code),
@@ -189,39 +186,30 @@ def discover():
                 "layouts": [], "keyNames": {}
             }
         
-        # Merge keyNames (filter out junk like 'iOS', 'layers')
-        kn = data.get("keyNames") or {}
+        # Strictly merge keyNames from the 'keyNames' section ONLY
+        kn = data.get("keyNames") or data.get("keynames") or {}
         if isinstance(kn, dict):
             for k, v in kn.items():
-                if k not in ("iOS", "ios", "layers", "primary", "iPad-9in", "iPad-12in"):
+                if k in ALLOWED_KEY_NAMES:
                     langs_by_code[code]["keyNames"][k] = v
         
-        # Merge display name if better one found
-        native = get_display_name(data, code)
-        existing = langs_by_code[code]["name"]
-        if native and ('(' not in native) and ('(' in existing or len(native) < len(existing)):
-            langs_by_code[code]["name"] = native
-
         raw_layouts.append((code, yaml_file, data, layers))
 
-    # Second pass: finalize layouts using merged keyNames
     for code, yaml_file, data, layers in raw_layouts:
         stem = yaml_file.stem
-        lid = make_layout_id(code, stem)
-        
+        lid = stem if (stem != code and stem != f"{code}-3-rows") else code
         is_smart = (code == 'kjh')
+        
         rows = parse_rows(layers.get("default"), smart_spaces=is_smart)
         shift = parse_rows(layers.get("shift"), smart_spaces=is_smart) or rows
         sym1 = parse_rows(layers.get("symbols-1"), smart_spaces=is_smart)
         sym2 = parse_rows(layers.get("symbols-2"), smart_spaces=is_smart)
 
-        # Use merged keyNames for this language
         merged_kn = langs_by_code[code]["keyNames"]
         space = merged_kn.get("space") or "Space"
         ret = merged_kn.get("return") or "Return"
         abc = data.get("ABC") or "АБВ"
 
-        # Longpress
         lp_raw = data.get("longpress") or {}
         lp = parse_longpress(lp_raw)
         if lp: lp_map[lid] = lp
@@ -229,8 +217,7 @@ def discover():
         layout_entry = {
             "id": lid, "label": make_label(data, code, stem, lid), "abc": abc,
             "rows": rows, "shift": shift,
-            "space": space, "ret": ret,
-            "_nrows": len(rows)
+            "space": space, "ret": ret, "_nrows": len(rows)
         }
         if sym1: layout_entry["sym1"] = sym1
         if sym2: layout_entry["sym2"] = sym2
@@ -238,7 +225,6 @@ def discover():
         if lid not in {l["id"] for l in langs_by_code[code]["layouts"]}:
             langs_by_code[code]["layouts"].append(layout_entry)
 
-    # Post-process: labels and grouping
     ROW_SUFFIX = {3: "3 ряда", 4: "4 ряда", 5: "5 рядов"}
     for code, lang in langs_by_code.items():
         lang["layouts"].sort(key=lambda l: (len(l["id"]), l["id"]))
@@ -248,8 +234,7 @@ def discover():
             if label_counts[lay["label"]] > 1:
                 nr = lay.pop("_nrows", 0)
                 lay["label"] = f"{lay['label']} · {ROW_SUFFIX.get(nr, f'{nr} рядов')}"
-            else:
-                lay.pop("_nrows", None)
+            else: lay.pop("_nrows", None)
 
     res = []
     for fam in FAMILY_ORDER:
