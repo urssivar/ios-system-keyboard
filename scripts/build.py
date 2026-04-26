@@ -102,15 +102,11 @@ def normalize_block_scalars(text):
             if indents:
                 min_indent = min(indents)
                 for bl in block_lines:
-                    if bl.strip() == '':
+                    if not bl.strip():
                         result.append(bl)
                     else:
-                        indent = len(bl.rstrip('\n\r')) - len(bl.rstrip('\n\r').lstrip(' '))
-                        if indent > min_indent:
-                            # trim extra leading spaces
-                            result.append(' ' * min_indent + bl.lstrip(' '))
-                        else:
-                            result.append(bl)
+                        # Strip only the common minimum indentation
+                        result.append(bl[min_indent:])
             else:
                 result.extend(block_lines)
         else:
@@ -163,8 +159,6 @@ def parse_rows(layer_str, smart_spaces=False):
     """
     rows = []
     for line in layer_str.splitlines():
-        if not line.strip():
-            continue
         if smart_spaces:
             # Find \s{...} tokens, sequences of 2+ spaces, or normal keys
             parts = re.findall(r'\\s\{[^}]*\}| {2,}|[^\s]+', line)
