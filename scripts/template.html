@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>if(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)){document.write('<style id="mob">.iphone{width:100%!important;border-radius:0!important;padding:0!important;background:transparent!important;box-shadow:none!important}.iphone::before,.iphone::after,.di,.home-ind{display:none!important}.screen{border-radius:0!important;height:100dvh!important}body{padding:0!important;background:#f2f2f7!important}body::before{display:none!important}</style>')}</script>
+<script>if(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)){document.write('<style id="mob">.iphone{width:100%!important;border-radius:0!important;padding:0!important;background:transparent!important;box-shadow:none!important}.iphone::before,.iphone::after,.di,.home-ind,.sbar{display:none!important}.screen{border-radius:0!important;height:100dvh!important}body{padding:0!important;background:#f2f2f7!important}body::before{display:none!important}</style>')}</script>
 <title>iOS Keyboard Explorer</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -390,10 +390,10 @@ function renderKbd(){
 
   if(ST.isSym||ST.isPunct){
     const d=ST.isPunct?getSymPunct():getSym123(),tg=ST.isPunct?'123':'#+=';
-    [0,1].forEach(i=>{const r=R();d[i].forEach(c=>r.appendChild(key({type:'key',lbl:c,act:c})));kbd.appendChild(r)});
+    [0,1].forEach(i=>{const r=R();d[i].forEach(c=>r.appendChild(key(parseT(c))));kbd.appendChild(r)});
     const r3=R();
     r3.appendChild(key({type:'key',lbl:tg,act:ST.isPunct?'__s123':'__pct',w:1.5}));
-    d[2].forEach(c=>r3.appendChild(key({type:'key',lbl:c,act:c})));
+    d[2].forEach(c=>r3.appendChild(key(parseT(c))));
     r3.appendChild(key({type:'del',lbl:'⌫',w:1.5}));
     kbd.appendChild(r3);
     const r4=R();
