@@ -110,12 +110,15 @@ def parse_rows(layer_str, smart_spaces=False):
     for line in layer_str.splitlines():
         if not line.strip(): continue
         if smart_spaces:
-            parts = re.findall(r'\\s\{[^}]*\}| {2,}|[^\s]+', line)
+            # Match \s{...}, ANY sequence of spaces, or non-space keys
+            parts = re.findall(r'\\s\{[^}]*\}| +|[^\s]+', line)
             tokens = []
             for p in parts:
                 if p.startswith(' '):
+                    # Every 2 spaces = 1 spacer. Single spaces are ignored.
                     for _ in range(len(p)//2): tokens.append('\\s{spacer:1}')
-                else: tokens.append(p)
+                else:
+                    tokens.append(p)
             if tokens: rows.append(tokens)
         else:
             keys = re.findall(r'\\s\{[^}]*\}|[^\s]+', line)
@@ -173,7 +176,6 @@ def discover():
         
         code = yaml_file.parent.name
         if code == "layout": code = yaml_file.stem.split("-")[0]
-        
         layers = find_layers_deep(data.get("iOS") or data.get("ios") or data)
         if not layers: continue
 
@@ -189,15 +191,12 @@ def discover():
             for k, v in kn.items():
                 if k in ALLOWED_KEY_NAMES: langs_by_code[code]["keyNames"][k] = v
         
-        # Rule: Shorter name without brackets is better
         native = get_display_name(data, code)
         existing = langs_by_code[code]["name"]
         if native:
             if '(' not in native:
-                if '(' in existing or len(native) < len(existing):
-                    langs_by_code[code]["name"] = native
-            elif '(' in existing and len(native) < len(existing):
-                langs_by_code[code]["name"] = native
+                if '(' in existing or len(native) < len(existing): langs_by_code[code]["name"] = native
+            elif '(' in existing and len(native) < len(existing): langs_by_code[code]["name"] = native
 
         raw_layouts.append((code, yaml_file, data, layers))
 
@@ -233,7 +232,6 @@ def discover():
 
     ROW_SUFFIX = {3: "3 ряда", 4: "4 ряда", 5: "5 рядов"}
     for code, lang in langs_by_code.items():
-        # Sort rule: code layout first, then shorter IDs
         lang["layouts"].sort(key=lambda l: (0 if l["id"]==code else 1, len(l["id"]), l["id"]))
         from collections import Counter
         label_counts = Counter(l["label"] for l in lang["layouts"])
