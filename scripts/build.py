@@ -155,17 +155,35 @@ def load_yaml(path):
     normalized = re.sub(r'(&|\*)([A-Z]+)\+([A-Z]+)', r'\1\2_\3', normalized)
     return yaml.load(normalized, Loader=make_loader(path)) or {}
 
-def parse_rows(layer_str):
+def parse_rows(layer_str, smart_spaces=False):
     """
     Parse YAML layer string → list of rows.
     Keeps \s{...} tokens and normal keys.
+    If smart_spaces=True (iPhone), every 2 spaces = \s{spacer:1}.
     """
     rows = []
-    for line in layer_str.strip().splitlines():
-        # Find all keys and \s{...} tokens
-        keys = re.findall(r'\\s\{[^}]*\}|[^\s]+', line)
-        if keys:
-            rows.append(keys)
+    for line in layer_str.splitlines():
+        if not line.strip():
+            continue
+        if smart_spaces:
+            # Find \s{...} tokens, sequences of 2+ spaces, or normal keys
+            parts = re.findall(r'\\s\{[^}]*\}| {2,}|[^\s]+', line)
+            tokens = []
+            for p in parts:
+                if p.startswith(' '):
+                    # Every 2 spaces = 1 spacer
+                    count = len(p) // 2
+                    for _ in range(count):
+                        tokens.append('\\s{spacer:1}')
+                else:
+                    tokens.append(p)
+            if tokens:
+                rows.append(tokens)
+        else:
+            # Standard mode (iPad/Mac): ignore whitespace, keep tokens
+            keys = re.findall(r'\\s\{[^}]*\}|[^\s]+', line)
+            if keys:
+                rows.append(keys)
     return rows
 
 def get_display_name(data, lang):
@@ -284,6 +302,7 @@ def discover():
         except Exception as e:
             print(f"  ⚠️  Skip {yaml_file.name}: {e}")
             continue
+
         ios  = data.get("iOS") or data.get("ios") or {}
         primary = ios.get("primary") or {}
         layers  = primary.get("layers") or {}
@@ -292,21 +311,23 @@ def discover():
         if not default_str:
             continue
 
-        rows  = parse_rows(default_str)
-        shift = parse_rows(shift_str) if shift_str else rows
+        # code = parent folder name
+        code = yaml_file.parent.name
+        if code == "layout":
+            code = yaml_file.stem.split("-")[0]
+
+        is_smart = (code == 'kjh')
+
+        rows  = parse_rows(default_str, smart_spaces=is_smart)
+        shift = parse_rows(shift_str, smart_spaces=is_smart) if shift_str else rows
         if not rows:
             continue
 
         # Parse symbol layers (symbols-1 = numbers/punct, symbols-2 = extra)
         sym1_str = layers.get("symbols-1", "")
         sym2_str = layers.get("symbols-2", "")
-        sym1 = parse_rows(sym1_str) if sym1_str else None
-        sym2 = parse_rows(sym2_str) if sym2_str else None
-
-        # code = parent folder name
-        code = yaml_file.parent.name
-        if code == "layout":
-            code = yaml_file.stem.split("-")[0]
+        sym1 = parse_rows(sym1_str, smart_spaces=is_smart) if sym1_str else None
+        sym2 = parse_rows(sym2_str, smart_spaces=is_smart) if sym2_str else None
 
         stem = yaml_file.stem
         lid  = make_layout_id(code, stem)
