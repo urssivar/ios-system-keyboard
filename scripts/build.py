@@ -49,7 +49,6 @@ LANG_NAMES_RU = {
     "gag": "Гагаузский",
 }
 
-# ── YAML helpers ─────────────────────────────────────────────────────────────
 def normalize_block_scalars(text):
     lines = text.splitlines(keepends=True)
     result = []
@@ -97,6 +96,7 @@ def load_yaml(path):
     return yaml.load(normalized, Loader=make_loader(path)) or {}
 
 def parse_rows(layer_str, smart_spaces=False):
+    if not layer_str or not isinstance(layer_str, str): return []
     rows = []
     for line in layer_str.splitlines():
         if not line.strip(): continue
@@ -116,7 +116,6 @@ def parse_rows(layer_str, smart_spaces=False):
 def get_display_name(data, lang):
     names = data.get("displayNames") or data.get("displaynames") or {}
     if names.get(lang): return names[lang]
-    # Native keys filter
     native_keys = [k for k in names if k not in ("en","eng","ru","rus") and (k==lang or (k not in FAMILY and k not in LANG_NAMES_RU))]
     for nk in native_keys:
         if names.get(nk): return names[nk]
@@ -138,13 +137,20 @@ def make_label(data, code, stem, lid):
     if lid == code: return "Стандартная"
     label = data.get("label")
     if label: return label
-    # Auto label based on stem
     clean = stem.replace(f"{code}-", "").replace("-", " ")
     if "3 rows" in clean.lower() or "3-rows" in stem: return "3 ряда"
     if "4 rows" in clean.lower() or "4-rows" in stem: return "4 ряда"
     return clean.title()
 
-# ── Discovery ─────────────────────────────────────────────────────────────────
+def find_layers_deep(d):
+    """Recursively find any dictionary that contains 'default' as a string key."""
+    if not isinstance(d, dict): return None
+    if "default" in d and isinstance(d["default"], str): return d
+    for v in d.values():
+        res = find_layers_deep(v)
+        if res: return res
+    return None
+
 def discover():
     langs_by_code = {}
     lp_map = {}
@@ -156,16 +162,18 @@ def discover():
             data = load_yaml(yaml_file)
         except Exception: continue
         
-        ios = data.get("iOS") or data.get("ios") or {}
-        primary = ios.get("primary") or {}
-        layers = primary.get("layers") or {}
+        # Determine code first
+        code = yaml_file.parent.name
+        if code == "layout": code = yaml_file.stem.split("-")[0]
+        
+        # Look for layers anywhere in the YAML (to support diverse formats)
+        layers = find_layers_deep(data.get("iOS") or data.get("ios") or data)
+        if not layers: continue
+
         default_str = layers.get("default", "")
         shift_str = layers.get("shift", "")
         if not default_str: continue
 
-        code = yaml_file.parent.name
-        if code == "layout": code = yaml_file.stem.split("-")[0]
-        
         is_smart = (code == 'kjh')
         rows = parse_rows(default_str, smart_spaces=is_smart)
         shift = parse_rows(shift_str, smart_spaces=is_smart) if shift_str else rows
@@ -235,7 +243,6 @@ def discover():
             res.append({"group":fam, "color":color, "langs":sorted(langs, key=lambda x: x["name"])})
     return res, lp_map
 
-# ── Main ──────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     data, lp_map = discover()
     with open(TEMPLATE, encoding="utf-8") as f: html = f.read()
