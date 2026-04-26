@@ -348,12 +348,14 @@ function renderKbd(){
     if(!t.startsWith('\\s{')) return {type:'key',lbl:t,act:t};
     const m=t.match(/\\s\{([^}:]+)(?::([^}]+))?\}/);
     if(!m) return {type:'key',lbl:t,act:t};
-    const type=m[1], val=m[2];
-    if(type==='spacer') return {type:'spc',w:parseFloat(val)||1};
-    if(type==='shift') return {type:'sh',w:1.5,lbl:'⇧'};
-    if(type==='backspace') return {type:'del',w:1.5,lbl:'⌫'};
-    if(type==='return') return {type:'ret',w:parseFloat(val)||1.5,lbl:curL.ret||'Giriş'};
-    if(type==='shiftSymbols') return {type:'s123',w:1.5,lbl:'#+='};
+    const type=m[1], val=m[2], w=parseFloat(val);
+    if(type==='spacer') return {type:'spc',w:w||1};
+    if(type==='shift') return {type:'sh',w:w||1.5,lbl:'⇧'};
+    if(type==='backspace') return {type:'del',w:w||1.5,lbl:'⌫'};
+    if(type==='return') return {type:'ret',w:w||1.5,lbl:curL.ret||'Giriş'};
+    if(type==='tab') return {type:'key',w:w||1.5,lbl:'⇥',act:''};
+    if(type==='caps') return {type:'key',w:w||1.75,lbl:'⇪',act:''};
+    if(type==='shiftSymbols'||type==='#+=') return {type:'s123',w:w||1.5,lbl:'#+='};
     return {type:'key',lbl:t,act:t};
   };
 
