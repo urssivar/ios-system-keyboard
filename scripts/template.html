@@ -397,7 +397,7 @@ function renderKbd(){
     if(type==='return') return {type:'ret',w:w||1.5,lbl:curL.ret||'Giriş'};
     if(type==='tab') return {type:'key',w:w||1.5,lbl:'⇥',act:''};
     if(type==='caps') return {type:'key',w:w||1.75,lbl:'⇪',act:''};
-    if(type==='shiftSymbols'||type==='#+=') return {type:'s123',w:w||1.5,lbl:'#+='};
+    if(type==='shiftSymbols'||type==='#+=') return {type:'s123',w:w||1.5,lbl:ST.isPunct?'123':'#+='};
     return {type:'key',lbl:t,act:t};
   };
 
@@ -438,7 +438,7 @@ function renderKbd(){
       kbd.appendChild(r);
     });
     const r4=R();
-    r4.appendChild(key({type:'key',lbl:ST.isPunct?'123':(curL.abc||'АБВ'),act:ST.isPunct?'__s123':'__abc',w:1.4}));
+    r4.appendChild(key({type:'key',lbl:(curL.abc||'АБВ'),act:'__abc',w:1.4}));
     r4.appendChild(key({type:'key',lbl:curL.space,act:'__sp',w:4.5}));
     r4.appendChild(key({type:'ret',lbl:curL.ret,w:1.4}));
     kbd.appendChild(r4);
@@ -478,7 +478,7 @@ function doKey(a,el){
   }
   if(a==='__sym'){ST.isSym=true;ST.isPunct=false;renderKbd();return}
   if(a==='__s123'){ST.isSym=true;ST.isPunct=false;renderKbd();return}
-  if(a==='__pct'){ST.isSym=true;ST.isPunct=true;renderKbd();return}
+  if(a==='__pct'){ST.isSym=true;ST.isPunct=!ST.isPunct;renderKbd();return}
   if(a==='__abc'){ST.isSym=false;ST.isPunct=false;renderKbd();return}
   if(a==='__sp'){type(' ');return}
   if(a==='__ret'){type('\n');return}
