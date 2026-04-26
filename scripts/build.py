@@ -1,20 +1,6 @@
 #!/usr/bin/env python3
 """
 build.py — читает layout/**/*.yaml и генерирует dist/ios-keyboards.html
-
-Использование:
-  python build.py                   # генерирует из scripts/template.html
-  python build.py --check           # только проверяет YAML без генерации
-
-Структура репозитория:
-  layout/
-    tyv/  tyv-3-rows.yaml, tyv-4-rows.yaml, tyv-longpress.yaml ...
-    bak/  bak-3-rows.yaml, bak-4-rows.yaml ...
-  scripts/
-    build.py
-    template.html
-  dist/
-    ios-keyboards.html   ← результат
 """
 
 import os, re, json, sys
@@ -54,7 +40,6 @@ FAMILY = {
 }
 FAMILY_ORDER = ["Тюркские", "Монгольские", "Кавказские", "Иранские", "Уральские", "Славянские", "Другие"]
 
-# Display names in Russian for language codes
 LANG_NAMES_RU = {
     "tyv": "Тувинский", "alt": "Алтайский", "bak": "Башкирский", "tat": "Татарский",
     "kjh": "Хакасский", "chv": "Чувашский",  "xal": "Калмыцкий", "bua": "Бурятский",
@@ -67,10 +52,9 @@ LANG_NAMES_RU = {
 # ── YAML helpers ─────────────────────────────────────────────────────────────
 def normalize_block_scalars(text):
     """
-    In YAML literal block scalars (|), indentation is set by the FIRST non-empty line.
-    Some files have the first row more-indented than the rest (for visual symmetry).
-    This causes YAML parse errors. Fix: find the minimum indentation across all
-    non-empty lines of each block and reduce deeper lines to that minimum.
+    Injects indentation indicators (|2, |4 etc) to block scalars if the first line
+    is more indented than the minimum. This prevents YAML parse errors while
+    preserving all spaces.
     """
     lines = text.splitlines(keepends=True)
     result = []
@@ -78,428 +62,188 @@ def normalize_block_scalars(text):
     while i < len(lines):
         line = lines[i]
         if re.search(r':\s*\|\s*$', line.rstrip()):
-            # Collect the entire block
+            hdr_idx = len(result)
             result.append(line)
+            parent_indent = len(line) - len(line.lstrip())
             i += 1
             block_lines = []
-            # Determine the parent key's indentation to know when block ends
-            parent_indent = len(line) - len(line.lstrip())
             while i < len(lines):
                 bl = lines[i]
-                stripped = bl.rstrip('\n\r')
-                if stripped.strip() == '':
-                    block_lines.append(bl)
-                    i += 1
-                    continue
-                indent = len(stripped) - len(stripped.lstrip(' '))
-                if indent <= parent_indent:
-                    break  # out of block
-                block_lines.append(bl)
-                i += 1
-            # Find minimum indent of non-empty lines in block
-            indents = [len(l.rstrip('\n\r')) - len(l.rstrip('\n\r').lstrip(' '))
-                       for l in block_lines if l.strip()]
+                if bl.strip() == '':
+                    block_lines.append(bl); i += 1; continue
+                indent = len(bl) - len(bl.lstrip(' '))
+                if indent <= parent_indent: break
+                block_lines.append(bl); i += 1
+            
+            indents = [len(l) - len(l.lstrip(' ')) for l in block_lines if l.strip()]
             if indents:
                 min_indent = min(indents)
-                for bl in block_lines:
-                    if not bl.strip():
-                        result.append(bl)
-                    else:
-                        # Strip only the common minimum indentation
-                        result.append(bl[min_indent:])
-            else:
-                result.extend(block_lines)
+                rel = min_indent - parent_indent
+                if rel > 0:
+                    result[hdr_idx] = result[hdr_idx].replace('|', f'|{rel}')
+            result.extend(block_lines)
         else:
-            result.append(line)
-            i += 1
+            result.append(line); i += 1
     return ''.join(result)
-
 
 def load_yaml(path):
     path = Path(path)
-
     def make_loader(base_path):
-        class Loader(yaml.SafeLoader):
-            pass
-
+        class Loader(yaml.SafeLoader): pass
         def include_constructor(loader, node):
             include_str = loader.construct_scalar(node).strip()
-            if "#" in include_str:
-                inc_file, anchor = include_str.split("#", 1)
-            else:
-                inc_file, anchor = include_str, None
+            inc_file = include_str.split("#")[0]
             inc_path = base_path.parent / inc_file
-            if not inc_path.exists():
-                return None
-            try:
-                inc_data = load_yaml(inc_path)
-                if anchor and isinstance(inc_data, dict):
-                    return inc_data.get(anchor)
-                return inc_data
-            except Exception:
-                return None
-
+            if not inc_path.exists(): return None
+            return load_yaml(inc_path)
         Loader.add_constructor("!include", include_constructor)
-        Loader.add_constructor(None, lambda l, n: None)
         return Loader
-
-    with open(path, encoding="utf-8") as f:
-        raw = f.read()
-
+    with open(path, encoding="utf-8") as f: raw = f.read()
     normalized = normalize_block_scalars(raw)
-    # Fix YAML anchor names containing '+' (not allowed by spec)
     normalized = re.sub(r'(&|\*)([A-Z]+)\+([A-Z]+)', r'\1\2_\3', normalized)
     return yaml.load(normalized, Loader=make_loader(path)) or {}
 
 def parse_rows(layer_str, smart_spaces=False):
-    """
-    Parse YAML layer string → list of rows.
-    Keeps \s{...} tokens and normal keys.
-    If smart_spaces=True (iPhone), every 2 spaces = \s{spacer:1}.
-    """
     rows = []
     for line in layer_str.splitlines():
+        if not line.strip(): continue
         if smart_spaces:
-            # Find \s{...} tokens, sequences of 2+ spaces, or normal keys
             parts = re.findall(r'\\s\{[^}]*\}| {2,}|[^\s]+', line)
             tokens = []
             for p in parts:
                 if p.startswith(' '):
-                    # Every 2 spaces = 1 spacer
-                    count = len(p) // 2
-                    for _ in range(count):
-                        tokens.append('\\s{spacer:1}')
-                else:
-                    tokens.append(p)
-            if tokens:
-                rows.append(tokens)
+                    for _ in range(len(p)//2): tokens.append('\\s{spacer:1}')
+                else: tokens.append(p)
+            if tokens: rows.append(tokens)
         else:
-            # Standard mode (iPad/Mac): ignore whitespace, keep tokens
             keys = re.findall(r'\\s\{[^}]*\}|[^\s]+', line)
-            if keys:
-                rows.append(keys)
+            if keys: rows.append(keys)
     return rows
 
 def get_display_name(data, lang):
     names = data.get("displayNames") or data.get("displaynames") or {}
-    # Try exact lang key first
-    if names.get(lang):
-        return names[lang]
-    # Try native keys (keys that aren't en/ru/eng/rus and aren't codes of other languages)
-    native_keys = [k for k in names if k not in ("en", "eng", "ru", "rus")
-                   and (k == lang or (k not in FAMILY and k not in LANG_NAMES_RU))]
+    if names.get(lang): return names[lang]
+    native_keys = [k for k in names if k not in ("en","eng","ru","rus") and (k==lang or (k not in FAMILY and k not in LANG_NAMES_RU))]
     for nk in native_keys:
-        if names.get(nk):
-            return names[nk]
-    return (names.get("ru") or names.get("en")
-            or names.get("eng") or names.get("rus")
-            or next(iter(names.values()), ""))
+        if names.get(nk): return names[nk]
+    return names.get("ru") or names.get("en") or next(iter(names.values()), "")
 
 def parse_longpress(lp_data):
-    """Flatten longpress YAML → {char: 'alt1 alt2 ...'}"""
-    if not lp_data or not isinstance(lp_data, dict):
-        return {}
-    result = {}
+    if not lp_data or not isinstance(lp_data, dict): return {}
+    res = {}
     for k, v in lp_data.items():
-        if v is not None:
-            result[str(k)] = str(v).strip()
-    return result
-
-def find_longpress_file(yaml_file, code, stem):
-    """Try to find a dedicated longpress file for this layout."""
-    candidates = [
-        yaml_file.parent / f"{stem}-longpress.yaml",
-        yaml_file.parent / f"{code}-longpress.yaml",
-        yaml_file.parent / f"{code}-3-rows-longpress.yaml",
-        yaml_file.parent / f"{stem.replace(code+'-','')}-longpress.yaml",
-    ]
-    for p in candidates:
-        if p.exists():
-            return p
-    return None
+        if isinstance(v, list): res[str(k)] = ' '.join(map(str, v))
+        else: res[str(k)] = str(v)
+    return res
 
 def make_layout_id(code, stem):
-    """Turn 'tyv-3-rows' → 'tyv', 'tyv-4-rows' → 'tyv-4', 'bak-3-rows-rus' → 'bak-rus'"""
-    # Remove the language code prefix
-    suffix = stem[len(code):].lstrip("-")
-    # Normalise common suffixes
-    suffix = re.sub(r"^3-rows?$",    "",     suffix)
-    suffix = re.sub(r"^3-rows?-",    "",     suffix)
-    suffix = re.sub(r"^4-rows?$",    "4",    suffix)
-    suffix = re.sub(r"^4-rows?-",    "4-",   suffix)
-    return f"{code}-{suffix}".rstrip("-") if suffix else code
+    if stem == code or stem == f"{code}-3-rows": return code
+    return stem
 
 def make_label(data, code, stem, lid):
-    """Human-readable variant label from displayNames or stem."""
-    names = data.get("displayNames") or data.get("displaynames") or {}
-    base = LANG_NAMES_RU.get(code, "")
-
-    # If the native displayName IS the base name (e.g. ykt: "Саха" == LANG_NAMES_RU "Саха"),
-    # displayNames won't yield a useful distinguishing label — skip to stem suffix.
-    native_key = [k for k in names if k not in ("en", "eng", "ru", "rus")]
-    native_val = names.get(native_key[0], "") if native_key else ""
-    skip_display = (native_val == base)
-
-    if not skip_display:
-        # Try language-native name first, then Russian, then English
-        # native_key contains actual YAML keys like 'tt', 'ba' (not always == code like 'tat', 'bak')
-        # But skip keys that are codes of OTHER languages (e.g. 'tyv' in Russian YAML)
-        own_native = [k for k in native_key
-                      if k == code or k not in FAMILY and k not in LANG_NAMES_RU]
-        search_order = [code] + own_native + ["ru", "rus", "en", "eng"]
-        seen = set()
-        for lang in search_order:
-            if lang in seen:
-                continue
-            seen.add(lang)
-            val = names.get(lang, "")
-            if not val or val == base:
-                continue
-            # Strip the base language name prefix if present
-            val_clean = re.sub(rf"^{re.escape(base)}\s*[\(·\-]?\s*", "", val)
-            # strip matching closing paren only if we stripped an opening one
-            if val_clean != val and val_clean.endswith(')') and '(' not in val_clean:
-                val_clean = val_clean[:-1]
-            val_clean = val_clean.strip()
-            if val_clean and val_clean != base:
-                return val_clean
-
-    # Fallback: derive from stem
-    suffix = stem[len(code):].lstrip("-")
-    mapping = {
-        "3-rows": "3 ряда", "3rows": "3 ряда",
-        "4-rows": "4 ряда", "4rows": "4 ряда",
-        "3-rows-rus": "На основе русской", "rus": "На основе русской",
-        "macos": "macOS", "macos-pc": "macOS PC",
-    }
-    return mapping.get(suffix, suffix.replace("-", " ").title() or "Стандарт")
+    if lid == code: return "Стандартная"
+    label = data.get("label") or stem.replace(f"{code}-", "").replace("-", " ").title()
+    return label
 
 # ── Discovery ─────────────────────────────────────────────────────────────────
 def discover():
-    """
-    Returns:
-      data   — list of {group, color, langs:[{code,name,native,layouts:[...]}]}
-      lp_map — {layout_id: {char: 'alts...'}}
-    """
-    langs_by_code = {}   # code → {name, native, layouts:[]}
-    lp_map = {}          # layout_id → {char: alts}
-
+    langs_by_code = {}
+    lp_map = {}
     SKIP = {"macos", "longpress", "keyname", "readme", "old", "sjd"}
 
     for yaml_file in sorted(LAYOUT.rglob("*.yaml")):
-        # Skip macos, longpress, keynames, readme etc
-        name_lower = yaml_file.name.lower()
-        if any(s in name_lower for s in SKIP):
-            continue
+        if any(s in yaml_file.name.lower() for s in SKIP): continue
         try:
             data = load_yaml(yaml_file)
         except Exception as e:
-            print(f"  ⚠️  Skip {yaml_file.name}: {e}")
-            continue
-
-        ios  = data.get("iOS") or data.get("ios") or {}
+            print(f"  ⚠️  Skip {yaml_file.name}: {e}"); continue
+        
+        ios = data.get("iOS") or data.get("ios") or {}
         primary = ios.get("primary") or {}
-        layers  = primary.get("layers") or {}
+        layers = primary.get("layers") or {}
         default_str = layers.get("default", "")
-        shift_str   = layers.get("shift", "")
-        if not default_str:
-            continue
+        shift_str = layers.get("shift", "")
+        if not default_str: continue
 
-        # code = parent folder name
         code = yaml_file.parent.name
-        if code == "layout":
-            code = yaml_file.stem.split("-")[0]
-
+        if code == "layout": code = yaml_file.stem.split("-")[0]
+        
         is_smart = (code == 'kjh')
-
-        rows  = parse_rows(default_str, smart_spaces=is_smart)
+        rows = parse_rows(default_str, smart_spaces=is_smart)
         shift = parse_rows(shift_str, smart_spaces=is_smart) if shift_str else rows
-        if not rows:
-            continue
-
-        # Parse symbol layers (symbols-1 = numbers/punct, symbols-2 = extra)
+        
         sym1_str = layers.get("symbols-1", "")
         sym2_str = layers.get("symbols-2", "")
         sym1 = parse_rows(sym1_str, smart_spaces=is_smart) if sym1_str else None
         sym2 = parse_rows(sym2_str, smart_spaces=is_smart) if sym2_str else None
 
         stem = yaml_file.stem
-        lid  = make_layout_id(code, stem)
+        lid = make_layout_id(code, stem)
         label = make_label(data, code, stem, lid)
-
         native = get_display_name(data, code)
-        name_ru = LANG_NAMES_RU.get(code) or get_display_name(data, "ru") or get_display_name(data, "en")
-
+        name_ru = LANG_NAMES_RU.get(code) or get_display_name(data, "ru")
         key_names = data.get("keyNames") or {}
         space = key_names.get("space", "Space")
-        ret   = key_names.get("return", "Return")
-        abc   = data.get("ABC", "АБВ")
+        ret = key_names.get("return", "Return")
+        abc = data.get("ABC", "АБВ")
 
-        # Longpress — try inline then dedicated file
         lp_raw = data.get("longpress") or {}
-        if not lp_raw:
-            lp_path = find_longpress_file(yaml_file, code, stem)
-            if lp_path:
-                try:
-                    lp_raw = load_yaml(lp_path)
-                except Exception:
-                    lp_raw = {}
         lp = parse_longpress(lp_raw)
-        if lp:
-            lp_map[lid] = lp
+        if lp: lp_map[lid] = lp
 
         layout_entry = {
             "id": lid, "label": label, "abc": abc,
             "rows": rows, "shift": shift,
             "space": space, "ret": ret,
-            "_nrows": len(rows),  # internal: used for label dedup
+            "_nrows": len(rows)
         }
         if sym1: layout_entry["sym1"] = sym1
         if sym2: layout_entry["sym2"] = sym2
 
         if code not in langs_by_code:
-            langs_by_code[code] = {
-                "code": code, "name": native, "native": name_ru, "layouts": [],
-                "keyNames": key_names
-            }
+            langs_by_code[code] = {"code":code, "name":native, "native":name_ru, "layouts":[], "keyNames":key_names}
         else:
-            # Merge keyNames if new ones are found
-            if key_names:
-                langs_by_code[code]["keyNames"].update(key_names)
-            # Prefer shorter/cleaner name without parenthetical variants
+            if key_names: langs_by_code[code]["keyNames"].update(key_names)
             existing = langs_by_code[code]["name"]
             if native and ('(' not in native) and ('(' in existing or len(native) < len(existing)):
                 langs_by_code[code]["name"] = native
-        # avoid duplicate ids
-        existing_ids = {l["id"] for l in langs_by_code[code]["layouts"]}
-        if lid not in existing_ids:
+        
+        if lid not in {l["id"] for l in langs_by_code[code]["layouts"]}:
             langs_by_code[code]["layouts"].append(layout_entry)
 
-    # ── Post-process: sort layouts and disambiguate labels ─────────────────
-    for code, lang in langs_by_code.items():
-        # Sort: primary (shorter ID) first
-        lang["layouts"].sort(key=lambda l: (len(l["id"]), l["id"]))
-
+    # Post-process labels
     ROW_SUFFIX = {3: "3 ряда", 4: "4 ряда", 5: "5 рядов"}
     for code, lang in langs_by_code.items():
-        layouts = lang["layouts"]
-        if len(layouts) < 2:
-            continue
-        # Find labels that appear more than once
+        lang["layouts"].sort(key=lambda l: (len(l["id"]), l["id"]))
         from collections import Counter
-        label_counts = Counter(l["label"] for l in layouts)
-        for lay in layouts:
-            if label_counts[lay["label"]] > 1:
-                nr = lay.get("_nrows", 0)
-                suffix = ROW_SUFFIX.get(nr, f"{nr} рядов")
-                lay["label"] = f"{lay['label']} · {suffix}"
-    # Remove internal _nrows field
-    for code, lang in langs_by_code.items():
+        label_counts = Counter(l["label"] for l in lang["layouts"])
         for lay in lang["layouts"]:
-            lay.pop("_nrows", None)
+            if label_counts[lay["label"]] > 1:
+                nr = lay.pop("_nrows", 0)
+                lay["label"] = f"{lay['label']} · {ROW_SUFFIX.get(nr, f'{nr} рядов')}"
+            else:
+                lay.pop("_nrows", None)
 
     # Group by family
-    families = {}
-    for code, lang in langs_by_code.items():
-        fam, color = FAMILY.get(code, ("Другие", "#8e8e93"))
-        if fam not in families:
-            families[fam] = {"group": fam, "color": color, "langs": []}
-        families[fam]["langs"].append(lang)
-
-    # ── Discover macOS layouts ────────────────────────────────────────────────
-    macos_by_code = {}  # code → [{file: "tyv.keylayout", name: "Тыва — Тувинский"}]
-    for yaml_file in sorted(LAYOUT.rglob("*-macos*.yaml")):
-        code = yaml_file.parent.name
-        if code == "layout":
-            code = yaml_file.stem.split("-")[0]
-        stem = yaml_file.stem.replace("-macos", "")
-        keylayout_name = f"{stem}.keylayout"
-        # Try to get display name
-        try:
-            data = load_yaml(yaml_file)
-            names = data.get("displayNames") or {}
-            native_keys = [k for k in names if k not in ("en", "eng", "ru", "rus")]
-            native = names.get(native_keys[0], "") if native_keys else ""
-            ru_name = names.get("ru") or names.get("rus", "")
-            display = f"{native} — {ru_name}" if native and ru_name and native != ru_name else (ru_name or native or stem)
-        except Exception:
-            display = stem
-        if code not in macos_by_code:
-            macos_by_code[code] = []
-        macos_by_code[code].append({"file": keylayout_name, "name": display})
-
-    # Inject macOS info into lang entries
-    for code, lang in langs_by_code.items():
-        if code in macos_by_code:
-            lang["macos"] = macos_by_code[code]
-
-    groups = []
+    res = []
     for fam in FAMILY_ORDER:
-        if fam in families:
-            groups.append(families[fam])
-    for fam, g in families.items():
-        if fam not in FAMILY_ORDER:
-            groups.append(g)
-
-    return groups, lp_map
-
-# ── Generate JS strings ───────────────────────────────────────────────────────
-def js(obj):
-    return json.dumps(obj, ensure_ascii=False)
-
-def build_lp_js(lp_map):
-    lines = []
-    for lid, mapping in sorted(lp_map.items()):
-        inner = ",".join(f"{js(k)}:{js(v)}" for k, v in mapping.items())
-        lines.append(f"  {js(lid)}:{{{inner}}}")
-    return "{\n" + ",\n".join(lines) + "\n}"
-
-def build_data_js(groups):
-    return js(groups)
+        langs = [l for c, l in langs_by_code.items() if FAMILY.get(c, ("Другие",""))[0] == fam]
+        if langs:
+            try:
+                color = next(f[1] for c, f in FAMILY.items() if f[0]==fam)
+            except StopIteration:
+                color = "#8e8e93" # Default color for 'Other'
+            res.append({"group":fam, "color":color, "langs":sorted(langs, key=lambda x: x["name"])})
+    return res, lp_map
 
 # ── Main ──────────────────────────────────────────────────────────────────────
-def main():
-    check_only = "--check" in sys.argv
-
-    print("📂 Scanning layout/ ...")
-    groups, lp_map = discover()
-
-    total_langs   = sum(len(g["langs"]) for g in groups)
-    total_layouts = sum(len(l["layouts"]) for g in groups for l in g["langs"])
-    print(f"✅ Found {total_langs} languages, {total_layouts} layouts, {len(lp_map)} longpress maps")
-
-    for g in groups:
-        print(f"\n  {g['group']}:")
-        for lang in g["langs"]:
-            labels = [l["label"] for l in lang["layouts"]]
-            print(f"    {lang['code']:6s} {lang['name']:20s} → {', '.join(labels)}")
-
-    if check_only:
-        print("\n✅ Check complete (no files written)")
-        return
-
-    if not TEMPLATE.exists():
-        print(f"\n❌ Template not found: {TEMPLATE}")
-        print("   Put scripts/template.html (the HTML with /*BUILD_LP*/ and /*BUILD_DATA*/ markers)")
-        sys.exit(1)
-
-    DIST.mkdir(exist_ok=True)
-
-    template = TEMPLATE.read_text(encoding="utf-8")
-
-    lp_js   = build_lp_js(lp_map)
-    data_js = build_data_js(groups)
-
-    html = template.replace("/*BUILD_LP*/{}",   f"/*BUILD_LP*/{lp_js}")
-    html = html.replace("/*BUILD_DATA*/[]", f"/*BUILD_DATA*/{data_js}")
-
-    if "/*BUILD_LP*/" not in template or "/*BUILD_DATA*/" not in template:
-        print("❌ Template is missing /*BUILD_LP*/ or /*BUILD_DATA*/ markers!")
-        sys.exit(1)
-
-    out = DIST / "ios-keyboards.html"
-    out.write_text(html, encoding="utf-8")
-    print(f"\n✅ Written → {out}  ({out.stat().st_size // 1024} KB)")
-
 if __name__ == "__main__":
-    main()
+    data, lp_map = discover()
+    with open(TEMPLATE, encoding="utf-8") as f: html = f.read()
+    html = html.replace("/*BUILD_DATA*/[]", json.dumps(data, ensure_ascii=False))
+    html = html.replace("/*BUILD_LP*/{}", json.dumps(lp_map, ensure_ascii=False))
+    
+    DIST.mkdir(exist_ok=True)
+    with open(DIST / "ios-keyboards.html", "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"✅ Written → {DIST / 'ios-keyboards.html'}  ({len(html)//1024} KB)")
