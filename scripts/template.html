@@ -389,15 +389,14 @@ function renderKbd(){
   }
 
   if(ST.isSym||ST.isPunct){
-    const d=ST.isPunct?getSymPunct():getSym123(),tg=ST.isPunct?'123':'#+=';
-    [0,1].forEach(i=>{const r=R();d[i].forEach(c=>r.appendChild(key(parseT(c))));kbd.appendChild(r)});
-    const r3=R();
-    r3.appendChild(key({type:'key',lbl:tg,act:ST.isPunct?'__s123':'__pct',w:1.5}));
-    d[2].forEach(c=>r3.appendChild(key(parseT(c))));
-    r3.appendChild(key({type:'del',lbl:'⌫',w:1.5}));
-    kbd.appendChild(r3);
+    const d=ST.isPunct?getSymPunct():getSym123();
+    d.forEach(rowData=>{
+      const r=R();
+      rowData.forEach(c=>r.appendChild(key(parseT(c))));
+      kbd.appendChild(r);
+    });
     const r4=R();
-    r4.appendChild(key({type:'key',lbl:curL.abc||'АБВ',act:'__abc',w:1.4}));
+    r4.appendChild(key({type:'key',lbl:ST.isPunct?'123':(curL.abc||'АБВ'),act:ST.isPunct?'__s123':'__abc',w:1.4}));
     r4.appendChild(key({type:'key',lbl:curL.space,act:'__sp',w:4.5}));
     r4.appendChild(key({type:'ret',lbl:curL.ret,w:1.4}));
     kbd.appendChild(r4);
