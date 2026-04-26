@@ -87,7 +87,13 @@ def load_yaml(path):
             inc_file = include_str.split("#")[0]
             inc_path = base_path.parent / inc_file
             if not inc_path.exists(): return None
-            return load_yaml(inc_path)
+            data = load_yaml(inc_path)
+            # Flatten if included file has the same top-level key
+            if isinstance(data, dict) and len(data) == 1:
+                key = next(iter(data))
+                if key in ("keyNames", "longpress", "displayNames"):
+                    return data[key]
+            return data
         Loader.add_constructor("!include", include_constructor)
         return Loader
     with open(path, encoding="utf-8") as f: raw = f.read()
@@ -143,12 +149,17 @@ def make_label(data, code, stem, lid):
     return clean.title()
 
 def find_layers_deep(d):
-    """Recursively find any dictionary that contains 'default' as a string key."""
     if not isinstance(d, dict): return None
     if "default" in d and isinstance(d["default"], str): return d
+    # Prioritize 'layers' or 'primary' keys
+    for k in ("layers", "primary", "iPad-9in", "iPad-12in"):
+        if k in d:
+            res = find_layers_deep(d[k])
+            if res: return res
     for v in d.values():
-        res = find_layers_deep(v)
-        if res: return res
+        if isinstance(v, dict):
+            res = find_layers_deep(v)
+            if res: return res
     return None
 
 def discover():
@@ -156,50 +167,67 @@ def discover():
     lp_map = {}
     SKIP = {"macos", "longpress", "keyname", "readme", "old", "sjd"}
 
+    # First pass: collect all layouts and cumulative keyNames per language
+    raw_layouts = []
     for yaml_file in sorted(LAYOUT.rglob("*.yaml")):
         if any(s in yaml_file.name.lower() for s in SKIP): continue
         try:
             data = load_yaml(yaml_file)
         except Exception: continue
         
-        # Determine code first
         code = yaml_file.parent.name
         if code == "layout": code = yaml_file.stem.split("-")[0]
         
-        # Look for layers anywhere in the YAML (to support diverse formats)
         layers = find_layers_deep(data.get("iOS") or data.get("ios") or data)
         if not layers: continue
 
-        default_str = layers.get("default", "")
-        shift_str = layers.get("shift", "")
-        if not default_str: continue
-
-        is_smart = (code == 'kjh')
-        rows = parse_rows(default_str, smart_spaces=is_smart)
-        shift = parse_rows(shift_str, smart_spaces=is_smart) if shift_str else rows
+        # Cumulative info
+        if code not in langs_by_code:
+            langs_by_code[code] = {
+                "code": code, "name": get_display_name(data, code),
+                "native": LANG_NAMES_RU.get(code) or get_display_name(data, "ru") or get_display_name(data, "en"),
+                "layouts": [], "keyNames": {}
+            }
         
-        sym1_str = layers.get("symbols-1", "")
-        sym2_str = layers.get("symbols-2", "")
-        sym1 = parse_rows(sym1_str, smart_spaces=is_smart) if sym1_str else None
-        sym2 = parse_rows(sym2_str, smart_spaces=is_smart) if sym2_str else None
+        # Merge keyNames (filter out junk like 'iOS', 'layers')
+        kn = data.get("keyNames") or {}
+        if isinstance(kn, dict):
+            for k, v in kn.items():
+                if k not in ("iOS", "ios", "layers", "primary", "iPad-9in", "iPad-12in"):
+                    langs_by_code[code]["keyNames"][k] = v
+        
+        # Merge display name if better one found
+        native = get_display_name(data, code)
+        existing = langs_by_code[code]["name"]
+        if native and ('(' not in native) and ('(' in existing or len(native) < len(existing)):
+            langs_by_code[code]["name"] = native
 
+        raw_layouts.append((code, yaml_file, data, layers))
+
+    # Second pass: finalize layouts using merged keyNames
+    for code, yaml_file, data, layers in raw_layouts:
         stem = yaml_file.stem
         lid = make_layout_id(code, stem)
-        label = make_label(data, code, stem, lid)
-        native = get_display_name(data, code)
-        name_ru = LANG_NAMES_RU.get(code) or get_display_name(data, "ru") or get_display_name(data, "en")
         
-        key_names = data.get("keyNames") or {}
-        space = key_names.get("space", "Space")
-        ret = key_names.get("return", "Return")
-        abc = data.get("ABC", "АБВ")
+        is_smart = (code == 'kjh')
+        rows = parse_rows(layers.get("default"), smart_spaces=is_smart)
+        shift = parse_rows(layers.get("shift"), smart_spaces=is_smart) or rows
+        sym1 = parse_rows(layers.get("symbols-1"), smart_spaces=is_smart)
+        sym2 = parse_rows(layers.get("symbols-2"), smart_spaces=is_smart)
 
+        # Use merged keyNames for this language
+        merged_kn = langs_by_code[code]["keyNames"]
+        space = merged_kn.get("space") or "Space"
+        ret = merged_kn.get("return") or "Return"
+        abc = data.get("ABC") or "АБВ"
+
+        # Longpress
         lp_raw = data.get("longpress") or {}
         lp = parse_longpress(lp_raw)
         if lp: lp_map[lid] = lp
 
         layout_entry = {
-            "id": lid, "label": label, "abc": abc,
+            "id": lid, "label": make_label(data, code, stem, lid), "abc": abc,
             "rows": rows, "shift": shift,
             "space": space, "ret": ret,
             "_nrows": len(rows)
@@ -207,18 +235,10 @@ def discover():
         if sym1: layout_entry["sym1"] = sym1
         if sym2: layout_entry["sym2"] = sym2
 
-        if code not in langs_by_code:
-            langs_by_code[code] = {"code":code, "name":native, "native":name_ru, "layouts":[], "keyNames":key_names}
-        else:
-            if key_names: langs_by_code[code]["keyNames"].update(key_names)
-            existing = langs_by_code[code]["name"]
-            if native and ('(' not in native) and ('(' in existing or len(native) < len(existing)):
-                langs_by_code[code]["name"] = native
-        
         if lid not in {l["id"] for l in langs_by_code[code]["layouts"]}:
             langs_by_code[code]["layouts"].append(layout_entry)
 
-    # Post-process: sort and deduplicate labels
+    # Post-process: labels and grouping
     ROW_SUFFIX = {3: "3 ряда", 4: "4 ряда", 5: "5 рядов"}
     for code, lang in langs_by_code.items():
         lang["layouts"].sort(key=lambda l: (len(l["id"]), l["id"]))
@@ -231,16 +251,13 @@ def discover():
             else:
                 lay.pop("_nrows", None)
 
-    # Group by family
     res = []
     for fam in FAMILY_ORDER:
-        langs = [l for c, l in langs_by_code.items() if FAMILY.get(c, ("Другие",""))[0] == fam]
-        if langs:
-            try:
-                color = next(f[1] for c, f in FAMILY.items() if f[0]==fam)
-            except StopIteration:
-                color = "#8e8e93"
-            res.append({"group":fam, "color":color, "langs":sorted(langs, key=lambda x: x["name"])})
+        group_langs = [l for c, l in langs_by_code.items() if FAMILY.get(c, ("Другие",""))[0] == fam]
+        if group_langs:
+            try: color = next(f[1] for c, f in FAMILY.items() if f[0]==fam)
+            except StopIteration: color = "#8e8e93"
+            res.append({"group":fam, "color":color, "langs":sorted(group_langs, key=lambda x: x["name"])})
     return res, lp_map
 
 if __name__ == "__main__":
