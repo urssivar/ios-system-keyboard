@@ -12,12 +12,12 @@ iOS:
   primary:
     layers:
       default: |
-            ҷ ӱ і   ң ӧ ғ 
+            ҷ ӱ і   ң ӧ ғ    
         й ц у к е н г ш щ з х
         ф ы в а п р о л д ж э
         \s{shift} я ч с м и т ь б ю \s{backspace}
       shift: |
-            Ҷ Ӱ І   Ң Ӧ Ғ
+            Ҷ Ӱ І   Ң Ӧ Ғ    
         Й Ц У К Е Н Г Ш Щ З Х
         Ф Ы В А П Р О Л Д Ж Э
         \s{shift} Я Ч С М И Т Ь Б Ю \s{backspace}
@@ -68,7 +68,7 @@ iOS:
         <                    Ҷ Ӱ І   Ң Ӧ Ғ       \s{backspace:1.5}
         \s{tab:1.5}      Й Ц У К Е Н Г Ш Щ З Х   \s{return}
         \s{caps:1.75}    Ф Ы В А П Р О Л Д Ж Э   \s{return:0.75}
-        \s{shift:1.25}     Я Ч С М И Т Ь Б Ю    \s{shift:1.25}
+        \s{shift:1.25}     Я Ч С М И Т Ь Б Ю     \s{shift:1.25}
       alt: |
         `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
         \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
