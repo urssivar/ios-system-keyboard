@@ -397,7 +397,7 @@ function renderKbd(){
     const r4=R();
     r4.appendChild(key({type:'key',lbl:curL.abc||'АБВ',act:'__abc',w:1.4}));
     r4.appendChild(key({type:'key',lbl:curL.space,act:'__sp',w:4.5}));
-    r4.appendChild(key({type:'ret',w:1.4}));
+    r4.appendChild(key({type:'ret',lbl:curL.ret,w:1.4}));
     kbd.appendChild(r4);
   } else {
     const rows=ST.isShift?curL.shift:curL.rows;
@@ -414,7 +414,7 @@ function renderKbd(){
     const r4=R();
     r4.appendChild(key({type:'key',lbl:'123',act:'__sym',w:1.4}));
     r4.appendChild(key({type:'key',lbl:curL.space,act:'__sp',w:4.5}));
-    r4.appendChild(key({type:'ret',w:1.4}));
+    r4.appendChild(key({type:'ret',lbl:curL.ret,w:1.4}));
     kbd.appendChild(r4);
   }
 }
