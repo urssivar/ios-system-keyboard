@@ -4,8 +4,8 @@ displayNames:
   ava: Авар
 
 decimal: ','
-ABC: 'АИУЛЕ'
-abc: 'аиуле'
+ABC: 'АИУ'
+abc: 'аиу'
 
 iOS:
   primary:
