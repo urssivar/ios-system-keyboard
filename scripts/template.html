@@ -182,6 +182,12 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .lv-macos{display:flex;align-items:center;gap:4px;padding:3px 8px;background:#f2f2f7;border-radius:6px;font-size:11px;color:#6c6c70;cursor:pointer;flex-shrink:0;border:none;font-family:var(--font);transition:background .1s}
 .lv-macos:hover{background:#e0e0e5}
 .lv-macos svg{width:14px;height:14px}
+.cmd-list{padding:0 20px 20px}
+.cmd-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:.5px solid rgba(0,0,0,.05);align-items:baseline}
+.cmd-row:last-child{border-bottom:none}
+.cmd-row span{color:#8e8e93;font-size:13px;text-transform:capitalize}
+.cmd-row b{font-weight:500;font-size:16px;color:#000}
+.empty{text-align:center;padding:20px;color:#8e8e93}
 </style>
 </head>
 <body>
@@ -277,18 +283,24 @@ function showMacModal(langName,macosFiles){
 function showCommandModal(langName,keyNames){
   const ov=document.createElement('div');ov.className='modal-overlay';
   ov.onclick=e=>{if(e.target===ov)ov.remove()};
-  const list=Object.entries(keyNames).filter(([k,v])=>v).map(([k,v])=>`
-    <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:.5px solid rgba(0,0,0,.05)">
-      <span style="color:#8e8e93;font-size:13px;text-transform:capitalize">${k}</span>
-      <span style="font-weight:500;font-size:15px">${v}</span>
-    </div>
-  `).join('');
+  
+  const rows=[];
+  const add=(k,v)=>{
+    if(!v) return;
+    if(typeof v==='object'){
+      Object.entries(v).forEach(([subK,subV])=>add(`${k} (${subK})`,subV));
+    } else {
+      rows.push(`<div class="cmd-row"><span>${k}</span><b>${v}</b></div>`);
+    }
+  };
+  Object.entries(keyNames).forEach(([k,v])=>add(k,v));
+
   ov.innerHTML=`<div class="modal">
     <div class="modal-hdr">
       <div class="modal-hdr-text"><h3>${langName}</h3><p>Перевод команд</p></div>
       <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">✕</button>
     </div>
-    <div class="modal-body" style="padding:0 20px 20px">${list||'<p style="text-align:center;padding:20px;color:#8e8e93">Нет данных</p>'}</div>
+    <div class="modal-body cmd-list">${rows.join('')||'<p class="empty">Нет данных</p>'}</div>
   </div>`;
   document.body.appendChild(ov);
 }
