@@ -1,0 +1,107 @@
+displayNames:
+  en: Gagauz
+  ru: Гагаузский
+  gag: Gagauz dili v2
+
+decimal: ','
+ABC: 'ÄÊŢ'
+abc: 'äêţ'
+
+iOS:
+  primary:
+    layers:
+      default: |
+        q w e r t y u i o p ä ü
+        \s{spacer:0.5} a s d f g h j k l ş ı \s{spacer:0.5}
+        \s{shift} z x c v b n m ö ç ţ \s{backspace}
+      shift: |
+        Q W E R T Y U İ O P Ä Ü
+        \s{spacer:0.5} A S D F G H J K L Ş I \s{spacer:0.5}
+        \s{shift} Z X C V B N M Ö Ç Ţ \s{backspace}
+      symbols-1: |
+        1 2 3 4 5 6 7 8 9 0
+        - / : ; ( ) $ & @ “
+        \s{shiftSymbols} \s{spacer:0.25} . , ? ! ' \s{spacer:0.25} \s{backspace}
+      symbols-2: |
+        [ ] { } # % ^ * + =
+        _ \ | ~ < > £ € ¥ •
+        \s{shiftSymbols} \s{spacer:0.25} . , ? ! ' \s{spacer:0.25} \s{backspace}
+
+  iPad-9in:
+    layers:
+      default: |
+        \s{spacer:0.3}   q w e r t y u i o p ä ü \s{spacer:1.7}
+        \s{spacer:0.6}   a s d f g h j k l ş ı \s{return:1.4}
+        \s{shift}        z x c v b n m ö ç ţ   \s{shift:2.0}
+      shift: |
+        \s{spacer:0.3}   Q W E R T Y U İ O P Ä Ü \s{spacer:1.7}
+        \s{spacer:0.6}   A S D F G H J K L Ş I \s{return:1.4}
+        \s{shift}        Z X C V B N M Ö Ç Ţ   \s{shift:2.0}
+      alt: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ‘ ” \s{return:1.4}
+        \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
+      alt+shift: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ‘ ” \s{return:1.4}
+        \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
+      symbols-1: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ‘ “ \s{return:1.4}
+        \s{shiftSymbols} % _ - + = / ; : , .   \s{shiftSymbols:2.0}
+      symbols-2: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   € £ ¥ ± • ` ^ [ ] { } \s{return:1.4}
+        \s{shiftSymbols} § | ~ … ≠ \ < > ! ?   \s{shiftSymbols:2.0}
+
+  iPad-12in:
+    layers:
+      default: |
+        >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
+        \s{tab:1.5}      q w e r t y u i o p ä ü \s{return}
+        \s{caps:1.75}    a s d f g h j k l ş ı \s{return:0.75}
+        \s{shift:1.25} ] z x c v b n m ö ç ţ     \s{shift:2.25}
+      shift: |
+        <                ! ” № % : , . ; ( ) _ + \s{backspace:1.5}
+        \s{tab:1.5}      Q W E R T Y U İ O P Ä Ü \s{return}
+        \s{caps:1.75}    A S D F G H J K L Ş I \s{return:0.75}
+        \s{shift:1.25} [ Z X C V B N M Ö Ç Ţ     \s{shift:2.25}
+      alt: |
+        `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~ \s{return:0.75}
+        \s{shift:1.25}     … . , ? ! ' ” _ €     \s{shift:2.25}
+      alt+shift: |
+        `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~ \s{return:0.75}
+        \s{shift:1.25}     … . , ? ! ' " _ €     \s{shift:2.25}
+      symbols-1: |
+        `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~ \s{return:0.75}
+        \s{shift:1.25}     … . , ? ! ' ” _ €     \s{shift:2.25}
+      symbols-2: |
+        `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
+        \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
+        \s{caps:1.75}    - / : ; ( ) $ & @ £ ¥ ~ \s{return:0.75}
+        \s{shift:1.25}     … . , ? ! ' ” _ €     \s{shift:2.25}
+
+longpress: !include gag-longpress.yaml
+
+keyNames:
+  space: Boşluk
+  return: Giriş
+  return-alts:
+    search: Ara
+    go: Geç
+    send: Yolla
+    join: Kat
+    route: Marşrut
+    next: İleri
+    continue: Devam et
+    done: Bitti
+  emergency: SOS
+  cancel: İptal
+  undo: Kullanma
+  redo: Tekrarla

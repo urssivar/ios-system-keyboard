@@ -343,52 +343,79 @@ function lpO(ch){const v=(LP[curL.id]||{})[ch];return v?v.trim().split(/\s+/).fi
 function renderKbd(){
   const kbd=document.getElementById('kbd');if(!kbd)return;kbd.innerHTML='';
   const R=()=>{const d=document.createElement('div');d.className='kr';return d};
-  function key(lbl,cls,act){
-    if(lbl===null||lbl===''){
-      const s=document.createElement('div');
-      s.className='k';
-      s.style.cssText='visibility:hidden;pointer-events:none;box-shadow:none;background:transparent';
-      return s;
+
+  const parseT=t=>{
+    if(!t.startsWith('\\s{')) return {type:'key',lbl:t,act:t};
+    const m=t.match(/\\s\{([^}:]+)(?::([^}]+))?\}/);
+    if(!m) return {type:'key',lbl:t,act:t};
+    const type=m[1], val=m[2];
+    if(type==='spacer') return {type:'spc',w:parseFloat(val)||1};
+    if(type==='shift') return {type:'sh',w:1.5,lbl:'⇧'};
+    if(type==='backspace') return {type:'del',w:1.5,lbl:'⌫'};
+    if(type==='return') return {type:'ret',w:parseFloat(val)||1.5,lbl:curL.ret||'Giriş'};
+    if(type==='shiftSymbols') return {type:'s123',w:1.5,lbl:'#+='};
+    return {type:'key',lbl:t,act:t};
+  };
+
+  function key(item,rowW){
+    const k=document.createElement('div');
+    k.className='k';
+    if(item.type==='spc'){
+      k.style.visibility='hidden';k.style.pointerEvents='none';k.style.boxShadow='none';k.style.background='transparent';
+    } else {
+      k.textContent=item.lbl;
+      if(item.type!=='key') k.classList.add('sp');
+      if(item.type==='sh' && ST.isShift) k.classList.add('kon');
     }
-    const k=document.createElement('div');k.className='k '+cls;k.textContent=lbl;
-    const opts=act&&!act.startsWith('__')?lpO(act):[];
-    if(opts.length){const h=document.createElement('span');h.className='lph';h.textContent=opts.length===1?opts[0]:'+';k.appendChild(h)}
-    k.addEventListener('click',e=>{e.stopPropagation();if(!lpPop&&!lpWasShown&&!opts.length)doKey(act,k);lpWasShown=false});
-    if(opts.length){
-      k.addEventListener('mousedown',e=>{e.preventDefault();startLp(e.clientX,e.clientY,k,act,opts)});
-      k.addEventListener('touchstart',e=>{e.preventDefault();const t=e.touches[0];startLp(t.clientX,t.clientY,k,act,opts)},{passive:false});
+
+    const w=item.w||1;
+    k.style.flex=w;
+
+    if(item.type==='key'){
+      const opts=lpO(item.act);
+      if(opts.length){const h=document.createElement('span');h.className='lph';h.textContent=opts.length===1?opts[0]:'+';k.appendChild(h)}
+      k.addEventListener('click',e=>{e.stopPropagation();if(!lpPop&&!lpWasShown&&!opts.length)doKey(item.act,k);lpWasShown=false});
+      if(opts.length){
+        k.addEventListener('mousedown',e=>{e.preventDefault();startLp(e.clientX,e.clientY,k,item.act,opts)});
+        k.addEventListener('touchstart',e=>{e.preventDefault();const t=e.touches[0];startLp(t.clientX,t.clientY,k,item.act,opts)},{passive:false});
+      }
+    } else {
+      const acts={sh:'__sh',del:'__del',ret:'__ret',s123:'__pct'};
+      if(acts[item.type]) k.addEventListener('click',e=>{e.stopPropagation();doKey(acts[item.type],k)});
     }
     return k;
   }
+
   if(ST.isSym||ST.isPunct){
     const d=ST.isPunct?getSymPunct():getSym123(),tg=ST.isPunct?'123':'#+=';
-    [0,1].forEach(i=>{const r=R();d[i].forEach(c=>r.appendChild(key(c,'',c)));kbd.appendChild(r)});
-    const r3=R();r3.appendChild(key(tg,'sp kpct',ST.isPunct?'__s123':'__pct'));d[2].forEach(c=>r3.appendChild(key(c,'',c)));r3.appendChild(key('⌫','sp wide','__del'));kbd.appendChild(r3);
-    const r4=R();r4.appendChild(key(curL.abc||'АБВ','sp k123','__abc'));r4.appendChild(key(curL.space,'ksp','__sp'));r4.appendChild(key(curL.ret,'sp kret','__ret'));kbd.appendChild(r4);
+    [0,1].forEach(i=>{const r=R();d[i].forEach(c=>r.appendChild(key({type:'key',lbl:c,act:c})));kbd.appendChild(r)});
+    const r3=R();
+    r3.appendChild(key({type:'key',lbl:tg,act:ST.isPunct?'__s123':'__pct',w:1.5}));
+    d[2].forEach(c=>r3.appendChild(key({type:'key',lbl:c,act:c})));
+    r3.appendChild(key({type:'del',lbl:'⌫',w:1.5}));
+    kbd.appendChild(r3);
+    const r4=R();
+    r4.appendChild(key({type:'key',lbl:curL.abc||'АБВ',act:'__abc',w:1.4}));
+    r4.appendChild(key({type:'key',lbl:curL.space,act:'__sp',w:4.5}));
+    r4.appendChild(key({type:'ret',w:1.4}));
+    kbd.appendChild(r4);
   } else {
     const rows=ST.isShift?curL.shift:curL.rows;
-    const last=rows.length-1;
-    // find max key count among non-shift rows (to know standard key width)
-    const maxLen=Math.max(...rows.slice(0,last).map(r=>r.length));
-    rows.forEach((rowData,i)=>{
-      if(i===last){
-        const r=R();
-        r.appendChild(key('⇧',`sp wide${ST.isShift?' kon':''}`, '__sh'));
-        rowData.forEach(c=>{if(c) r.appendChild(key(c,'',c))});
-        r.appendChild(key('⌫','sp wide','__del'));
-        kbd.appendChild(r);
-      } else {
-        const r=R();
-        // pad short rows symmetrically with invisible spacers so key width stays consistent
-        const pad=maxLen-rowData.length;
-        const padL=Math.floor(pad/2), padR=Math.ceil(pad/2);
-        for(let p=0;p<padL;p++) r.appendChild(key(null,'',''));
-        rowData.forEach(c=>r.appendChild(key(c,'',c)));
-        for(let p=0;p<padR;p++) r.appendChild(key(null,'',''));
-        kbd.appendChild(r);
-      }
+    // Calculate total flex width of each row to find max
+    const rowInfos=rows.map(r=>r.map(parseT));
+    const rowWidths=rowInfos.map(ri=>ri.reduce((a,b)=>a+(b.w||1),0));
+    const maxW=Math.max(...rowWidths);
+
+    rowInfos.forEach((ri,i)=>{
+      const r=R();
+      ri.forEach(it=>r.appendChild(key(it)));
+      kbd.appendChild(r);
     });
-    const r4=R();r4.appendChild(key('123','sp k123','__sym'));r4.appendChild(key(curL.space,'ksp','__sp'));r4.appendChild(key(curL.ret,'sp kret','__ret'));kbd.appendChild(r4);
+    const r4=R();
+    r4.appendChild(key({type:'key',lbl:'123',act:'__sym',w:1.4}));
+    r4.appendChild(key({type:'key',lbl:curL.space,act:'__sp',w:4.5}));
+    r4.appendChild(key({type:'ret',w:1.4}));
+    kbd.appendChild(r4);
   }
 }
 

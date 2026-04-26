@@ -158,25 +158,12 @@ def load_yaml(path):
 def parse_rows(layer_str):
     """
     Parse YAML layer string → list of rows.
-    Skip \\s{} tokens. Groups separated by 2+ spaces get a None spacer between them.
+    Keeps \s{...} tokens and normal keys.
     """
     rows = []
     for line in layer_str.strip().splitlines():
-        clean = re.sub(r'\\s\{[^}]*\}', '', line).strip()
-        if not clean:
-            continue
-        # Split on 2+ spaces — each separator = one invisible spacer key
-        parts = re.split(r' {2,}', clean)
-        keys = []
-        for pi, part in enumerate(parts):
-            if pi > 0:
-                keys.append(None)  # spacer between groups
-            for k in part.split():
-                if k:
-                    keys.append(k)
-        # strip trailing None
-        while keys and keys[-1] is None:
-            keys.pop()
+        # Find all keys and \s{...} tokens
+        keys = re.findall(r'\\s\{[^}]*\}|[^\s]+', line)
         if keys:
             rows.append(keys)
     return rows
@@ -369,7 +356,11 @@ def discover():
         if lid not in existing_ids:
             langs_by_code[code]["layouts"].append(layout_entry)
 
-    # ── Post-process: disambiguate duplicate labels with row count ─────────
+    # ── Post-process: sort layouts and disambiguate labels ─────────────────
+    for code, lang in langs_by_code.items():
+        # Sort: primary (shorter ID) first
+        lang["layouts"].sort(key=lambda l: (len(l["id"]), l["id"]))
+
     ROW_SUFFIX = {3: "3 ряда", 4: "4 ряда", 5: "5 рядов"}
     for code, lang in langs_by_code.items():
         layouts = lang["layouts"]

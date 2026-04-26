@@ -17,6 +17,7 @@ displayNames:
 ## Gagauz iOS
 
 * gag-3-rows.yaml (Mobile-optimized)
+* gag-3-rows-alt.yaml (Alternative layout)
 
 If needed, the second row can be centralized if the dot symbol is removed from it.
 
