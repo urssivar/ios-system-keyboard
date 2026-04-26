@@ -51,11 +51,6 @@ LANG_NAMES_RU = {
 
 # ── YAML helpers ─────────────────────────────────────────────────────────────
 def normalize_block_scalars(text):
-    """
-    Injects indentation indicators (|2, |4 etc) to block scalars if the first line
-    is more indented than the minimum. This prevents YAML parse errors while
-    preserving all spaces.
-    """
     lines = text.splitlines(keepends=True)
     result = []
     i = 0
@@ -74,13 +69,11 @@ def normalize_block_scalars(text):
                 indent = len(bl) - len(bl.lstrip(' '))
                 if indent <= parent_indent: break
                 block_lines.append(bl); i += 1
-            
             indents = [len(l) - len(l.lstrip(' ')) for l in block_lines if l.strip()]
             if indents:
                 min_indent = min(indents)
                 rel = min_indent - parent_indent
-                if rel > 0:
-                    result[hdr_idx] = result[hdr_idx].replace('|', f'|{rel}')
+                if rel > 0: result[hdr_idx] = result[hdr_idx].replace('|', f'|{rel}')
             result.extend(block_lines)
         else:
             result.append(line); i += 1
@@ -123,6 +116,7 @@ def parse_rows(layer_str, smart_spaces=False):
 def get_display_name(data, lang):
     names = data.get("displayNames") or data.get("displaynames") or {}
     if names.get(lang): return names[lang]
+    # Native keys filter
     native_keys = [k for k in names if k not in ("en","eng","ru","rus") and (k==lang or (k not in FAMILY and k not in LANG_NAMES_RU))]
     for nk in native_keys:
         if names.get(nk): return names[nk]
@@ -142,8 +136,13 @@ def make_layout_id(code, stem):
 
 def make_label(data, code, stem, lid):
     if lid == code: return "Стандартная"
-    label = data.get("label") or stem.replace(f"{code}-", "").replace("-", " ").title()
-    return label
+    label = data.get("label")
+    if label: return label
+    # Auto label based on stem
+    clean = stem.replace(f"{code}-", "").replace("-", " ")
+    if "3 rows" in clean.lower() or "3-rows" in stem: return "3 ряда"
+    if "4 rows" in clean.lower() or "4-rows" in stem: return "4 ряда"
+    return clean.title()
 
 # ── Discovery ─────────────────────────────────────────────────────────────────
 def discover():
@@ -155,8 +154,7 @@ def discover():
         if any(s in yaml_file.name.lower() for s in SKIP): continue
         try:
             data = load_yaml(yaml_file)
-        except Exception as e:
-            print(f"  ⚠️  Skip {yaml_file.name}: {e}"); continue
+        except Exception: continue
         
         ios = data.get("iOS") or data.get("ios") or {}
         primary = ios.get("primary") or {}
@@ -181,7 +179,8 @@ def discover():
         lid = make_layout_id(code, stem)
         label = make_label(data, code, stem, lid)
         native = get_display_name(data, code)
-        name_ru = LANG_NAMES_RU.get(code) or get_display_name(data, "ru")
+        name_ru = LANG_NAMES_RU.get(code) or get_display_name(data, "ru") or get_display_name(data, "en")
+        
         key_names = data.get("keyNames") or {}
         space = key_names.get("space", "Space")
         ret = key_names.get("return", "Return")
@@ -211,7 +210,7 @@ def discover():
         if lid not in {l["id"] for l in langs_by_code[code]["layouts"]}:
             langs_by_code[code]["layouts"].append(layout_entry)
 
-    # Post-process labels
+    # Post-process: sort and deduplicate labels
     ROW_SUFFIX = {3: "3 ряда", 4: "4 ряда", 5: "5 рядов"}
     for code, lang in langs_by_code.items():
         lang["layouts"].sort(key=lambda l: (len(l["id"]), l["id"]))
@@ -232,7 +231,7 @@ def discover():
             try:
                 color = next(f[1] for c, f in FAMILY.items() if f[0]==fam)
             except StopIteration:
-                color = "#8e8e93" # Default color for 'Other'
+                color = "#8e8e93"
             res.append({"group":fam, "color":color, "langs":sorted(langs, key=lambda x: x["name"])})
     return res, lp_map
 
@@ -242,8 +241,6 @@ if __name__ == "__main__":
     with open(TEMPLATE, encoding="utf-8") as f: html = f.read()
     html = html.replace("/*BUILD_DATA*/[]", json.dumps(data, ensure_ascii=False))
     html = html.replace("/*BUILD_LP*/{}", json.dumps(lp_map, ensure_ascii=False))
-    
     DIST.mkdir(exist_ok=True)
-    with open(DIST / "ios-keyboards.html", "w", encoding="utf-8") as f:
-        f.write(html)
+    with open(DIST / "ios-keyboards.html", "w", encoding="utf-8") as f: f.write(html)
     print(f"✅ Written → {DIST / 'ios-keyboards.html'}  ({len(html)//1024} KB)")
