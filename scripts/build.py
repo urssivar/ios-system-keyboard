@@ -344,9 +344,13 @@ def discover():
 
         if code not in langs_by_code:
             langs_by_code[code] = {
-                "code": code, "name": native, "native": name_ru, "layouts": []
+                "code": code, "name": native, "native": name_ru, "layouts": [],
+                "keyNames": key_names
             }
         else:
+            # Merge keyNames if new ones are found
+            if key_names:
+                langs_by_code[code]["keyNames"].update(key_names)
             # Prefer shorter/cleaner name without parenthetical variants
             existing = langs_by_code[code]["name"]
             if native and ('(' not in native) and ('(' in existing or len(native) < len(existing)):

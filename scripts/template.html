@@ -106,6 +106,9 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .lv-title{font-size:16px;color:#000;line-height:1.2}
 .lv-sub{font-size:12px;color:var(--text3);margin-top:2px}
 .lv-chevron{color:#c7c7cc;font-size:18px;font-weight:300;flex-shrink:0}
+.lv-footer{background:rgba(0,0,0,0.03);padding:8px 16px;display:flex;justify-content:flex-end;border-top:.5px solid rgba(0,0,0,0.05)}
+.lv-footer-btn{font-size:13px;color:var(--accent);cursor:pointer;background:transparent;border:none;font-family:var(--font);display:flex;align-items:center;gap:4px}
+.lv-footer-btn:active{opacity:.5}
 
 /* ── Keyboard view ── */
 .kbd-view{flex:1;display:flex;flex-direction:column;background:#fff;overflow:hidden}
@@ -271,6 +274,25 @@ function showMacModal(langName,macosFiles){
   document.body.appendChild(ov);
 }
 
+function showCommandModal(langName,keyNames){
+  const ov=document.createElement('div');ov.className='modal-overlay';
+  ov.onclick=e=>{if(e.target===ov)ov.remove()};
+  const list=Object.entries(keyNames).filter(([k,v])=>v).map(([k,v])=>`
+    <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:.5px solid rgba(0,0,0,.05)">
+      <span style="color:#8e8e93;font-size:13px;text-transform:capitalize">${k}</span>
+      <span style="font-weight:500;font-size:15px">${v}</span>
+    </div>
+  `).join('');
+  ov.innerHTML=`<div class="modal">
+    <div class="modal-hdr">
+      <div class="modal-hdr-text"><h3>${langName}</h3><p>Перевод команд</p></div>
+      <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:0 20px 20px">${list||'<p style="text-align:center;padding:20px;color:#8e8e93">Нет данных</p>'}</div>
+  </div>`;
+  document.body.appendChild(ov);
+}
+
 // ── List screen ──────────────────────────────────────────────────────────────
 function showList(anim){
   const sc=document.getElementById('screen');
@@ -296,6 +318,13 @@ function showList(anim){
           <div class="lv-chevron">›</div>
         </div>`;
       });
+      if(lang.keyNames && Object.keys(lang.keyNames).length > 0){
+        html+=`<div class="lv-footer">
+          <button class="lv-footer-btn" onclick="event.stopPropagation();showCommandModal('${lang.name.replace(/'/g,"\\'")}',${JSON.stringify(lang.keyNames).replace(/"/g,'&quot;')})">
+            Перевод команд
+          </button>
+        </div>`;
+      }
       html+=`</div>`;
     });
   });
