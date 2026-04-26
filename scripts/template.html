@@ -334,7 +334,7 @@ function showList(anim){
       if(lang.keyNames && Object.keys(lang.keyNames).length > 0){
         html+=`<div class="lv-footer">
           <button class="lv-footer-btn" onclick="event.stopPropagation();showCommandModal('${lang.name.replace(/'/g,"\\'")}',${JSON.stringify(lang.keyNames).replace(/"/g,'&quot;')})">
-            ${TRANSLATE_ICON} Перевод команд
+            Перевод команд ${TRANSLATE_ICON}
           </button>
         </div>`;
       }
