@@ -90,7 +90,7 @@ iOS:
 longpress: !include tyv-longpress.yaml
 
 keyNames:
-  space: Хозак
+  space: Ара
   return: Киирер
   return-alts:
     search: Дилээр
