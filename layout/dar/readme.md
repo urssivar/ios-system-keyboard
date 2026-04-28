@@ -11,6 +11,9 @@
 **Specific Sounds (Digraphs and Palochka)**:
 `гъ гь гӏ къ кь кӏ пӏ тӏ хъ хь хӏ цӏ чӏ`
 
+> [!NOTE]
+> Palochka (`Ӏ`) is always used in its uppercase form (U+04C0) in this layout, as per standard practice in Caucasian orthographies.
+
 ## iOS
 
 #### Dargin (Standard) / Дарган (стандартлӑ)
@@ -52,3 +55,4 @@ A compact 3-row layout (**11-11-9**). Optimized for fast access to the Palochka 
 ## Разработчик / Developer
 
 - Murtazali Rabadangadzhiev
+- Ali Kuzhuget
