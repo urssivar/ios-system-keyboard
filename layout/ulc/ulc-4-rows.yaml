@@ -16,12 +16,12 @@ iOS:
         ш ь ж ц ф з ё ы я ю
         х р й к п т ч и э у
         с л в г б д дʼ е а о
-        \s{shift} , . ӈ м н нʼ ʼ ̄ \s{backspace}
+        \s{shift} , . ӈ м н нʼ ʼ - \s{backspace}
       shift: |
         Ш Ь Ж Ц Ф З Ё Ы Я Ю
         Х Р Й К П Т Ч И Э У
         С Л В Г Б Д Дʼ Е А О
-        \s{shift} , . Ӈ М Н Нʼ ʼ ̄ \s{backspace}
+        \s{shift} , . Ӈ М Н Нʼ ʼ - \s{backspace}
       symbols-1: |
         1 2 3 4 5 6 7 8 9 0
         - / : ; ( ) ₽ & @ "
@@ -37,12 +37,12 @@ iOS:
         ш ь ж ц ф з ё ы я ю
         х р й к п т ч и э у
         с л в г б д дʼ е а о
-        \s{shift} , . ӈ м н нʼ ʼ ̄ \s{backspace}
+        \s{shift} , . ӈ м н нʼ ʼ - \s{backspace}
       shift: |
         Ш Ь Ж Ц Ф З Ё Ы Я Ю
         Х Р Й К П Т Ч И Э У
         С Л В Г Б Д Дʼ Е А О
-        \s{shift} , . Ӈ М Н Нʼ ʼ ̄ \s{backspace}
+        \s{shift} , . Ӈ М Н Нʼ ʼ - \s{backspace}
 
   iPad-12in:
     layers:
