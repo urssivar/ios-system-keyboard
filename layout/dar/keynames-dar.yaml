@@ -1,0 +1,15 @@
+space: Хъяши
+return: Чариес
+return-alts:
+  search: Баргес
+  go: Укьес
+  send: Бархьаэс
+  join: Валгес
+  continue: Даимбарес
+  done: Таман
+  next: ГьалавяхӀ
+  route: Маршрут
+emergency: SOS
+cancel: ГӀекӀес
+undo: Уббяхъес
+redo: Тикрарбарес
