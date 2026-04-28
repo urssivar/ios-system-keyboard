@@ -15,13 +15,13 @@ iOS:
   primary:
     layers:
       default: |
-        ё е у э й в б д ӡ г
-        \s{#+=} - и о а р л м н ᵸ ӈ \s{backspace}
-        \s{shift} , . я ю х с п т ч к \s{backspace}
+        х р й к п т ч э у
+        с л в г б д и а о
+        \s{shift} , . ӈ м н ’  ̄ \s{backspace}
       shift: |
-        Ё Е У Э Й В Б Д Ӡ Г
-        \s{#+=} - И О А Р Л М Н ᵸ Ӈ \s{backspace}
-        \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+        Х Р Й К П Т Ч Э У
+        С Л В Г Б Д И А О
+        \s{shift} , . Ӈ М Н ’  ̄ \s{backspace}
       symbols-1: |
         1 2 3 4 5 6 7 8 9 0
         - / : ; ( ) ₽ & @ "
@@ -34,23 +34,23 @@ iOS:
   iPad-9in:
     layers:
       default: |
-        \s{spacer:0.3}   ё е у э й в б д ӡ г ӈ \s{spacer:1.7}
-        \s{spacer:0.6}   и о а р л м н ᵸ ʼ \s{return:1.4}
-        \s{shift}        я ю х с п т ч к - ̄ \s{shift:2.0}
+        \s{spacer:2}    х р й к п т ч э у \s{spacer:2}
+        \s{spacer:2}    с л в г б д и а о \s{return:2}
+        \s{shift:1.5}   , . ӈ м н ’  ̄ \s{shift:4.5}
       shift: |
-        \s{spacer:0.3}   Ё Е У Э Й В Б Д Ӡ Г Ӈ \s{spacer:1.7}
-        \s{spacer:0.6}   И О А Р Л М Н ᵸ ʼ \s{return:1.4}
-        \s{shift}        Я Ю Х С П Т Ч К - ̄ \s{shift:2.0}
+        \s{spacer:2}    Х Р Й К П Т Ч Э У \s{spacer:2}
+        \s{spacer:2}    С Л В Г Б Д И А О \s{return:2}
+        \s{shift:1.5}   , . Ӈ М Н ’  ̄ \s{shift:4.5}
 
   iPad-12in:
     layers:
       default: |
         >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
-        \s{tab:1.5}      ё е у э й в б д ӡ г ӈ \s{return}
-        \s{caps:1.75}    и о а р л м н ᵸ ʼ ъ \s{return:0.75}
-        \s{shift:1.25} ] я ю х с п т ч к / \s{shift:1.25}
+        \s{tab:1.5}      х р й к п т ч э у \s{return}
+        \s{caps:1.75}    с л в г б д и а о \s{return:0.75}
+        \s{shift:1.25} ] , . ӈ м н ’  ̄ / \s{shift:1.25}
       shift: |
         <                ! " № ; % : ? * ( ) _ + \s{backspace:1.5}
-        \s{tab:1.5}      Ё Е У Э Й В Б Д Ӡ Г Ӈ \s{return}
-        \s{caps:1.75}    И О А Р Л М Н ᵸ ʼ Ъ \s{return:0.75}
-        \s{shift:1.25} [ Я Ю Х С П Т Ч К ? \s{shift:1.25}
+        \s{tab:1.5}      Х Р Й К П Т Ч Э У \s{return}
+        \s{caps:1.75}    С Л В Г Б Д И А О \s{return:0.75}
+        \s{shift:1.25} [ , . Ӈ М Н ’  ̄ ? \s{shift:1.25}

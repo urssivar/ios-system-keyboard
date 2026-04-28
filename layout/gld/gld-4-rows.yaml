@@ -9,21 +9,21 @@ abc: ндӡ
 decimal: ','
 
 keyNames: !include gld-keynames.yaml
-longpress: !include gld-longpress.yaml
+longpress: !include gld-longpress-4.yaml
 
 iOS:
   primary:
     layers:
       default: |
-        ̄ і ө ы ь ш ф ᵸ з ʼ
-        ё е у э й в б д ӡ г
-        \s{#+=} - и о а р л м н њ ӈ \s{backspace}
-        \s{shift} , . я ю х с п т ч к \s{backspace}
+        ш ь ж з ы я ё е ю
+        х р й к п т ч э у
+        с л в г б д и а о
+        \s{shift} , . ӈ м н ’  ̄ \s{backspace}
       shift: |
-        ̄ І Ө Ы Ь Ш Ф ᵸ З ʼ
-        Ё Е У Э Й В Б Д Ӡ Г
-        \s{#+=} - И О А Р Л М Н Њ Ӈ \s{backspace}
-        \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+        Ш Ь Ж З Ы Я Ё Е Ю
+        Х Р Й К П Т Ч Э У
+        С Л В Г Б Д И А О
+        \s{shift} , . Ӈ М Н ’  ̄ \s{backspace}
       symbols-1: |
         1 2 3 4 5 6 7 8 9 0
         - / : ; ( ) ₽ & @ "
@@ -36,25 +36,25 @@ iOS:
   iPad-9in:
     layers:
       default: |
-        \s{spacer:0.3}   ̄ і ө ы ь ш ф ᵸ з ʼ ъ \s{spacer:1.7}
-        \s{spacer:0.6}   ё е у э й в б д ӡ г ӈ \s{return:1.4}
-        \s{shift:1.5}    - и о а р л м н њ ԩ \s{shift:3.5}
+        \s{spacer:2}    ш ь ж з ы я ё е ю \s{spacer:2}
+        \s{spacer:2}    х р й к п т ч э у \s{spacer:2}
+        \s{spacer:2}    с л в г б д и а о \s{return:2}
+        \s{shift:1.5}   , . ӈ м н ’  ̄ \s{shift:4.5}
       shift: |
-        \s{spacer:0.3}   ̄ І Ө Ы Ь Ш Ф ᵸ З ʼ Ъ \s{spacer:1.7}
-        \s{spacer:0.6}   Ё Е У Э Й В Б Д Ӡ Г Ӈ \s{return:1.4}
-        \s{shift:1.5}    - И О А Р Л М Н Њ Ԩ \s{shift:3.5}
+        \s{spacer:2}    Ш Ь Ж З Ы Я Ё Е Ю \s{spacer:2}
+        \s{spacer:2}    Х Р Й К П Т Ч Э У \s{spacer:2}
+        \s{spacer:2}    С Л В Г Б Д И А О \s{return:2}
+        \s{shift:1.5}   , . Ӈ М Н ’  ̄ \s{shift:4.5}
 
   iPad-12in:
     layers:
       default: |
         >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
-        \s{tab:1.5}      ̄ і ө ы ь ш ф ᵸ з ʼ ъ \s{return}
-        \s{caps:1.75}    ё е у э й в б д ӡ г ӈ \s{return:0.75}
-        \s{shift:1.25} ] - и о а р л м н њ ж ц / \s{shift:1.25}
+        \s{tab:1.5}      ш ь ж з ы я ё е ю \s{return}
+        \s{caps:1.75}    х р й к п т ч э у \s{return:0.75}
+        \s{shift:1.25} ] с л в г б д и а о / \s{shift:1.25}
       shift: |
         <                ! " № ; % : ? * ( ) _ + \s{backspace:1.5}
-        \s{tab:1.5}      ̄ І Ө Ы Ь Ш Ф ᵸ З ʼ Ъ \s{return}
-        \s{caps:1.75}    Ё Е У Э Й В Б Д Ӡ Г Ӈ \s{return:0.75}
-        \s{shift:1.25} [ - И О А Р Л М Н Њ Ж Ц ? \s{shift:1.25}
-
-  deadKeys: ['̄']
+        \s{tab:1.5}      Ш Ь Ж З Ы Я Ё Е Ю \s{return}
+        \s{caps:1.75}    Х Р Й К П Т Ч И Э У \s{return:0.75}
+        \s{shift:1.25} [ С Л В Г Б Д И А О ? \s{shift:1.25}
