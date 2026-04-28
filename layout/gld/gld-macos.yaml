@@ -48,9 +48,6 @@ macOS:
       cmd+alt: *CMD
       cmd+alt+shift: *CMD_SHIFT
   deadKeys:
-    alt:
-      - "̄"
-    alt+shift:
-      - "̄"
-    alt+caps:
-      - "̄"
+    alt: ['̄']
+    alt+shift: ['̄']
+    alt+caps: ['̄']
