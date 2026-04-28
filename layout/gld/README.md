@@ -19,7 +19,7 @@ The 3-row layout uses a **9-9-7** grid optimized for modern Nanai orthography.
 |-----|-----------|
 | х | ӽ |
 | р | ь |
-| й | ͜  (связка) |
+| й | ͜  (связка)* |
 | к | ӄ |
 | п | ф |
 | т | і |
@@ -40,6 +40,8 @@ The 3-row layout uses a **9-9-7** grid optimized for modern Nanai orthography.
 | н | ᵸ |
 | ’ | : |
 | ̄ | - |
+
+*\*Note: The combining character `͜ ` (U+035C) is defined in the configuration but may not be visible or selectable in the longpress menu on some iOS versions due to system rendering limitations.*
 
 ---
 
