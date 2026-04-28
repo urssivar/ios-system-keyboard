@@ -25,7 +25,7 @@ macOS:
           Я Ч С М И Т Ь Б Ю /
       caps+shift: *SHIFT
       alt: &ALT |
-        ] ¡ ™ £ ¢ ∞ § ¶ ̄ ª º – ≠
+        ] ¡ ™ £ ¢ ∞ § ¶ • ª º – ≠
           ͜ д ю ӄ э ᵸ ҕ ̄ н ӈ ӽ б о
           з и ў я ф ь ё щ ӡ : е
           а ц ш ж ы і р ъ у /
@@ -48,6 +48,9 @@ macOS:
       cmd+alt: *CMD
       cmd+alt+shift: *CMD_SHIFT
   deadKeys:
-    alt: ['̄']
-    alt+shift: ['̄']
-    alt+caps: ['̄']
+    alt:
+      - "̄"
+    alt+shift:
+      - "̄"
+    alt+caps:
+      - "̄"
