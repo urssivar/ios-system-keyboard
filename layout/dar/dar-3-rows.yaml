@@ -12,11 +12,11 @@ iOS:
     layers:
       default: |
         й ц у к е н г ш ъ з х
-        ф ы в а п р о л д ж э
+        ф Ӏ в а п р о л д ж э
         \s{shift} я ч с м и т ь б ю \s{backspace}
       shift: |
         Й Ц У К Е Н Г Ш Ъ З Х
-        Ф Ы В А П Р О Л Д Ж Э
+        Ф Ӏ В А П Р О Л Д Ж Э
         \s{shift} Я Ч С М И Т Ь Б Ю \s{backspace}
       symbols-1: |
         1 2 3 4 5 6 7 8 9 0
@@ -30,11 +30,11 @@ iOS:
     layers:
       default: |
         \s{spacer:0.3}   й ц у к е н г ш ъ з х   \s{spacer:1.7}
-        \s{spacer:0.6}   ф ы в а п р о л д ж э   \s{return:1.4}
+        \s{spacer:0.6}   ф Ӏ в а п р о л д ж э   \s{return:1.4}
         \s{shift}        я ч с м и т ь б ю       \s{shift:2.0}
       shift: |
         \s{spacer:0.3}   Й Ц У К Е Н Г Ш Ъ З Х   \s{spacer:1.7}
-        \s{spacer:0.6}   Ф Ы В А П Р О Л Д Ж Э   \s{return:1.4}
+        \s{spacer:0.6}   Ф Ӏ В А П Р О Л Д Ж Э   \s{return:1.4}
         \s{shift}        Я Ч С М И Т Ь Б Ю       \s{shift:2.0}
       alt: |
         \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 —   \s{backspace:1.7}
