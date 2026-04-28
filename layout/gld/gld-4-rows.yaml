@@ -18,12 +18,12 @@ iOS:
         ш ь ж з ы я ё е ю
         х р й к п т ч э у
         с л в г б д и а о
-        \s{shift} , . ӈ м н ’ - \s{backspace}
+        \s{shift} , . ӈ м н ’  ̄ \s{backspace}
       shift: |
         Ш Ь Ж З Ы Я Ё Е Ю
         Х Р Й К П Т Ч Э У
         С Л В Г Б Д И А О
-        \s{shift} , . Ӈ М Н ’ - \s{backspace}
+        \s{shift} , . Ӈ М Н ’  ̄ \s{backspace}
       symbols-1: |
         1 2 3 4 5 6 7 8 9 0
         - / : ; ( ) ₽ & @ "
@@ -39,12 +39,12 @@ iOS:
         \s{spacer:2}    ш ь ж з ы я ё е ю \s{spacer:2}
         \s{spacer:2}    х р й к п т ч э у \s{spacer:2}
         \s{spacer:2}    с л в г б д и а о \s{return:2}
-        \s{shift:1.5}   , . ӈ м н ’ - \s{shift:4.5}
+        \s{shift:1.5}   , . ӈ м н ’  ̄ \s{shift:4.5}
       shift: |
         \s{spacer:2}    Ш Ь Ж З Ы Я Ё Е Ю \s{spacer:2}
         \s{spacer:2}    Х Р Й К П Т Ч Э У \s{spacer:2}
         \s{spacer:2}    С Л В Г Б Д И А О \s{return:2}
-        \s{shift:1.5}   , . Ӈ М Н ’ - \s{shift:4.5}
+        \s{shift:1.5}   , . Ӈ М Н ’  ̄ \s{shift:4.5}
 
   iPad-12in:
     layers:
@@ -52,9 +52,11 @@ iOS:
         >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
         \s{tab:1.5}      ш ь ж з ы я ё е ю \s{return}
         \s{caps:1.75}    х р й к п т ч э у \s{return:0.75}
-        \s{shift:1.25} ] с л в г б д и а о / \s{shift:1.25}
+        \s{shift:1.25} ] с л в г б д и а о \s{return:0.75}
+        \s{shift:1.25} [ , . ӈ м н ’  ̄ / \s{shift:1.25}
       shift: |
         <                ! " № ; % : ? * ( ) _ + \s{backspace:1.5}
         \s{tab:1.5}      Ш Ь Ж З Ы Я Ё Е Ю \s{return}
-        \s{caps:1.75}    Х Р Й К П Т Ч И Э У \s{return:0.75}
-        \s{shift:1.25} [ С Л В Г Б Д И А О ? \s{shift:1.25}
+        \s{caps:1.75}    Х Р Й К П Т Ч Э У \s{return:0.75}
+        \s{shift:1.25} { С Л В Г Б Д И А О \s{return:0.75}
+        \s{shift:1.25} } , . Ӈ М Н ’  ̄ ? \s{shift:1.25}
