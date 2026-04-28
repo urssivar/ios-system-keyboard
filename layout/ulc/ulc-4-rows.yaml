@@ -1,0 +1,60 @@
+displayNames:
+  en: Ulch (4 rows)
+  ru: Ульчский (4 ряда)
+  ulc: Нāн'и хэсэни
+
+ABC: Н’Ӈ
+abc: н’ӈ
+
+decimal: ','
+longpress: !include ulc-longpress.yaml
+
+iOS:
+  primary:
+    layers:
+      default: |
+        ш ь ж ц ф з ё ы я ю
+        х р й к п т ч и э у
+        с л в г б д дʼ е а о
+        \s{shift} , . ӈ м н нʼ ʼ  ̄ \s{backspace}
+      shift: |
+        Ш Ь Ж Ц Ф З Ё Ы Я Ю
+        Х Р Й К П Т Ч И Э У
+        С Л В Г Б Д Дʼ Е А О
+        \s{shift} , . Ӈ М Н Нʼ ʼ  ̄ \s{backspace}
+      symbols-1: |
+        1 2 3 4 5 6 7 8 9 0
+        - / : ; ( ) ₽ & @ "
+        \s{shiftSymbols} . , ? ! ' \s{backspace}
+      symbols-2: |
+        [ ] { } # % ^ * + =
+        _ \ | ~ < > $ € ¥ •
+        \s{shiftSymbols} . , ? ! ' \s{backspace}
+
+  iPad-9in:
+    layers:
+      default: |
+        ш ь ж ц ф з ё ы я ю
+        х р й к п т ч и э у
+        с л в г б д дʼ е а о
+        \s{shift} , . ӈ м н нʼ ʼ  ̄ \s{backspace}
+      shift: |
+        Ш Ь Ж Ц Ф З Ё Ы Я Ю
+        Х Р Й К П Т Ч И Э У
+        С Л В Г Б Д Дʼ Е А О
+        \s{shift} , . Ӈ М Н Нʼ ʼ  ̄ \s{backspace}
+
+  iPad-12in:
+    layers:
+      default: |
+        >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
+        \s{tab:1.5}      ш ь ж ц ф з ё ы я ю \s{return}
+        \s{caps:1.75}    х р й к п т ч и э у \s{return:0.75}
+        \s{shift:1.25} ] с л в г б д дʼ е а о / \s{shift:1.25}
+      shift: |
+        <                ! " № ; % : ? * ( ) _ + \s{backspace:1.5}
+        \s{tab:1.5}      Ш Ь Ж Ц Ф З Ё Ы Я Ю \s{return}
+        \s{caps:1.75}    Х Р Й К П Т Ч И Э У \s{return:0.75}
+        \s{shift:1.25} [ С Л В Г Б Д Дʼ Е А О ? \s{shift:1.25}
+
+keyNames: !include ulc-keynames.yaml

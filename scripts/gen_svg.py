@@ -19,6 +19,7 @@ ENG_DATA = {
     "tat": ("Tatar", "Turkic"),
     "tle": ("Teleut", "Turkic"),
     "tyv": ("Tuvan", "Turkic"),
+    "ulc": ("Ulch", "Tungusic"),
     "xal": ("Kalmyk", "Mongolic"),
     "xdq": ("Kaitag", "Caucasian"),
     "ykt": ("Yakut", "Turkic"),

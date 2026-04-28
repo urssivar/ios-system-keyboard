@@ -1,56 +1,88 @@
 displayNames:
-  en: Nanai
-  ru: Нанайский
-  gld: На̄ни
+  en: Nanai (4 rows)
+  ru: Нанайский (4 ряда)
+  gld: На̄най
 
-ABC: НДӠ
+ABC: НӇᵸ
+abc: нӈᵸ
 
 decimal: ','
-
-keyNames: !include gld-3-rows.yaml:keyNames
 
 iOS:
   primary:
     layers:
       default: |
-        ̄ і ө ы ь ш ф ᵸ з ʼ
-        ё е у э й в б д ӡ г
-        \s{#+=} - и о а р л м н њ ӈ \s{backspace}
-        \s{shift} , . я ю х с п т ч к \s{backspace}
+        ш ь ж з ы я ё е ю
+        х р й к п т ч э у
+        с л в г б д и а о
+        \s{shift} , . ӈ м н ’  ̄ \s{backspace}
       shift: |
-        ̄ І Ө Ы Ь Ш Ф ᵸ З ʼ
-        Ё Е У Э Й В Б Д Ӡ Г
-        \s{#+=} - И О А Р Л М Н Њ Ӈ \s{backspace}
-        \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+        Ш Ь Ж З Ы Я Ё Е Ю
+        Х Р Й К П Т Ч Э У
+        С Л В Г Б Д И А О
+        \s{shift} , . Ӈ М Н ’  ̄ \s{backspace}
+      symbols-1: |
+        1 2 3 4 5 6 7 8 9 0
+        - / : ; ( ) ₽ & @ "
+        \s{shiftSymbols} . , ? ! ' \s{backspace}
+      symbols-2: |
+        [ ] { } # % ^ * + =
+        _ \ | ~ < > $ € ¥ •
+        \s{shiftSymbols} . , ? ! ' \s{backspace}
 
   iPad-9in:
-    primary:
-      layers:
-        default: |
-          ̄ і ө ы ь ш ф ᵸ з ʼ ъ
-          ё е у э й в б д ӡ г ӈ
-          \s{#+=} - и о а р л м н њ ԩ \s{backspace}
-          \s{shift} , . я ю х с п т ч к \s{backspace}
-        shift: |
-          ̄ І Ө Ы Ь Ш Ф ᵸ З ʼ Ъ
-          Ё Е У Э Й В Б Д Ӡ Г Ӈ
-          \s{#+=} - И О А Р Л М Н Њ Ԩ \s{backspace}
-          \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+    layers:
+      default: |
+        \s{spacer:0.3}   ш ь ж з ы я ё е ю \s{spacer:1.7}
+        \s{spacer:0.3}   х р й к п т ч э у \s{spacer:1.7}
+        \s{spacer:0.6}   с л в г б д и а о \s{return:1.4}
+        \s{shift:1.5}    , . ӈ м н ’  ̄ \s{shift:2.0}
+      shift: |
+        \s{spacer:0.3}   Ш Ь Ж З Ы Я Ё Е Ю \s{spacer:1.7}
+        \s{spacer:0.3}   Х Р Й К П Т Ч Э У \s{spacer:1.7}
+        \s{spacer:0.6}   С Л В Г Б Д И А О \s{return:1.4}
+        \s{shift:1.5}    , . Ӈ М Н ’  ̄ \s{shift:2.0}
+      alt: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ' " \s{return:1.4}
+        \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
+      alt+shift: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ' " \s{return:1.4}
+        \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
+      symbols-1: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ' " \s{return:1.4}
+        \s{shiftSymbols} % _ - + = / ; : , .   \s{shiftSymbols:2.0}
+      symbols-2: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   € £ ¥ ± • ` ^ [ ] { } \s{return:1.4}
+        \s{shiftSymbols} § | ~ … ≠ \ < > ! ?   \s{shiftSymbols:2.0}
 
   iPad-12in:
-    primary:
-      layers:
-        default: |
-          ] ̄ і ө ы ь ш ф ᵸ з ʼ ъ [
-          ё е у э й в б д ӡ г ӈ ԩ
-          - и о а р л м н њ ж ц
-          \s{shift} , . я ю х с п т ч к / \s{backspace}
-        shift: |
-          [ ̄ І Ө Ы Ь Ш Ф ᵸ З ʼ Ъ ]
-          Ё Е У Э Й В Б Д Ӡ Г Ӈ Ԩ
-          - И О А Р Л М Н Њ Ж Ц
-          \s{shift} , . Я Ю Х С П Т Ч К ? \s{backspace}
+    layers:
+      default: |
+        >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
+        \s{tab:1.5}      ш ь ж з ы я ё е ю \s{spacer:1.5}
+        \s{tab:1.5}      х р й к п т ч э у \s{spacer:1.5}
+        \s{caps:1.75}    с л в г б д и а о \s{return:0.75}
+        \s{shift:1.25} / , . ӈ м н ’  ̄ . \s{shift:1.25}
+      shift: |
+        <                ! " № ; % : ? * ( ) _ + \s{backspace:1.5}
+        \s{tab:1.5}      Ш Ь Ж З Ы Я Ё Е Ю \s{spacer:1.5}
+        \s{tab:1.5}      Х Р Й К П Т Ч Э У \s{spacer:1.5}
+        \s{caps:1.75}    С Л В Г Б Д И А О \s{return:0.75}
+        \s{shift:1.25} ? , . Ӈ М Н ’  ̄ . \s{shift:1.25}
+      symbols-1: |
+        >                ! " № ; % : ? * ( ) _ + \s{backspace:1.5}
+        \s{tab:1.5}      1 2 3 4 5 6 7 8 9 0 - = \s{return}
+        \s{caps:1.75}    @ # $ ₽ & * ( ) ' " % \s{return:0.75}
+        \s{shift:1.25} / ; : , . ! ? _ - \ \s{shift:1.25}
+      symbols-2: |
+        >                ! " № ; % : ? * ( ) _ + \s{backspace:1.5}
+        \s{tab:1.5}      1 2 3 4 5 6 7 8 9 0 - = \s{return}
+        \s{caps:1.75}    € £ ¥ ¢ © ® ™ § < > • \s{return:0.75}
+        \s{shift:1.25} / [ ] { } ± ≠ ≈ ∞ \ \s{shift:1.25}
 
-  deadKeys: ['̄']
-
-  longpress: !include gld-longpress-short.yaml
+longpress: !include gld-longpress-4.yaml
+keyNames: !include gld-keynames.yaml
