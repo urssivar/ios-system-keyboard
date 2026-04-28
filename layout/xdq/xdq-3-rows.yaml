@@ -90,18 +90,18 @@ iOS:
 longpress: !include xdq-longpress.yaml
 
 keyNames:
-  space: Цӏямус
+  space: Бацӏмус
   return: Бате
   return-alts:
     search: Баркка
-    go: Бя
+    go: Беже
     send: Беса
-    join: Цан биче
-    continue: Берҡҡа
+    join: Буца
+    continue: Даим
     done: Барил
-    next: Илев
-    route: Биҡан
+    next: Ьереғ
+    route: Ҳуне
   emergency: SOS
-  cancel: Ляҡӏ аға
-  undo: Черьаҡҡа
-  redo: Чикаҡҡа
+  cancel: Мабира
+  undo: Чер бяҡа
+  redo: Чер цабара
