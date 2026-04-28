@@ -1,7 +1,5 @@
 # Dargin Keyboard Layouts / Дарган мез (iOS/macOS)
 
-**Author**: `Murtazali Rabadangadzhiev`
-
 **Language**: `Dargwa (Дарган мез)`
 
 **ISO 639-3**: `dar`
@@ -50,3 +48,7 @@ A compact 3-row layout (**11-11-9**). Optimized for fast access to the Palochka 
 - Consistent with the mobile layout for a seamless experience.
 - **ы** is available via **Option (Alt) + Ӏ**.
 - **щ** is available via **Option (Alt) + ш**.
+
+## Разработчик / Developer
+
+- Murtazali Rabadangadzhiev
