@@ -36,10 +36,12 @@ iOS:
   iPad-9in:
     layers:
       default: |
+        \s{spacer:0.3}   ш ь ж з ы я ё е ю \s{spacer:1.7}
         \s{spacer:0.3}   х р й к п т ч э у \s{spacer:1.7}
         \s{spacer:0.6}   с л в г б д и а о \s{return:1.4}
         \s{shift:1.5}    , . ӈ м н ’  ̄ \s{shift:2.0}
       shift: |
+        \s{spacer:0.3}   Ш Ь Ж З Ы Я Ё Е Ю \s{spacer:1.7}
         \s{spacer:0.3}   Х Р Й К П Т Ч Э У \s{spacer:1.7}
         \s{spacer:0.6}   С Л В Г Б Д И А О \s{return:1.4}
         \s{shift:1.5}    , . Ӈ М Н ’  ̄ \s{shift:2.0}
@@ -48,11 +50,13 @@ iOS:
     layers:
       default: |
         >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
+        \s{tab:1.5}      ш ь ж з ы я ё е ю \s{spacer:1.5}
         \s{tab:1.5}      х р й к п т ч э у \s{spacer:1.5}
         \s{caps:1.75}    с л в г б д и а о \s{return:0.75}
         \s{shift:1.25} / , . ӈ м н ’  ̄ . \s{shift:1.25}
       shift: |
         <                ! " № ; % : ? * ( ) _ + \s{backspace:1.5}
+        \s{tab:1.5}      Ш Ь Ж З Ы Я Ё Е Ю \s{spacer:1.5}
         \s{tab:1.5}      Х Р Й К П Т Ч Э У \s{spacer:1.5}
         \s{caps:1.75}    С Л В Г Б Д И А О \s{return:0.75}
         \s{shift:1.25} ? , . Ӈ М Н ’  ̄ . \s{shift:1.25}
