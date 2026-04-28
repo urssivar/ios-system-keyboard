@@ -1,29 +1,15 @@
 displayNames:
   en: Nanai
   ru: Нанайский
-  gld: На̄ни
+  gld: На̄най
 
 ABC: НДӠ
 abc: ндӡ
 
 decimal: ','
 
-keyNames:
-  space: пробел
-  return: ввод
-  return-alts:
-    search: Найти
-    go: Перейти
-    send: Отправить
-    join: Подкл.
-    route: Маршрут
-    next: Далее
-    continue: Продолжить
-    done: Готово
-  emergency: SOS
-  cancel: Отменить
-  undo: Не применять
-  redo: Повторить
+keyNames: !include gld-keynames.yaml
+longpress: !include gld-longpress.yaml
 
 iOS:
   primary:
@@ -36,29 +22,35 @@ iOS:
         Ё Е У Э Й В Б Д Ӡ Г
         \s{#+=} - И О А Р Л М Н ᵸ Ӈ \s{backspace}
         \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+      symbols-1: |
+        1 2 3 4 5 6 7 8 9 0
+        - / : ; ( ) ₽ & @ "
+        \s{shiftSymbols} . , ? ! ' \s{backspace}
+      symbols-2: |
+        [ ] { } # % ^ * + =
+        _ \ | ~ < > $ € ¥ •
+        \s{shiftSymbols} . , ? ! ' \s{backspace}
 
   iPad-9in:
-    primary:
-      layers:
-        default: |
-          ё е у э й в б д ӡ г ӈ
-          \s{#+=} - и о а р л м н ᵸ ʼ \s{backspace}
-          \s{shift} , . я ю х с п т ч к \s{backspace}
-        shift: |
-          Ё Е У Э Й В Б Д Ӡ Г Ӈ
-          \s{#+=} - И О А Р Л М Н ᵸ ʼ \s{backspace}
-          \s{shift} , . Я Ю Х С П Т Ч К \s{backspace}
+    layers:
+      default: |
+        \s{spacer:0.3}   ё е у э й в б д ӡ г ӈ \s{spacer:1.7}
+        \s{spacer:0.6}   и о а р л м н ᵸ ʼ \s{return:1.4}
+        \s{shift}        я ю х с п т ч к - ̄ \s{shift:2.0}
+      shift: |
+        \s{spacer:0.3}   Ё Е У Э Й В Б Д Ӡ Г Ӈ \s{spacer:1.7}
+        \s{spacer:0.6}   И О А Р Л М Н ᵸ ʼ \s{return:1.4}
+        \s{shift}        Я Ю Х С П Т Ч К - ̄ \s{shift:2.0}
 
   iPad-12in:
-    primary:
-      layers:
-        default: |
-          ] ё е у э й в б д ӡ г ӈ [
-          - и о а р л м н ᵸ ʼ ъ
-          \s{shift} , . я ю х с п т ч к / \s{backspace}
-        shift: |
-          [ Ё Е У Э Й В Б Д Ӡ Г Ӈ ]
-          - И О А Р Л М Н ᵸ ʼ Ъ
-          \s{shift} , . Я Ю Х С П Т Ч К ? \s{backspace}
-
-  longpress: !include gld-longpress.yaml
+    layers:
+      default: |
+        >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
+        \s{tab:1.5}      ё е у э й в б д ӡ г ӈ \s{return}
+        \s{caps:1.75}    и о а р л м н ᵸ ʼ ъ \s{return:0.75}
+        \s{shift:1.25} ] я ю х с п т ч к / \s{shift:1.25}
+      shift: |
+        <                ! " № ; % : ? * ( ) _ + \s{backspace:1.5}
+        \s{tab:1.5}      Ё Е У Э Й В Б Д Ӡ Г Ӈ \s{return}
+        \s{caps:1.75}    И О А Р Л М Н ᵸ ʼ Ъ \s{return:0.75}
+        \s{shift:1.25} [ Я Ю Х С П Т Ч К ? \s{shift:1.25}
