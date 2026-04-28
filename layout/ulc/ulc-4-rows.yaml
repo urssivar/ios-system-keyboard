@@ -3,8 +3,8 @@ displayNames:
   ru: Ульчский (4 ряда)
   ulc: Нāн'и хэсэни
 
-ABC: НАН
-abc: нан
+ABC: Н’Ӈ
+abc: н’ӈ
 
 decimal: ','
 longpress: !include ulc-longpress.yaml
