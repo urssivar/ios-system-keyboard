@@ -1,0 +1,15 @@
+space: Алда
+return: Нирухэ
+return-alts:
+  search: Бакаву
+  go: Ӈэнэву
+  send: Уйдюву
+  join: Подкл.
+  continue: Тара
+  done: Тахамби
+  next: Тапи
+  route: Поктола
+emergency: SOS
+cancel: Эдʼи
+undo: Эдʼи та̄
+redo: Такуву

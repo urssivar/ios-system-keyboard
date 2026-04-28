@@ -37,8 +37,10 @@ FAMILY = {
     "oss": ("Иранские",   "#FF9500"),
     "kom": ("Уральские",  "#5856D6"),
     "rus": ("Славянские", "#007aff"),
+    "ulc": ("Тунгусо-маньчжурские", "#5AC8FA"),
+    "gld": ("Тунгусо-маньчжурские", "#5AC8FA"),
 }
-FAMILY_ORDER = ["Тюркские", "Монгольские", "Кавказские", "Иранские", "Уральские", "Славянские", "Другие"]
+FAMILY_ORDER = ["Тюркские", "Монгольские", "Кавказские", "Иранские", "Уральские", "Славянские", "Тунгусо-маньчжурские", "Другие"]
 
 LANG_NAMES_RU = {
     "tyv": "Тувинский", "alt": "Алтайский", "bak": "Башкирский", "tat": "Татарский",
@@ -47,6 +49,7 @@ LANG_NAMES_RU = {
     "kom": "Коми",      "rus": "Русский",
     "ykt": "Саха",      "tle": "Телеутский",
     "gag": "Гагаузский",
+    "ulc": "Ульчский",  "gld": "Нанайский",
 }
 
 ALLOWED_KEY_NAMES = {
@@ -185,6 +188,16 @@ def discover():
                 "native": LANG_NAMES_RU.get(code) or get_display_name(data, "ru") or get_display_name(data, "en"),
                 "layouts": [], "keyNames": {}
             }
+            # macOS check
+            macos_dir = LAYOUT / code
+            macos_files = list(macos_dir.glob("*-macos.yaml"))
+            if macos_files:
+                langs_by_code[code]["macos"] = []
+                for mf in macos_files:
+                    langs_by_code[code]["macos"].append({
+                        "name": langs_by_code[code]["name"],
+                        "file": f"{mf.stem}.keylayout"
+                    })
         
         kn = data.get("keyNames") or data.get("keynames") or {}
         if isinstance(kn, dict):

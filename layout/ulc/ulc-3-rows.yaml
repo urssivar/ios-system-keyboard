@@ -1,0 +1,75 @@
+displayNames:
+  en: Ulch
+  ru: Ульчский
+  ulc: Нāн'и хэсэни
+
+ABC: НАН
+abc: нан
+
+decimal: ','
+
+longpress: !include ulc-longpress.yaml
+
+iOS:
+  primary:
+    layers:
+      default: |
+        х р й к п т ч и э у
+        с л в г б д дʼ е а о
+        \s{shift} , . ӈ м н нʼ ʼ ̄ \s{backspace}
+      shift: |
+        Х Р Й К П Т Ч И Э У
+        С Л В Г Б Д Дʼ Е А О
+        \s{shift} , . Ӈ М Н Нʼ ʼ ̄ \s{backspace}
+
+      symbols-1: |
+        1 2 3 4 5 6 7 8 9 0
+        - / : ; ( ) $ & @ "
+        \s{shiftSymbols} . , ? ! ' \s{backspace}
+      symbols-2: |
+        [ ] { } # % ^ * + =
+        _ \ | ~ < > $ € ¥ •
+        \s{shiftSymbols} . , ? ! ' \s{backspace}
+
+  iPad-9in:
+    layers:
+      default: |
+        \s{spacer:0.3}   х р й к п т ч и э у \s{spacer:1.7}
+        \s{spacer:0.6}   с л в г б д дʼ е а о \s{return:1.4}
+        \s{shift}        , . ӈ м н нʼ ʼ ̄ \s{shift:2.0}
+      shift: |
+        \s{spacer:0.3}   Х Р Й К П Т Ч И Э У \s{spacer:1.7}
+        \s{spacer:0.6}   С Л В Г Б Д Дʼ Е А О \s{return:1.4}
+        \s{shift}        , . Ӈ М Н Нʼ ʼ ̄ \s{shift:2.0}
+      alt: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ' " \s{return:1.4}
+        \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
+      alt+shift: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ' " \s{return:1.4}
+        \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
+      symbols-1: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   @ # № $ ´ & * ( ) ' " \s{return:1.4}
+        \s{shiftSymbols} % _ - + = / ; : , .   \s{shiftSymbols:2.0}
+      symbols-2: |
+        \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
+        \s{spacer:0.6}   € £ ¥ ± • ` ^ [ ] { } \s{return:1.4}
+        \s{shiftSymbols} § | ~ … ≠ \ < > ! ?   \s{shiftSymbols:2.0}
+
+  iPad-12in:
+    layers:
+      default: |
+        >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
+        \s{tab:1.5}      х р й к п т ч и э у \s{return}
+        \s{caps:1.75}    с л в г б д дʼ е а о \s{return:0.75}
+        \s{shift:1.25} ] , . ӈ м н нʼ ʼ ̄ / \s{shift:1.25}
+      shift: |
+        <                ! " № ; % : ? * ( ) _ + \s{backspace:1.5}
+        \s{tab:1.5}      Х Р Й К П Т Ч И Э У \s{return}
+        \s{caps:1.75}    С Л В Г Б Д Дʼ Е А О \s{return:0.75}
+        \s{shift:1.25} [ , . Ӈ М Н Нʼ ʼ ̄ ? \s{shift:1.25}
+
+
+keyNames: !include ulc-keynames.yaml
