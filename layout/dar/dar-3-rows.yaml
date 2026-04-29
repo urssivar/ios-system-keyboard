@@ -12,7 +12,7 @@ iOS:
     layers:
       default: |
         й ц у к е н г ш ъ з х
-        ф Ӏ в а п р о л д ж э
+        ф ӏ в а п р о л д ж э
         \s{shift} я ч с м и т ь б ю \s{backspace}
       shift: |
         Й Ц У К Е Н Г Ш Ъ З Х
