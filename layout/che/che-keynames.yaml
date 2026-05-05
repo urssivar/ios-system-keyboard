@@ -1,15 +1,15 @@
-space: пробел
-return: ввод
+space: йукъ
+return: чуйаккха
 return-alts:
-  search: Найти
-  go: Перейти
-  send: Отправить
-  join: Подкл.
+  search: Лаха
+  go: Дехьадала
+  send: Дӏатаса
+  join: Тӏета.
   route: Маршрут
-  next: Далее
-  continue: Продолжить
-  done: Готово
+  next: Кхин дӏа
+  continue: Кхин дӏа
+  done: Кийча
 emergency: SOS
-cancel: Отменить
-undo: Не применять
-redo: Повторить
+cancel: Дӏайаккха
+undo: Йухадаккха
+redo: Йухадан
