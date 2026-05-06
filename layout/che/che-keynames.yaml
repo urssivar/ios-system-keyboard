@@ -1,0 +1,15 @@
+space: йукъ
+return: чуйаккха
+return-alts:
+  search: Лаха
+  go: Дехьадала
+  send: Дӏатаса
+  join: Тӏета.
+  route: Маршрут
+  next: Кхин дӏа
+  continue: Кхин дӏа
+  done: Кийча
+emergency: SOS
+cancel: Дӏайаккха
+undo: Йухадаккха
+redo: Йухадан
