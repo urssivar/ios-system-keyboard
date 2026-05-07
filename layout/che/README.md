@@ -63,5 +63,5 @@ Examples:
 - `ч → чӏ`
 
 The Chechen palochka must use the correct Unicode forms:
-- lowercase: `ӏ` (U+04C1)
+- lowercase: `ӏ` (U+04CF)
 - uppercase: `Ӏ` (U+04C0)
