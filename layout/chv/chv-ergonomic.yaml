@@ -11,13 +11,13 @@ iOS:
   primary:
     layers:
       default: |
-        ь ш п ӑ ы й и ӗ х -
-        м н е л т а р к
-        \s{shift} ӳ ҫ с в у ч \s{backspace}
+        ь ӳ с ӑ й ш ӗ и к
+        л н е п м а т р
+        \s{shift} ч ы ҫ в у х \s{backspace}
       shift: |
-        Ь Ш П Ӑ Ы Й И Ӗ Х -
-        М Н Е Л Т А Р К
-        \s{shift} Ӳ Ҫ С В У Ч \s{backspace}
+        Ь Ӳ С Ӑ Й Ш Ӗ И К
+        Л Н Е П М А Т Р
+        \s{shift} Ч Ы Ҫ В У Х \s{backspace}
       symbols-1: |
         1 2 3 4 5 6 7 8 9 0
         - / : ; ( ) ₽ & @ "
@@ -29,24 +29,24 @@ iOS:
   iPad-9in:
     layers:
       default: |
-        \s{spacer:0.3}   ь ш п ӑ ы й и ӗ х - \s{spacer:1.7}
-        \s{spacer:0.6}   м н е л т а р к \s{return:1.4}
-        \s{shift}        ӳ ҫ с в у ч \s{backspace}
+        \s{spacer:0.3}   ь ӳ с ӑ й ш ӗ и к \s{spacer:1.7}
+        \s{spacer:0.6}   л н е п м а т р \s{return:1.4}
+        \s{shift}        ч ы ҫ в у х \s{backspace}
       shift: |
-        \s{spacer:0.3}   Ь Ш П Ӑ Ы Й И Ӗ Х - \s{spacer:1.7}
-        \s{spacer:0.6}   М Н Е Л Т А Р К \s{return:1.4}
-        \s{shift}        Ӳ Ҫ С В У Ч \s{backspace}
+        \s{spacer:0.3}   Ь Ӳ С Ӑ Й Ш Ӗ И К \s{spacer:1.7}
+        \s{spacer:0.6}   Л Н Е П М А Т Р \s{return:1.4}
+        \s{shift}        Ч Ы Ҫ В У Х \s{backspace}
       alt: |
         \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
-        \s{spacer:0.6}   @ # № ₽ ´ & * ( ) ‘ ” \s{return:1.4}
+        \s{spacer:0.6}   @ # № ₽ ´ & * ( ) ' " \s{return:1.4}
         \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
       alt+shift: |
         \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
-        \s{spacer:0.6}   @ # № ₽ ´ & * ( ) ‘ ” \s{return:1.4}
+        \s{spacer:0.6}   @ # № ₽ ´ & * ( ) ' " \s{return:1.4}
         \s{shift}        % _ - + = / ; : , .   \s{shift:2.0}
       symbols-1: |
         \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
-        \s{spacer:0.6}   @ # № ₽ ´ & * ( ) ‘ “ \s{return:1.4}
+        \s{spacer:0.6}   @ # № ₽ ´ & * ( ) ' " \s{return:1.4}
         \s{shiftSymbols} % _ - + = / ; : , .   \s{shiftSymbols:2.0}
       symbols-2: |
         \s{spacer:0.3}   1 2 3 4 5 6 7 8 9 0 — \s{backspace:1.7}
@@ -56,14 +56,14 @@ iOS:
     layers:
       default: |
         >                1 2 3 4 5 6 7 8 9 0 - = \s{backspace:1.5}
-        \s{tab:1.5}      ь ш п ӑ ы й и ӗ х ! ( ) \s{return}
-        \s{caps:1.75}    : м н е л т а р к « » — \s{return:0.75}
-        \s{shift:1.25}   ; ӳ ҫ с в у ч , . ?     \s{shift:2.25}
+        \s{tab:1.5}      ь ӳ с ӑ й ш ӗ и к ! ( ) \s{return}
+        \s{caps:1.75}    : л н е п м а т р « » — \s{return:0.75}
+        \s{shift:1.25}   ; ч ы ҫ в у х , . ?     \s{shift:2.25}
       shift: |
         <                ~ @ # ° % ^ № * ‘ ’ _ + \s{backspace:1.5}
-        \s{tab:1.5}      Ь Ш П Ӑ Ы Й И Ӗ Х – [ ] \s{return}
-        \s{caps:1.75}    § М Н Е Л Т А Р К “ ” \ \s{return:0.75}
-        \s{shift:1.25}   | Ӳ Ҫ С В У Ч < > /     \s{shift:2.25}
+        \s{tab:1.5}      Ь Ӳ С Ӑ Й Ш Ӗ И К – [ ] \s{return}
+        \s{caps:1.75}    § Л Н Е П М А Т Р “ ” \ \s{return:0.75}
+        \s{shift:1.25}   | Ч Ы Ҫ В У Х < > /     \s{shift:2.25}
       alt: |
         `                1 2 3 4 5 6 7 8 9 0 < > \s{backspace:1.5}
         \s{tab:1.5}      [ ] { } # % ^ * + = \ | \s{return}
