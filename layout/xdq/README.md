@@ -25,9 +25,9 @@ Two layout variants are available.
 The default variant. Six positions of excluded Russian letters are replaced by Kaitag-specific ones, placed roughly by frequency:
 
 ```text
-й ц у к е н г ш ҡ з х
-ҳ ғ в а п р о л д ж ӏ
-   ӕ ч с м и т һ б
+й ц у к е н г ш ӕ з х
+ӏ һ в а п р о л д ж ҳ
+  я ч с м и т ҡ б ғ
 ```
 
 Excluded Russian letters and stressed vowels are accessible via long-press:
@@ -36,10 +36,10 @@ Excluded Russian letters and stressed vowels are accessible via long-press:
 - `е` → `э` `е́` `ё`
 - `ш` → `щ`
 - `п` → `ф`
-- `а` → `а́`
+- `а` → `я` `а́`
 - `о` → `о́`
 - `ӏ` → `ъ`
-- `ӕ` → `я` `ӕ́`
+- `ӕ` → `ӕ́`
 - `и` → `ы` `и́`
 - `һ` → `ь`
 
@@ -48,7 +48,7 @@ Excluded Russian letters and stressed vowels are accessible via long-press:
 An alternative for users who prefer not to long-press for Russian letters. Rows 2–4 are identical to the standard Russian ЙЦУКЕН; all Kaitag-specific characters appear in a dedicated top row:
 
 ```text
-, ! ? ҳ ғ ӏ һ ҡ ӕ — .
+' ! ? ғ ҡ ӏ һ ӕ ҳ — "
 й ц у к е н г ш щ з х
 ф ы в а п р о л д ж э
   я ч с м и т ь б ю
@@ -74,18 +74,18 @@ Both variants share the same iPad layouts.
 
 The **9-inch iPad** adds `ю` and `ъ` as direct keys in the third row, taking advantage of the extra width.
 
-The **12-inch iPad** uses a full physical-keyboard-style layout with a number row. The third row is expanded to recover the most frequent displaced Russian letters: `я ы ь`.
+The **12-inch iPad** uses a full physical-keyboard-style layout with a number row. The third row is expanded to recover displaced Russian letters: `ы ь`.
 
 ## macOS
 
 The layout follows ЙЦУКЕН with Kaitag substitutions in place. Displaced Russian letters are accessible via the `Option` (`⌥`) layer:
 
-- `⌥` `ҡ` = `щ`
-- `⌥` `ҳ` = `ф`
-- `⌥` `ғ` = `ы`
-- `⌥` `ӏ` = `ю`
-- `⌥` `ӕ` = `я`
-- `⌥` `һ` = `ь`
+- `⌥` `ӕ` = `щ`
+- `⌥` `ӏ` = `ф`
+- `⌥` `һ` = `ы`
+- `⌥` `ҳ` = `э`
+- `⌥` `ҡ` = `ь`
+- `⌥` `ғ` = `ю`
 
 The alt layer also provides common typographic symbols: `№ ~ © ® ° · § « » – — ™ ∞ µ ≈ ≠ ≤ ≥ ‹ › ‚ „`.
 
