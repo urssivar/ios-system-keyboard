@@ -68,11 +68,11 @@ The **12-inch iPad** uses a full physical-keyboard-style layout with a number ro
 
 Follows ЙЦУКЕН with Kaitag substitutions. Displaced Russian letters are accessible via `⌥`:
 
-- `⌥` `ә` = `щ`
-- `⌥` `ӏ` = `ф`
+- `⌥` `ӏ` = `щ`
+- `⌥` `ҡ` = `ф`
 - `⌥` `һ` = `ы`
 - `⌥` `ҳ` = `э`
-- `⌥` `ҡ` = `ь`
+- `⌥` `ә` = `ь`
 - `⌥` `ғ` = `ю`
 
 Common typographic symbols are in the `⌥` layer: `№ ~ © ® ° · § « » – — ™ ∞ µ ≈ ≠ ≤ ≥ ‹ › ‚ „`.
